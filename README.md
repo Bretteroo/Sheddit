@@ -27,7 +27,7 @@ _The path to enlightenment is lined with hidden posts._
 
 Sheddit is a Firefox and Chrome extension that hides Reddit’s most repetitive and obnoxious posting habits, helping you scroll your way toward enlightenment.
 
-Sheddit helps you cast off the negative parts of the Reddit experience, lightening your mental load as they fall away one repetitive trope at a time, so your that mind may rest on the conversations worth having.  If you've read the phrase "genuinely curious" one too many times, Sheddit is a beacon of hope and a path to a more peaceful Reddit experience.
+Sheddit helps you cast off the negative parts of the Reddit experience, lightening your mental load as they fall away one repetitive trope at a time, so that your mind may rest on the conversations worth having.  If you've read the phrase "genuinely curious" one too many times, Sheddit is a beacon of hope and a path to a more peaceful Reddit experience.
 
 ## 🔭 How it sees
 
