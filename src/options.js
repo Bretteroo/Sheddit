@@ -2,6 +2,9 @@
 // Sheddit settings page: display mode plus one checkbox per filter, all
 // saved immediately.
 
+// Firefox for Android shows this page full-screen; the stylesheet adapts.
+if (/Android/.test(navigator.userAgent)) document.documentElement.classList.add("android");
+
 (async () => {
   const mode = await shedditLoadMode();
   for (const radio of document.querySelectorAll('input[name="mode"]')) {

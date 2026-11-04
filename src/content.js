@@ -98,6 +98,13 @@
   const FADE_MS = 280;
   // Height of the placeholder bar that replaces a hidden post or comment.
   const BAR_HEIGHT = { post: 64, comment: 44 };
+  // On phone-width screens a comment bar's two lines of text wrap, so it
+  // gets more room there.
+  const NARROW = "(max-width: 480px)";
+  const NARROW_COMMENT_BAR = 64;
+  function barHeight(kind) {
+    return kind === "comment" && window.matchMedia(NARROW).matches ? NARROW_COMMENT_BAR : BAR_HEIGHT[kind];
+  }
 
   function motionMs() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : FADE_MS;
@@ -155,6 +162,9 @@
       user-select: none !important;
     }
     .sheddit-veiled-comment { height: ${BAR_HEIGHT.comment}px !important; }
+    @media ${NARROW} {
+      .sheddit-veiled-comment { height: ${NARROW_COMMENT_BAR}px !important; }
+    }
     /* Inline elements ignore height, so they become blocks while hidden. */
     .sheddit-block { display: block !important; }
     .sheddit-veil {
@@ -315,31 +325,49 @@
       border-radius: inherit;
       pointer-events: none;
     }
-    @media (prefers-color-scheme: dark) {
-      .sheddit-veil-card {
-        color: #f3e2b3;
-        background:
-          radial-gradient(ellipse 60% 120% at 50% -20%, rgba(255, 196, 80, 0.3), transparent 70%),
-          linear-gradient(160deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.95));
-        box-shadow:
-          inset 0 0 0 1px rgba(214, 170, 60, 0.4),
-          0 0 28px rgba(255, 196, 80, 0.15);
-      }
-      .sheddit-veil-peek { background: rgba(0, 0, 0, 0.25); }
-      .sheddit-veil-peek:hover { background: rgba(214, 170, 60, 0.3); }
-      .sheddit-rehide { color: #d9b866; }
-      .sheddit-rehide-cap {
-        background:
-          radial-gradient(ellipse 70% 140% at 50% 130%, rgba(255, 196, 80, 0.28), transparent 70%),
-          linear-gradient(0deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.55) 55%, rgba(28, 24, 48, 0));
-      }
-      .sheddit-rehide-tab {
-        background:
-          radial-gradient(ellipse 70% 140% at 50% -30%, rgba(255, 196, 80, 0.28), transparent 70%),
-          linear-gradient(180deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.55) 55%, rgba(28, 24, 48, 0));
-      }
+    /* Dark colors follow Reddit's own theme, not the system's: Sheddit sets
+       this class when the page's background is dark (see updateTheme). */
+    html.sheddit-theme-dark .sheddit-veil-card {
+      color: #f3e2b3;
+      background:
+        radial-gradient(ellipse 60% 120% at 50% -20%, rgba(255, 196, 80, 0.3), transparent 70%),
+        linear-gradient(160deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.95));
+      box-shadow:
+        inset 0 0 0 1px rgba(214, 170, 60, 0.4),
+        0 0 28px rgba(255, 196, 80, 0.15);
+    }
+    html.sheddit-theme-dark .sheddit-veil-peek { background: rgba(0, 0, 0, 0.25); }
+    html.sheddit-theme-dark .sheddit-veil-peek:hover { background: rgba(214, 170, 60, 0.3); }
+    html.sheddit-theme-dark .sheddit-rehide { color: #d9b866; }
+    html.sheddit-theme-dark .sheddit-rehide-cap {
+      background:
+        radial-gradient(ellipse 70% 140% at 50% 130%, rgba(255, 196, 80, 0.28), transparent 70%),
+        linear-gradient(0deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.55) 55%, rgba(28, 24, 48, 0));
+    }
+    html.sheddit-theme-dark .sheddit-rehide-tab {
+      background:
+        radial-gradient(ellipse 70% 140% at 50% -30%, rgba(255, 196, 80, 0.28), transparent 70%),
+        linear-gradient(180deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.55) 55%, rgba(28, 24, 48, 0));
     }
   `;
+
+  // Reddit has its own light/dark switch, separate from the system's, so the
+  // overlay matches the page: dark when the page's background is dark.
+  function pageIsDark() {
+    for (const el of [document.body, document.documentElement]) {
+      if (!el) continue;
+      const m = /rgba?\(([^)]+)\)/.exec(getComputedStyle(el).backgroundColor);
+      if (!m) continue;
+      const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).filter(Boolean).map(parseFloat);
+      if (a < 0.5) continue;
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.5;
+    }
+    return false;
+  }
+
+  function updateTheme() {
+    document.documentElement.classList.toggle("sheddit-theme-dark", pageIsDark());
+  }
 
   const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -691,7 +719,7 @@
           slide(el, "close");
         }
         setInline(target, { transition: `height ${ms}ms ease` });
-        setInline(target, { height: `${BAR_HEIGHT[kind]}px` });
+        setInline(target, { height: `${barHeight(kind)}px` });
         await pause(ms);
         leaving.forEach((el) => el.remove());
         unpad(target);
@@ -891,6 +919,7 @@
   }
 
   function scan() {
+    updateTheme();
     const thread = onThreadPage();
     if (thread && commentFilters.length) scanComments();
     if (!postFilters.length) return;
@@ -998,6 +1027,15 @@
       releaseGuard();
     }, { once: true });
   }, releaseGuard);
+  // Reddit switches themes by changing classes or styles on <html> or
+  // <body>, which the observer below ignores.
+  const themeWatch = new MutationObserver(updateTheme);
+  themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style"] });
+  const watchBody = () => document.body &&
+    themeWatch.observe(document.body, { attributes: true, attributeFilter: ["class", "style"] });
+  if (!watchBody()) document.addEventListener("DOMContentLoaded", watchBody, { once: true });
+  if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateTheme);
+
   observer.observe(document.documentElement, {
     childList: true,
     subtree: true,

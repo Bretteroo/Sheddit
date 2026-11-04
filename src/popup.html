@@ -3,6 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sheddit</title>
   <style>
     :root {
@@ -119,6 +120,12 @@
     }
     #settings:hover { background: var(--pill-hover); }
     [hidden] { display: none !important; }
+    /* Firefox for Android shows the popup as a full page (popup.js adds
+       the "android" class): use its width, with slightly larger text. */
+    .android body { width: auto; max-width: 560px; margin: 0 auto; font-size: 15px; }
+    .android h1 { font-size: 19px; }
+    .android .tally .num { font-size: 30px; }
+    .android #settings { font-size: 14px; padding: 8px 18px; }
   </style>
 </head>
 <body>

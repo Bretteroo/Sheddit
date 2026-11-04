@@ -2,6 +2,9 @@
 // Sheddit toolbar popup: asks the active tab what Sheddit has caught on it
 // and shows the totals, a per-filter breakdown and a link to the settings.
 
+// Firefox for Android shows this page full-screen; the stylesheet adapts.
+if (/Android/.test(navigator.userAgent)) document.documentElement.classList.add("android");
+
 const $ = (id) => document.getElementById(id);
 const plural = (n, word) => (n === 1 ? word : word + "s");
 

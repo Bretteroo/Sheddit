@@ -3,9 +3,14 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sheddit settings</title>
   <style>
     body { font: 14px/1.4 system-ui, sans-serif; margin: 12px; max-width: 560px; }
+    /* Firefox for Android opens settings as a full page (options.js adds
+       the "android" class): a little more room and larger touch targets. */
+    .android body { font-size: 15px; margin: 16px; }
+    .android .filter input, .android .choice input { width: 20px; height: 20px; }
     h1 { font-size: 16px; margin: 0 0 4px; }
     p.intro { margin: 0 0 12px; color: #666; }
     h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin: 16px 0 4px; }
