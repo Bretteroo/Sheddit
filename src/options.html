@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sheddit settings</title>
   <style>
+    /* Nothing here scrolls sideways; this also keeps the "Enable all
+       filters" burst's sparkles from adding a horizontal scrollbar. */
+    html { overflow-x: hidden; }
     body { font: 14px/1.4 system-ui, sans-serif; margin: 12px; max-width: 560px; }
     /* Firefox for Android opens settings as a full page (options.js adds
        the "android" class): a little more room and larger touch targets. */
@@ -24,7 +27,9 @@
     .filter .desc { color: #666; }
     .filter.all { position: relative; border-top: none; border-bottom: 2px solid #ddd; border-radius: 10px; }
     .filter.all .title { display: inline-block; transform-origin: 0 50%; }
-    .burst { position: absolute; inset: -30px 0; overflow: visible; pointer-events: none; z-index: 1; }
+    /* Clipped at the row's sides (but not above or below) so the sparkles
+       never make the page wider than its window. */
+    .burst { position: absolute; inset: -30px 0; overflow: hidden; pointer-events: none; z-index: 1; }
     .burst > span { position: absolute; }
     .burst-glow {
       margin-top: 30px;
