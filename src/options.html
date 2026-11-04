@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sheddit settings</title>
+  <style>
+    body { font: 14px/1.4 system-ui, sans-serif; margin: 12px; max-width: 560px; }
+    h1 { font-size: 16px; margin: 0 0 4px; }
+    p.intro { margin: 0 0 12px; color: #666; }
+    h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin: 16px 0 4px; }
+    .choice { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+    .choice input { margin-top: 3px; }
+    .choice .title { font-weight: 600; }
+    .choice .desc { color: #666; }
+    .filter { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid #ddd; }
+    .filter input { margin-top: 3px; }
+    .filter .title { font-weight: 600; }
+    .filter .desc { color: #666; }
+    .filter.all { position: relative; border-top: none; border-bottom: 2px solid #ddd; border-radius: 10px; }
+    .filter.all .title { display: inline-block; transform-origin: 0 50%; }
+    .burst { position: absolute; inset: -30px 0; overflow: visible; pointer-events: none; z-index: 1; }
+    .burst > span { position: absolute; }
+    .burst-glow {
+      margin-top: 30px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 220, 130, 0.95), rgba(255, 196, 80, 0.45) 40%, rgba(255, 196, 80, 0) 70%);
+    }
+    .burst-ray {
+      margin-top: 28.5px;
+      width: 34px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, rgba(217, 162, 27, 0), #e2a91c);
+      transform-origin: 0 50%;
+    }
+    .burst-spark {
+      margin-top: 30px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #f5c542; box-shadow: 0 0 8px rgba(255, 190, 60, 1);
+    }
+    .burst-shine {
+      top: 30px !important; height: calc(100% - 60px); width: 45%;
+      background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 244, 200, 0.95) 50%, rgba(255, 255, 255, 0));
+      border-radius: 10px;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #eee; background: #23222b; }
+      p.intro, .filter .desc, .choice .desc { color: #aaa; }
+      .filter { border-color: #444; }
+      .filter.all { border-bottom-color: #555; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Sheddit</h1>
+  <p class="intro">Sheddit only checks the page you have open. Listings are checked by title. An open thread is checked by its title and body, and its comments.</p>
+  <h2>When a post matches</h2>
+  <div id="modes">
+    <label class="choice">
+      <input type="radio" name="mode" value="hide">
+      <div>
+        <div class="title">Remove it</div>
+        <div class="desc">Matching posts disappear from the page. Matching comments lose their text but keep their replies.  Like they never even happened.</div>
+      </div>
+    </label>
+    <label class="choice">
+      <input type="radio" name="mode" value="veil">
+      <div>
+        <div class="title">Cover it with an overlay</div>
+        <div class="desc">Matching posts and comments stay where they are under a calm veil that names the filter, with a Peek button to reveal them.</div>
+      </div>
+    </label>
+  </div>
+  <h2>Filters</h2>
+  <div id="filters"></div>
+  <script src="filters.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
