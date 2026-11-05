@@ -53,7 +53,7 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 | <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV of 2026?" | On |
 | <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or video, with no text | On |
 
-Select one filter or all of them for maximum relief.  There is no wrong way to shed, only fewer posts shaming companies to "do better".
+Select one filter or all of them for maximum levels of inner peace.  There is no wrong way to shed, only fewer posts in your life shaming companies to "do better".
 
 ## 🪬 How it sees
 
