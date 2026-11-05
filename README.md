@@ -96,58 +96,20 @@ Filter settings are under `about:addons`, Sheddit, Preferences.
 </details>
 
 <details>
-<summary>Chrome</summary>
+<summary>Chrome, Edge, Opera, Brave and Vivaldi</summary>
 
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Chrome".
-
-To install by hand instead:
-
-1. Download `sheddit-<version>-chrome.zip` and unzip it.
-2. Open `chrome://extensions` and turn on "Developer mode" (top right).
-3. Click "Load unpacked" and pick the unzipped folder.
-
-Unpacked extensions stay installed across restarts. Filter settings are
-under `chrome://extensions`, Sheddit, Details, "Extension options".
-
-</details>
-
-<details>
-<summary>Edge</summary>
-
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf), click "Allow extensions from other stores" in the banner at the top, then "Get".
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
 
 To install by hand instead:
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
-2. Open `edge://extensions` and turn on "Developer mode" (left sidebar).
+2. Open your browser's extensions page and turn on "Developer mode":
+   `chrome://extensions`, `edge://extensions`, `opera://extensions`,
+   `brave://extensions` or `vivaldi:extensions`.
 3. Click "Load unpacked" and pick the unzipped folder.
 
-</details>
-
-<details>
-<summary>Opera</summary>
-
-Install Opera's "Install Chrome Extensions" add-on, then open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Opera".
-
-To install by hand instead:
-
-1. Download `sheddit-<version>-chrome.zip` and unzip it.
-2. Open `opera://extensions` and turn on "Developer mode" (top right).
-3. Click "Load unpacked" and pick the unzipped folder.
-
-</details>
-
-<details>
-<summary>Brave and Vivaldi</summary>
-
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Brave" or "Add to Chrome".
-
-To install by hand instead:
-
-1. Download `sheddit-<version>-chrome.zip` and unzip it.
-2. Open `brave://extensions` or `vivaldi:extensions` and turn on
-   "Developer mode".
-3. Click "Load unpacked" and pick the unzipped folder.
+Unpacked extensions stay installed across restarts. Filter settings are on
+the extensions page, under Sheddit's details, "Extension options".
 
 </details>
 
