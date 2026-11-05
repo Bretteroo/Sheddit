@@ -5,6 +5,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0--only-1e5aa8?style=flat-square" alt="License: AGPL-3.0-only"></a>
   <img src="https://img.shields.io/badge/manifest-V3-orange?style=flat-square" alt="Manifest V3">
+  <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="https://img.shields.io/chrome-web-store/v/olemfeakjfaeimedbgakkjcdknncpgpf?style=flat-square&label=chrome%20web%20store&color=4285f4" alt="Chrome Web Store"></a>
   <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Edge and Opera">
 </p>
 
@@ -78,7 +79,7 @@ Sheddit's toolbar button records your progress on the current tab: how many post
 
 ## 📦 Install
 
-Download the file for your browser from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest), then follow the steps for your browser below.
+Chrome, Edge, Brave, Vivaldi and Opera can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf). For Firefox, or to install by hand, download the file for your browser from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.
 
 <details>
 <summary>Firefox</summary>
@@ -98,6 +99,10 @@ Filter settings are under `about:addons`, Sheddit, Preferences.
 <details>
 <summary>Chrome</summary>
 
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Chrome".
+
+To install by hand instead:
+
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open `chrome://extensions` and turn on "Developer mode" (top right).
 3. Click "Load unpacked" and pick the unzipped folder.
@@ -110,6 +115,10 @@ under `chrome://extensions`, Sheddit, Details, "Extension options".
 <details>
 <summary>Edge</summary>
 
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf), click "Allow extensions from other stores" in the banner at the top, then "Get".
+
+To install by hand instead:
+
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open `edge://extensions` and turn on "Developer mode" (left sidebar).
 3. Click "Load unpacked" and pick the unzipped folder.
@@ -119,6 +128,10 @@ under `chrome://extensions`, Sheddit, Details, "Extension options".
 <details>
 <summary>Opera</summary>
 
+Install Opera's "Install Chrome Extensions" add-on, then open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Opera".
+
+To install by hand instead:
+
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open `opera://extensions` and turn on "Developer mode" (top right).
 3. Click "Load unpacked" and pick the unzipped folder.
@@ -127,6 +140,10 @@ under `chrome://extensions`, Sheddit, Details, "Extension options".
 
 <details>
 <summary>Brave and Vivaldi</summary>
+
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click "Add to Brave" or "Add to Chrome".
+
+To install by hand instead:
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open `brave://extensions` or `vivaldi:extensions` and turn on
