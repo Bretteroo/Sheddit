@@ -89,7 +89,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-remove.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Remove it</h3>
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-light.png" alt="A feed where a caught post has vanished, leaving only a few sparkles" width="100%"></picture></p>
-<p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.</p>
+<p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.)</p>
 </td>
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Cover it</h3>
