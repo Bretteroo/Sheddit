@@ -139,7 +139,8 @@ Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/
 
 **Opera** needs its "Install Chrome Extensions" add-on before the store will work.
 
-*Manual Installation:*
+<details>
+<summary>Manual installation</summary>
 
 Manual Installation is generally not necessary.  The Firefox and Chrome extension directories post the latest versions of Sheddit within a few hours (sometimes days) of their release on Github.
 
@@ -147,7 +148,9 @@ Manual Installation is generally not necessary.  The Firefox and Chrome extensio
 2. Open your browser's extensions page and turn on "Developer mode":
    
    `chrome://extensions`, `edge://extensions`, `opera://extensions`, `brave://extensions` or `vivaldi:extensions`.
-4. Click "Load unpacked" and pick the unzipped folder.
+3. Click "Load unpacked" and pick the unzipped folder.
+
+</details>
 
 ## 🔒 License
 
