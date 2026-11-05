@@ -30,28 +30,28 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 
 ## 🪷 Filters
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | What it hides | Default |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
 | --- | --- | --- |
-| <img src="images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | Posts and comments containing "genuinely curious", or "Curious." as a sentence on its own | On |
-| <img src="images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | Posts and comments containing "and honestly?" | On |
-| <img src="images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | Posts and comments containing "what surprised me the most" | On |
-| <img src="images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | Posts and comments containing "blown away" | On |
-| <img src="images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | Posts and comments containing "witaf" or "what in the actual fuck" | On |
-| <img src="images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | Posts and comments containing "not on my bingo card" | On |
-| <img src="images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | Posts and comments containing "let that sink in" | On |
-| <img src="images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | Posts and comments containing "honest review" | On |
-| <img src="images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | Posts and comments containing the "/s" sarcasm tag | On |
-| <img src="images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | Posts and comments saying "I don't know why you're getting downvoted" | On |
-| <img src="images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Posts and comments where someone is something "by trade" | On |
-| <img src="images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Posts and comments that scold companies: "not a good look", "bad look", "this ain't it", or "do better" as a demand | On |
-| <img src="images/filters/case-dismissed.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Case&nbsp;Dismissed | Armchair-lawyer posts and comments like "Class action lawsuit, anyone?" or "I smell a class action" | On |
-| <img src="images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "I did X. Here's what I learned" posts and comments, and titles like "What I learned about X" | On |
-| <img src="images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | Open threads and comments of 1,000+ characters that end in a question | On |
-| <img src="images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | Open threads and comments of 1,000+ characters in one paragraph | On |
-| <img src="images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Posts whose title is in ALL CAPS (8+ capital letters, no lowercase) | On |
-| <img src="images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Posts and comments written without a single capital letter | On |
-| <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Posts whose title ends in a year, from last year to two years ahead | On |
-| <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or embedded YouTube video with no text | On |
+| <img src="images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | "genuinely curious", or "Curious." on its own | On |
+| <img src="images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | "and honestly?" | On |
+| <img src="images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me the most" | On |
+| <img src="images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | "blown away" | On |
+| <img src="images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
+| <img src="images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |
+| <img src="images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
+| <img src="images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" | On |
+| <img src="images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
+| <img src="images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
+| <img src="images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
+| <img src="images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Scolding like "not a good look" or "do better" | On |
+| <img src="images/filters/case-dismissed.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Case&nbsp;Dismissed | Armchair lawyers asking "Class action lawsuit, anyone?" | On |
+| <img src="images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
+| <img src="images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
+| <img src="images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
+| <img src="images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
+| <img src="images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
+| <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV of 2026?" | On |
+| <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or video, with no text | On |
 
 Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
 
