@@ -223,6 +223,24 @@
     }
     .sheddit-info:hover, .sheddit-info:focus-visible { opacity: 1; color: #c98f0e; }
     .sheddit-info svg { width: 13px; height: 13px; }
+    .sheddit-caught-tap { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .sheddit-explain {
+      position: absolute;
+      z-index: 2147483000;
+      box-sizing: border-box;
+      max-width: min(320px, calc(100vw - 16px));
+      padding: 10px 14px;
+      border-radius: 12px;
+      font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+      text-align: left;
+      color: #5b4a1f;
+      background: linear-gradient(160deg, rgb(255, 250, 235), rgb(240, 233, 255));
+      box-shadow:
+        inset 0 0 0 1px rgba(214, 170, 60, 0.55),
+        0 6px 24px rgba(0, 0, 0, 0.18);
+    }
+    .sheddit-explain-item + .sheddit-explain-item { margin-top: 8px; }
+    .sheddit-explain-title { font-weight: 600; }
     .sheddit-veil-peek {
       flex: none;
       font: inherit;
@@ -335,6 +353,13 @@
       box-shadow:
         inset 0 0 0 1px rgba(214, 170, 60, 0.4),
         0 0 28px rgba(255, 196, 80, 0.15);
+    }
+    html.sheddit-theme-dark .sheddit-explain {
+      color: #f3e2b3;
+      background: linear-gradient(160deg, rgb(44, 36, 22), rgb(28, 24, 48));
+      box-shadow:
+        inset 0 0 0 1px rgba(214, 170, 60, 0.5),
+        0 6px 24px rgba(0, 0, 0, 0.5);
     }
     html.sheddit-theme-dark .sheddit-veil-peek { background: rgba(0, 0, 0, 0.25); }
     html.sheddit-theme-dark .sheddit-veil-peek:hover { background: rgba(214, 170, 60, 0.3); }
@@ -563,8 +588,21 @@
 
   // "Caught by A", "Caught by A and B", "Caught by A, B, and C", with an
   // info icon after each name that shows the filter's description on hover.
+  // On phones, where nothing can hover, tapping the line opens a panel
+  // with the descriptions instead (see explain).
   function caughtBy(matches) {
     const line = document.createElement("span");
+    if (isTouch()) {
+      line.className = "sheddit-caught-tap";
+      line.setAttribute("role", "button");
+      line.setAttribute("aria-expanded", "false");
+      line.tabIndex = 0;
+      line.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        explain(line, matches);
+      });
+    }
     line.append("Caught by ");
     matches.forEach((f, i) => {
       if (i > 0) {
@@ -578,6 +616,61 @@
     });
     return line;
   }
+
+  // Firefox for Android reports a fine pointer that can hover, so the user
+  // agent decides too.
+  function isTouch() {
+    return /Android|iPhone|iPad|Mobi/i.test(navigator.userAgent) ||
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  }
+
+  // The open description panel and the line it belongs to, if any.
+  let explained = null;
+
+  function closeExplain() {
+    if (!explained) return;
+    explained.panel.remove();
+    explained.line.setAttribute("aria-expanded", "false");
+    explained = null;
+  }
+
+  // Show each filter's description in a panel just below `line`. It lives
+  // on <body>, since the overlay card clips anything drawn outside it.
+  // Tapping the line again, or anywhere else, closes it.
+  function explain(line, matches) {
+    const same = explained && explained.line === line;
+    closeExplain();
+    if (same) return;
+    injectStyles();
+    const panel = div("sheddit-explain");
+    for (const f of matches) {
+      const item = div("sheddit-explain-item");
+      item.append(div("sheddit-explain-title", f.title), div("", f.description));
+      panel.append(item);
+    }
+    panel.addEventListener("click", (e) => e.stopPropagation());
+    document.body.append(panel);
+    const r = line.getBoundingClientRect();
+    const margin = 8;
+    const left = Math.max(margin, Math.min(r.left, window.innerWidth - panel.offsetWidth - margin));
+    panel.style.left = `${left + window.scrollX}px`;
+    panel.style.top = `${r.bottom + 6 + window.scrollY}px`;
+    line.setAttribute("aria-expanded", "true");
+    explained = { line, panel };
+  }
+
+  document.addEventListener("pointerdown", (e) => {
+    if (explained && !explained.panel.contains(e.target) && !explained.line.contains(e.target)) {
+      closeExplain();
+    }
+  }, true);
+  // Phones resize the viewport whenever the address bar slides away, so
+  // only a change of width (like turning the phone) closes the panel.
+  let explainWidth = window.innerWidth;
+  window.addEventListener("resize", () => {
+    if (window.innerWidth !== explainWidth) closeExplain();
+    explainWidth = window.innerWidth;
+  });
 
   // A circled "i". The browser's own tooltip shows the description, since
   // the card clips anything drawn outside it.
