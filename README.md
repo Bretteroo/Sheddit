@@ -59,24 +59,22 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 
 ## 🪬 How it sees
 
-Sheddit dwells only in the present page, hiding or blocking negative energy contained therein.  Blocks are defined by your chosen filter-based rulesets.
+Sheddit dwells only in the present page, hiding or blocking negative energy contained therein.
 
 <table>
 <tr>
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-listing.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On a listing</h3>
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-light.png" alt="A feed of posts, one of them covered by Sheddit's gold veil" width="100%"></picture></p>
-<p>It contemplates each thread's title.</p>
+<p>Sheddit contemplates each thread's title.</p>
 </td>
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-thread.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On an open thread</h3>
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-light.png" alt="A thread with one comment covered by Sheddit's gold veil" width="100%"></picture></p>
-<p>It contemplates the post's title, body, and the comments beneath it.</p>
+<p>Sheddit contemplates the post's title, body, and the comments beneath it.</p>
 </td>
 </tr>
 </table>
-
-Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven rulesets.
 
 Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
 
@@ -102,7 +100,10 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 <table>
 <tr>
 <td width="230" valign="middle"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="230"></picture></td>
-<td valign="middle">Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days. It shows how many posts and comments you have risen above, and which filters guided you on you journey.</td>
+<td valign="middle">Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days.
+
+
+It shows how many posts and comments you have risen above, and which filters guided you on you journey.</td>
 </tr>
 </table>
 
