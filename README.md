@@ -101,7 +101,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 <table>
 <tr>
-<td width="190" valign="middle"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="190"></picture></td>
+<td width="230" valign="middle"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="230"></picture></td>
 <td valign="middle">Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days. It shows how many posts and comments you have risen above, and which filters guided you on you journey.</td>
 </tr>
 </table>
