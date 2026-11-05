@@ -61,8 +61,20 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 
 Sheddit dwells only in the present page.
 
-- On a **listing**: it contemplates each thread's title.
-- On an **open thread** it contemplates the post's title, body, and the comments beneath it.
+<table>
+<tr>
+<td width="50%" valign="top">
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-light.png" alt="A feed of posts, one of them covered by Sheddit's gold veil" width="100%"></picture>
+<h3><img src="images/readme/icon-listing.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On a listing</h3>
+<p>It contemplates each thread's title.</p>
+</td>
+<td width="50%" valign="top">
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-light.png" alt="A thread with one comment covered by Sheddit's gold veil" width="100%"></picture>
+<h3><img src="images/readme/icon-thread.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On an open thread</h3>
+<p>It contemplates the post's title, body, and the comments beneath it.</p>
+</td>
+</tr>
+</table>
 
 Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven rulesets.
 
@@ -72,8 +84,20 @@ Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile lay
 
 When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on its Settings page:
 
-- **Remove it**. Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.
-- **Cover it**. Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.
+<table>
+<tr>
+<td width="50%" valign="top">
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-light.png" alt="A feed where a caught post has vanished, leaving only a few sparkles" width="100%"></picture>
+<h3><img src="images/readme/icon-remove.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Remove it</h3>
+<p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.</p>
+</td>
+<td width="50%" valign="top">
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-light.png" alt="A post under Sheddit's gold veil, and a peeked post with its Hide again tab" width="100%"></picture>
+<h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Cover it</h3>
+<p>Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.</p>
+</td>
+</tr>
+</table>
 
 Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days. It shows how many posts and comments you have risen above, and which filters guided you on you journey.
 
