@@ -30,7 +30,7 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 
 ## 🪷 Filters
 
-Activate one filter or all of them for maximum levels of inner peace.
+Activate one filter for a taste of serenity, or _all of them_ for maximum levels of inner peace.
 
 There is no wrong way to shed content, only fewer posts in your life shaming companies to "do better".
 
@@ -92,7 +92,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Cover it</h3>
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-dark.webp"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-light.webp" alt="Animation: a cursor peeks at a post under Sheddit's gold veil and hides it again, then does the same with a comment" width="100%"></picture></p>
-<p>Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.</p>
+<p>Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and "Hide" again returns it to the veil.</p>
 </td>
 </tr>
 </table>
@@ -103,8 +103,8 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 <td valign="top">
 <h3><img src="images/readme/icon-journal.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;A modest journal</h3>
 
-<p>Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days.</p>
-<p>It shows how many posts and comments you have risen above, and which filters guided you on you journey.</p>
+<p>Sheddit's toolbar keeps a modest journal of your ascension, tracing your journey through the passage of time.</p>
+<p>It shows how many posts and comments you have risen above, and which filters guided you on your journey toward tranquility.</p>
 </td>
 </tr>
 </table>
@@ -135,7 +135,9 @@ Filter settings are under `about:addons`, Sheddit, Preferences.
 
 Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button.
 
-Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
+**Edge** first asks you to click "Allow extensions from other stores" in the banner at the top of the store page.
+
+**Opera** needs its "Install Chrome Extensions" add-on before the store will work.
 
 *Manual Installation:*
 
