@@ -219,6 +219,26 @@ const SHEDDIT_FILTERS = [
     // review", but not "dishonest review".
     test: (text) => /(?<![\w-])honest\s+reviews?\b/i.test(text),
   },
+  {
+    id: "teachable-moment",
+    title: "Teachable Moment",
+    description: 'Hides "I did X. Here\'s what I learned" posts and comments, and titles like "What I learned about X".',
+    enabledByDefault: true,
+    test: (text) => LESSON_PHRASES.some((re) => re.test(text)),
+  },
+];
+
+// Phrases for Teachable Moment. "Learned" or "learnt", with or without
+// "I've".
+const LEARNED = String.raw`I(?:['\u2019]?ve|\s+have)?\s+learn(?:ed|t)`;
+const LESSON_PHRASES = [
+  // "Here's what I learned", "Here is what I've learnt"
+  new RegExp(String.raw`\bhere(?:['\u2019]?s|\s+is)\s+what\s+${LEARNED}\b`, "i"),
+  // "What I learned about X", "What I learned from X", "What I learned
+  // after...", or "What I learned." on its own, at the start of a title or
+  // sentence or after a colon or dash. "What I learned is that..." in the
+  // middle of a conversation doesn't count.
+  new RegExp(String.raw`(?:^|[.!?:;|\u2013\u2014-]\s*|\n\s*)what\s+${LEARNED}(?:\s+(?:about|from|after|while|when|building|running|making|doing|using|trying|selling|launching|quitting|spending|working)\b|\s*(?:[.!?:)]|$))`, "im"),
 ];
 
 // Phrases for Pitchfork Patrol. Add more here; each is a case-insensitive

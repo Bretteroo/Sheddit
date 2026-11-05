@@ -63,6 +63,7 @@ Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile lay
 | Case Dismissed | Armchair-lawyer posts and comments like "Class action lawsuit, anyone?" or "I smell a class action" | On |
 | Sinkhole | Posts and comments containing "let that sink in" | On |
 | Lie Detector | Posts and comments containing "honest review" | On |
+| Teachable Moment | "I did X. Here's what I learned" posts and comments, and titles like "What I learned about X" | On |
 
 Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
 
