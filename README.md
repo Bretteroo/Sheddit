@@ -59,7 +59,7 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 
 ## 🪬 How it sees
 
-Sheddit dwells only in the present page.
+Sheddit dwells only in the present page, hiding or blocking negative energy contained therein.  Blocks are defined by your chosen filter-based rulesets.
 
 <table>
 <tr>
