@@ -53,8 +53,7 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 | <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV of 2026?" | On |
 | <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or video, with no text | On |
 
-Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
-
+Select one filter or all of them for maximum relief.  There is no wrong way to shed, only fewer posts shaming companies to "do better".
 
 ## 🪬 How it sees
 
@@ -63,7 +62,7 @@ Sheddit dwells only in the present page.
 - On a **listing**: it contemplates each thread's title.
 - On an **open thread** it contemplates the post's title, body, and the comments beneath it.
 
-Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven ruleset.
+Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven rulesets.
 
 Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
 
