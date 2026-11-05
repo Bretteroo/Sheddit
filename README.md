@@ -16,7 +16,7 @@
 
 _The path to enlightenment is lined with hidden posts._
 
-[🔭 How it sees](#-how-it-sees) | [🪷 Filters](#-filters) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
+[🪬 How it sees](#-how-it-sees) | [🪷 Filters](#-filters) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
 
 </div>
 
@@ -56,7 +56,7 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
 
 
-## 🔭 How it sees
+## 🪬 How it sees
 
 Sheddit dwells only in the present page.
 
