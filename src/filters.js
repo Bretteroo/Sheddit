@@ -210,6 +210,15 @@ const SHEDDIT_FILTERS = [
     // sink in" or "let that number sink in".
     test: (text) => /\blet\s+(?:that|this)\s+(?:\w+\s+)?sink\s+in\b/i.test(text),
   },
+  {
+    id: "lie-detector",
+    title: "Lie Detector",
+    description: 'Hides posts and comments containing "honest review".',
+    enabledByDefault: true,
+    // Also "honest reviews", "brutally honest review" and "100% honest
+    // review", but not "dishonest review".
+    test: (text) => /(?<![\w-])honest\s+reviews?\b/i.test(text),
+  },
 ];
 
 // Phrases for Pitchfork Patrol. Add more here; each is a case-insensitive
