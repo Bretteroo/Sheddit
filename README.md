@@ -26,9 +26,13 @@ _The path to enlightenment is lined with hidden posts._
 
 If you’ve read the phrase “genuinely curious” one too many times, Sheddit offers a beacon of hope and a path to a more peaceful Reddit experience.
 
-Sheddit is a Firefox and Chrome extension that hides the most repetitive and obnoxious posting habits on Reddit, helping you scroll your way toward enlightenment. By casting off these aggravating parts of the Reddit experience one tired trope at a time, Sheddit lightens your mental load and frees your mind to focus on conversations worth having.
+Sheddit is a Firefox and Chrome extension that hides the most repetitive and obnoxious posting habits on Reddit, helping you scroll your way toward enlightenment. By casting off these aggravating parts of the Reddit experience one tired trope at a time, Sheddit lightens your mental load and frees your mind to focus on the conversations worth having.
 
 ## 🪷 Filters
+
+Activate one filter or all of them for maximum levels of inner peace.
+
+There is no wrong way to shed content, only fewer posts in your life shaming companies to "do better".
 
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
 | --- | --- | --- |
@@ -53,8 +57,6 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 | <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV of 2026?" | On |
 | <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or video, with no text | On |
 
-Select one filter or all of them for maximum levels of inner peace.  There is no wrong way to shed, only fewer posts in your life shaming companies to "do better".
-
 ## 🪬 How it sees
 
 Sheddit dwells only in the present page.
@@ -70,8 +72,8 @@ Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile lay
 
 When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on its Settings page:
 
-- **Remove it**. It passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.
-- **Cover it**. It rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.
+- **Remove it**. Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.
+- **Cover it**. Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.
 
 Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days. It shows how many posts and comments you have risen above, and which filters guided you on you journey.
 
@@ -99,7 +101,9 @@ Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/
 
 Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
 
-To install by hand instead:
+*Manual Installation:*
+
+Manual Installation is generally not necessary.  The Firefox and Chrome extension directories post the latest versions of Sheddit within a few hours (sometimes days) of their release on Github.
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
