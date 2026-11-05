@@ -26,18 +26,18 @@ function render(counts) {
   $("note").hidden = onReddit && counts.posts + counts.comments > 0;
 
   if (!onReddit) {
-    $("mode").textContent = "Not on Reddit";
-    $("note").textContent = "Open a Reddit tab to see what Sheddit hides there.";
+    $("mode").textContent = "Resting between threads";
+    $("note").textContent = "Open a Reddit tab, and Sheddit will walk the path with you.";
     $("breakdown").hidden = true;
     return;
   }
 
-  $("mode").textContent = counts.mode === "veil" ? "Covering matches with an overlay" : "Removing matches";
+  $("mode").textContent = counts.mode === "veil" ? "Concealing content beneath the veil" : "Walking the path";
   $("posts").textContent = counts.posts;
   $("posts-unit").textContent = plural(counts.posts, "post");
   $("comments").textContent = counts.comments;
   $("comments-unit").textContent = plural(counts.comments, "comment");
-  $("note").textContent = "Nothing caught on this page yet.";
+  $("note").textContent = "Nothing here to rise above. Yet.";
 
   const rows = SHEDDIT_FILTERS
     .filter((f) => counts.byFilter[f.id])
