@@ -22,24 +22,11 @@ _The path to enlightenment is lined with hidden posts._
 
 ---
 
-
-
 # Sheddit
 
-Sheddit is a Firefox and Chrome extension that hides Reddit’s most repetitive and obnoxious posting habits, helping you scroll your way toward enlightenment.
+If you’ve read the phrase “genuinely curious” one too many times, Sheddit offers a beacon of hope and a path to a more peaceful Reddit experience.
 
-Sheddit helps you cast off the negative parts of the Reddit experience, lightening your mental load as they fall away one repetitive trope at a time, so that your mind may rest on the conversations worth having.  If you've read the phrase "genuinely curious" one too many times, Sheddit is a beacon of hope and a path to a more peaceful Reddit experience.
-
-## 🔭 How it sees
-
-Sheddit dwells only in the present page.
-
-- On a **listing**: it contemplates each thread's title.
-- On an **open thread** it contemplates the post's title, body, and the comments beneath it.
-
-Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven ruleset.
-
-Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
+Sheddit is a Firefox and Chrome extension that hides the most repetitive and obnoxious posting habits on Reddit, helping you scroll your way toward enlightenment. By casting off these aggravating parts of the Reddit experience one tired trope at a time, Sheddit lightens your mental load and frees your mind to focus on conversations worth having.
 
 ## 🪷 Filters
 
@@ -68,14 +55,26 @@ Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile lay
 
 Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
 
+
+## 🔭 How it sees
+
+Sheddit dwells only in the present page.
+
+- On a **listing**: it contemplates each thread's title.
+- On an **open thread** it contemplates the post's title, body, and the comments beneath it.
+
+Filters then hide or block negative energy contained therein, defined by your filter-based, values-driven ruleset.
+
+Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
+
 ## 🍃 Letting go
 
-When a post or comment is found wanting, Sheddit offers two paths, chosen on its Settings page:
+When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on its Settings page:
 
-- **Remove it**. It passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  And the default behavior. If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.
+- **Remove it**. It passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.) If you open a thread whose post was caught, it waits for you behind the veil, so you aren't greeted by an empty page.
 - **Cover it**. It rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and Hide again returns it to the veil.
 
-Sheddit's toolbar button records your progress on the current tab: how many posts and comments you have risen above, and which filters guided you. It also keeps a modest journal of your ascension over the last 24 hours, 7 days and 30 days, stored only in your browser, and shows the way to the settings.
+Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days. It shows how many posts and comments you have risen above, and which filters guided you on you journey.
 
 ## 📦 Install
 
