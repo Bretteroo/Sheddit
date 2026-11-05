@@ -77,7 +77,9 @@ Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hour
 
 ## 📦 Install
 
-Chrome, Edge, Brave, Vivaldi and Opera can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf). For Firefox, or to install by hand, download the file for your browser from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.
+For Firefox, download the .xpi file from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.  Sheddit is coming to the Firefox Extensions directory soon.
+ 
+Chrome, Edge, Brave, Vivaldi and Opera users can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf).
 
 ### Firefox
 
@@ -93,18 +95,17 @@ Filter settings are under `about:addons`, Sheddit, Preferences.
 
 ### Chrome, Edge, Opera, Brave and Vivaldi
 
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button.
+
+Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
 
 To install by hand instead:
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
-   `chrome://extensions`, `edge://extensions`, `opera://extensions`,
-   `brave://extensions` or `vivaldi:extensions`.
-3. Click "Load unpacked" and pick the unzipped folder.
-
-Unpacked extensions stay installed across restarts. Filter settings are on
-the extensions page, under Sheddit's details, "Extension options".
+   
+   `chrome://extensions`, `edge://extensions`, `opera://extensions`, `brave://extensions` or `vivaldi:extensions`.
+4. Click "Load unpacked" and pick the unzipped folder.
 
 ## 🔒 License
 
