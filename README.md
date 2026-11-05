@@ -79,8 +79,7 @@ Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hour
 
 Chrome, Edge, Brave, Vivaldi and Opera can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf). For Firefox, or to install by hand, download the file for your browser from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.
 
-<details>
-<summary>Firefox</summary>
+### Firefox
 
 1. Download `sheddit-<version>-firefox.xpi`.
 2. Open `about:debugging#/runtime/this-firefox`.
@@ -92,10 +91,7 @@ restarts. Firefox Developer Edition and Nightly can keep it installed with
 
 Filter settings are under `about:addons`, Sheddit, Preferences.
 
-</details>
-
-<details>
-<summary>Chrome, Edge, Opera, Brave and Vivaldi</summary>
+### Chrome, Edge, Opera, Brave and Vivaldi
 
 Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. Edge first asks you to click "Allow extensions from other stores" in the banner at the top of the store page, and Opera needs its "Install Chrome Extensions" add-on before the store will work.
 
@@ -109,8 +105,6 @@ To install by hand instead:
 
 Unpacked extensions stay installed across restarts. Filter settings are on
 the extensions page, under Sheddit's details, "Extension options".
-
-</details>
 
 ## 🔒 License
 
