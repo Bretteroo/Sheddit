@@ -99,11 +99,13 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 <table>
 <tr>
-<td width="230" valign="middle"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="230"></picture></td>
-<td valign="middle">Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days.
+<td width="230" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="230"></picture></td>
+<td valign="top">
+<h3><img src="images/readme/icon-journal.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;A modest journal</h3>
 
-
-It shows how many posts and comments you have risen above, and which filters guided you on you journey.</td>
+<p>Sheddit's toolbar keeps a modest journal of your ascension over the last 24 hours, 7 days, and 30 days.</p>
+<p>It shows how many posts and comments you have risen above, and which filters guided you on you journey.</p>
+</td>
 </tr>
 </table>
 
