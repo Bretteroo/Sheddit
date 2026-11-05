@@ -16,7 +16,7 @@
 
 _The path to enlightenment is lined with hidden posts._
 
-[🪬 How it sees](#-how-it-sees) | [🪷 Filters](#-filters) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
+[🪷 Filters](#-filters) | [🪬 How it sees](#-how-it-sees) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
 
 </div>
 
