@@ -226,6 +226,35 @@ const SHEDDIT_FILTERS = [
     enabledByDefault: true,
     test: (text) => LESSON_PHRASES.some((re) => re.test(text)),
   },
+  {
+    id: "your-welcome",
+    title: "Your Welcome",
+    description: 'Hides posts and comments that use "your" where they mean "you\'re", like "your welcome" or "your the best".',
+    enabledByDefault: true,
+    test: (text) => YOURE_PHRASES.some((re) => re.test(text)),
+  },
+];
+
+// Phrases for Your Welcome. "Your" followed by almost any word can be
+// right ("your cooking", "your right to vote"), so these only cover the
+// combinations that are nearly always a "you're" in disguise.
+const CLAUSE_END = String.raw`(?=\s*(?:[.!?,;:)]|$|lol\b|lmao\b|haha\b))`;
+const YOURE_PHRASES = [
+  // "Your welcome", "Your wrong.", "your right lol" (but not "your welcome
+  // message", "your right to vote", "that's your right." or "you
+  // overstayed your welcome.")
+  new RegExp(String.raw`(?<!\b(?:is|was|be|been|it['\u2019]?s|that['\u2019]?s|its|within|exercise[sd]?|exercising|overstay(?:s|ed|ing)?|outstay(?:s|ed|ing)?|for|of|on)\s+)\byour\s+(?:welcome|wrong|right)${CLAUSE_END}`, "im"),
+  // "your not", "your never", "your gonna", "your going to" (but not
+  // "your never-ending list")
+  /\byour\s+(?:not|never|gonna|going\s+to)\b(?!-)/i,
+  // "your a genius", "your an idiot", "your the best" (lowercase, so "bring
+  // your A game" and "your The Office DVD" don't count)
+  /\b[Yy]our\s+(?:a|an|the)\s+(?!game\b)[a-z]/,
+  // "your so dumb.", "your too kind!" (but not "your very own car")
+  new RegExp(String.raw`\byour\s+(?:so|too|very|really)\s+[a-z]+${CLAUSE_END}`, "im"),
+  // "if your being serious", "because your trying too hard" (but not "if
+  // your doing so is legal")
+  /\b(?:if|when|because|cause|cuz|since|unless|until|while)\s+your\s+(?:being|doing(?!\s+so\b)|trying|getting|saying|talking|making|acting)\b/i,
 ];
 
 // Phrases for Teachable Moment. "Learned" or "learnt", with or without
