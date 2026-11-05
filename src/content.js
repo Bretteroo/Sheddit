@@ -915,8 +915,9 @@
     const saved = ["padding-left", "padding-right"].map((k) =>
       [k, target.style.getPropertyValue(k), target.style.getPropertyPriority(k)]);
     // Inline elements only pad their first and last line, so they become
-    // blocks while padded.
-    const blockify = getComputedStyle(target).display === "inline";
+    // blocks while padded. One that was covered is a block already.
+    const blockify = target.classList.contains("sheddit-block") ||
+      getComputedStyle(target).display === "inline";
     if (blockify) target.classList.add("sheddit-block");
     // The frame follows the bar's edges, and Reddit sometimes lets a post
     // stick out past them with negative margins, so the padding is measured
@@ -966,7 +967,10 @@
         v.marker.remove();
         if (veils.get(target) === v) veils.delete(target);
       }
-      target.classList.remove("sheddit-veiled", "sheddit-veiled-comment", "sheddit-block");
+      target.classList.remove("sheddit-veiled", "sheddit-veiled-comment");
+      // A revealed post stays a block while it is padded inside its frame;
+      // turning it back into an inline element here would rearrange it.
+      if (!pads.has(target)) target.classList.remove("sheddit-block");
       restoreInline(target);
     };
     if (!animated || !v || !target.classList.contains("sheddit-veiled")) {
