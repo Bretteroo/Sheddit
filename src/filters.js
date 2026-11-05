@@ -201,6 +201,15 @@ const SHEDDIT_FILTERS = [
     enabledByDefault: true,
     test: (text) => LAWYER_PHRASES.some((re) => re.test(text)),
   },
+  {
+    id: "sinkhole",
+    title: "Sinkhole",
+    description: 'Hides posts and comments containing "let that sink in".',
+    enabledByDefault: true,
+    // Also "let this sink in" and one word in between, like "let that one
+    // sink in" or "let that number sink in".
+    test: (text) => /\blet\s+(?:that|this)\s+(?:\w+\s+)?sink\s+in\b/i.test(text),
+  },
 ];
 
 // Phrases for Pitchfork Patrol. Add more here; each is a case-insensitive
