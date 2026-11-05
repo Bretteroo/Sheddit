@@ -32,26 +32,26 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 
 | Filter | What it hides | Default |
 | --- | --- | --- |
-| Curiosity Killer | Posts and comments containing "genuinely curious", or "Curious." as a sentence on its own | On |
-| Shock Absorber | Posts and comments containing "what surprised me the most" | On |
-| Storm Shelter | Posts and comments containing "blown away" | On |
-| Sarcasm Sweeper | Posts and comments containing the "/s" sarcasm tag | On |
-| Wrecking Ball | Open threads and comments of 1,000+ characters in one paragraph | On |
-| Hyperbolic Chamber | Posts and comments containing "witaf" or "what in the actual fuck" | On |
-| Candor Cutter | Posts and comments containing "and honestly?" | On |
-| Bingo Blackout | Posts and comments containing "not on my bingo card" | On |
-| Year-End Clearance | Posts whose title ends in a year, from last year to two years ahead | On |
-| Inside Voice | Posts whose title is in ALL CAPS (8+ capital letters, no lowercase) | On |
-| Small Talk | Posts and comments written without a single capital letter | On |
-| Catch and Release | Open threads and comments of 1,000+ characters that end in a question | On |
-| Skip Ad | Posts that are just a YouTube link or embedded YouTube video with no text | On |
-| Pity Party | Posts and comments saying "I don't know why you're getting downvoted" | On |
-| Trade Secret | Posts and comments where someone is something "by trade" | On |
-| Pitchfork Patrol | Posts and comments that scold companies: "not a good look", "bad look", "this ain't it", or "do better" as a demand | On |
-| Case Dismissed | Armchair-lawyer posts and comments like "Class action lawsuit, anyone?" or "I smell a class action" | On |
+| Curiosity&nbsp;Killer | Posts and comments containing "genuinely curious", or "Curious." as a sentence on its own | On |
+| Shock&nbsp;Absorber | Posts and comments containing "what surprised me the most" | On |
+| Storm&nbsp;Shelter | Posts and comments containing "blown away" | On |
+| Sarcasm&nbsp;Sweeper | Posts and comments containing the "/s" sarcasm tag | On |
+| Wrecking&nbsp;Ball | Open threads and comments of 1,000+ characters in one paragraph | On |
+| Hyperbolic&nbsp;Chamber | Posts and comments containing "witaf" or "what in the actual fuck" | On |
+| Candor&nbsp;Cutter | Posts and comments containing "and honestly?" | On |
+| Bingo&nbsp;Blackout | Posts and comments containing "not on my bingo card" | On |
+| Year&#8209;End&nbsp;Clearance | Posts whose title ends in a year, from last year to two years ahead | On |
+| Inside&nbsp;Voice | Posts whose title is in ALL CAPS (8+ capital letters, no lowercase) | On |
+| Small&nbsp;Talk | Posts and comments written without a single capital letter | On |
+| Catch&nbsp;and&nbsp;Release | Open threads and comments of 1,000+ characters that end in a question | On |
+| Skip&nbsp;Ad | Posts that are just a YouTube link or embedded YouTube video with no text | On |
+| Pity&nbsp;Party | Posts and comments saying "I don't know why you're getting downvoted" | On |
+| Trade&nbsp;Secret | Posts and comments where someone is something "by trade" | On |
+| Pitchfork&nbsp;Patrol | Posts and comments that scold companies: "not a good look", "bad look", "this ain't it", or "do better" as a demand | On |
+| Case&nbsp;Dismissed | Armchair-lawyer posts and comments like "Class action lawsuit, anyone?" or "I smell a class action" | On |
 | Sinkhole | Posts and comments containing "let that sink in" | On |
-| Lie Detector | Posts and comments containing "honest review" | On |
-| Teachable Moment | "I did X. Here's what I learned" posts and comments, and titles like "What I learned about X" | On |
+| Lie&nbsp;Detector | Posts and comments containing "honest review" | On |
+| Teachable&nbsp;Moment | "I did X. Here's what I learned" posts and comments, and titles like "What I learned about X" | On |
 
 Each filter may be taken up or set aside from the settings page (see Install below), and your open Reddit tabs feel the change at once. There is no wrong way to shed, only fewer posts begging for someone to start a class action lawsuit.
 
