@@ -117,7 +117,7 @@
   const ANIMATED_PROPS = ["height", "min-height", "max-height", "overflow", "opacity",
     "box-sizing", "pointer-events", "transition"];
   const savedInline = new Map();
-  // Bumped whenever a post's animation starts or is cancelled, so a stale
+  // Bumped whenever a post's animation starts or is canceled, so a stale
   // animation stops at its next step.
   const animRuns = new Map();
 

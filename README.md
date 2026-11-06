@@ -6,7 +6,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0--only-1e5aa8?style=flat-square" alt="License: AGPL-3.0-only"></a>
   <img src="https://img.shields.io/badge/manifest-V3-orange?style=flat-square" alt="Manifest V3">
   <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="https://img.shields.io/chrome-web-store/v/olemfeakjfaeimedbgakkjcdknncpgpf?style=flat-square&label=chrome%20web%20store&color=4285f4" alt="Chrome Web Store"></a>
-  <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Edge and Opera">
+  <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Edge, and Opera">
 </p>
 
 <div align="center">
@@ -77,7 +77,7 @@ Sheddit dwells only in the present page, hiding or blocking negative energy cont
 </tr>
 </table>
 
-Sheddit walks the path on www.reddit.com, old.reddit.com and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
+Sheddit walks the path on www.reddit.com, old.reddit.com, and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
 
 ## 🍃 Letting go
 
@@ -114,7 +114,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 For Firefox, download the .xpi file from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.  Sheddit is coming to the Firefox Extensions directory soon.
  
-Chrome, Edge, Brave, Vivaldi and Opera users can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf).
+Chrome, Edge, Brave, Vivaldi, and Opera users can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf).
 
 ### Firefox
 
@@ -130,7 +130,7 @@ restarts. Firefox Developer Edition and Nightly can keep it installed with
 
 Filter settings are under `about:addons`, Sheddit, Preferences.
 
-### Chrome, Edge, Opera, Brave and Vivaldi
+### Chrome, Edge, Opera, Brave, and Vivaldi
 
 <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-light.png" alt="Sheddit's page in the Chrome Web Store, with its Add to Chrome button" width="600"></picture></a>
 

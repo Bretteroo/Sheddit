@@ -99,7 +99,7 @@ const SHEDDIT_FILTERS = [
     enabledByDefault: true,
     // Only years from last year to two years ahead count, so historical
     // titles like "My grandfather's farm in 1944" are left alone. Trailing
-    // punctuation, closing brackets and quotes after the year are ignored.
+    // punctuation, closing brackets, and quotes after the year are ignored.
     // A year that is part of a date ("November 04, 2026", "4 Nov 2026",
     // "11/04/2026", "November 2026") marks a dated thread, not a question,
     // so it doesn't count.
@@ -133,7 +133,7 @@ const SHEDDIT_FILTERS = [
     description: "Hides engagement bait: long posts and comments that end in a question.",
     enabledByDefault: true,
     // Only open threads have a body to check. "Long" uses the same 1,000
-    // character line as Wrecking Ball. Closing brackets, quotes and spaces
+    // character line as Wrecking Ball. Closing brackets, quotes, and spaces
     // after the final question mark are ignored.
     test: (text, { body }) => {
       const trimmed = body.replace(/[\s)\]"'\u201d\u2019]+$/, "");
@@ -179,7 +179,7 @@ const SHEDDIT_FILTERS = [
   {
     id: "trade-secret",
     title: "Trade Secret",
-    description: 'Hides posts and comments where someone is an electrician, engineer or anything else "by trade".',
+    description: 'Hides posts and comments where someone is an electrician, engineer, or anything else "by trade".',
     enabledByDefault: true,
     // Economics uses the same words ("driven by trade", "by trade
     // agreements"), so "by trade" doesn't count after a verb like "driven"

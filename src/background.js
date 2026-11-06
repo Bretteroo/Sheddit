@@ -5,7 +5,7 @@
 // The history lives in storage.local under "history", as
 //   { [itemId]: [firstCaughtTime, isComment ? 1 : 0, [filterIds...]] }
 // Each item is counted once, the first time it is caught, and entries older
-// than 30 days are dropped. Only ids, times and filter ids are kept, never
+// than 30 days are dropped. Only ids, times, and filter ids are kept, never
 // the text of a post or comment.
 
 const api = typeof browser !== "undefined" ? browser : chrome;

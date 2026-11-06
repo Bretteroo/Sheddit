@@ -76,7 +76,7 @@ function filterRow(titleText, descText) {
 }
 
 // A celebration for "Enable all filters": a golden glow swells from the
-// checkbox, rays and sparkles fly out across the row, a band of light sweeps
+// checkbox, rays, and sparkles fly out across the row, a band of light sweeps
 // over it and the title pops, then everything settles back down. Readers
 // who ask for reduced motion get a short glow instead.
 function burst(row, box) {
