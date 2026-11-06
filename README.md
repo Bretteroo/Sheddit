@@ -91,7 +91,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 <p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.)</p>
 </td>
 <td width="50%" valign="top">
-<h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Cover it</h3>
+<h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Hide it</h3>
 <p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-dark.webp"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-light.webp" alt="Animation: a cursor peeks at a post under Sheddit's gold veil and hides it again, then does the same with a comment" width="100%"></picture></p>
 <p>Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and "Hide" again returns it to the veil.</p>
 </td>
