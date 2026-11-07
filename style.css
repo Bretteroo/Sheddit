@@ -110,9 +110,6 @@ h3 { font-weight: 650; }
 .lede { max-width: 32em; margin: 0 auto 30px; font-size: 18.5px; color: var(--ink-soft); text-wrap: balance; }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .fine { font-size: 14px; color: var(--ink-soft); margin: 16px auto 0; max-width: 30em; text-wrap: balance; }
-.scroll { position: absolute; z-index: 1; bottom: 28px; left: 50%; width: 26px; height: 42px; margin-left: -13px; border: 2px solid var(--ink-soft); border-radius: 14px; opacity: 0.6; }
-.scroll span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: var(--ink-soft); animation: nudge 1.8s ease-in-out infinite; }
-@keyframes nudge { 0%, 100% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(12px); opacity: 0; } }
 
 .btn {
   display: inline-block; padding: 13px 26px; border-radius: 999px; cursor: pointer;
@@ -121,7 +118,7 @@ h3 { font-weight: 650; }
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.btn.primary { color: #2b1a02; border-color: transparent; background: linear-gradient(180deg, #ffd37a, #f0a926); box-shadow: 0 8px 22px rgba(240, 160, 40, 0.35); }
+.btn.primary { color: #2b1a02; border-color: transparent; background: linear-gradient(180deg, #ffd37a, #f0a926) border-box; box-shadow: 0 8px 22px rgba(240, 160, 40, 0.35); }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(240, 160, 40, 0.35); }
 .btn.small { padding: 10px 20px; font-size: 15px; }
 
@@ -156,15 +153,19 @@ section { max-width: 1080px; margin: 0 auto; padding: 72px 16px; }
 }
 
 /* Filters */
-.groups { columns: 2 420px; column-gap: 20px; margin-top: 34px; }
-.group { break-inside: avoid; border-radius: 20px; padding: 20px 22px 12px; margin-bottom: 20px; }
-.group h3 { margin: 0 0 8px; font-size: 20px; }
-.group ul { list-style: none; margin: 0; padding: 0; }
-.group li { display: flex; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
-.group li:first-child { border-top: 0; }
+/* One panel. Each group's filters flow across the same columns, so every
+   row lines up and neither side runs longer than the other. */
+.groups { margin-top: 34px; border-radius: 24px; padding: 8px 26px 14px; }
+.group { padding: 18px 0 8px; border-top: 1px solid var(--line); }
+.group:first-child { border-top: 0; }
+.group h3 { margin: 0 0 6px; font-size: 20px; }
+.group ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 26px; }
+.group li { display: flex; gap: 12px; align-items: center; padding: 10px 0; }
 .group li img { width: 30px; height: 30px; flex: none; }
 .group b { display: block; font-weight: 600; font-size: 15.5px; }
 .group span { display: block; font-size: 14.5px; color: var(--ink-soft); line-height: 1.4; }
+@media (max-width: 900px) { .group ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .groups { padding: 4px 18px 10px; } .group ul { grid-template-columns: 1fr; } }
 
 /* Alternating rows */
 .row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; margin: 44px 0; }
@@ -307,14 +308,11 @@ footer .disclaimer { font-size: 13.5px; opacity: 0.85; }
 .support svg { transition: transform 0.3s ease; }
 .support:hover svg { animation: beat 0.9s ease-in-out infinite; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.25); } 60% { transform: scale(0.95); } }
-.scroll { transition: opacity 0.4s; }
 
 /* Content drifts up into place as it scrolls into view. */
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .js .reveal.shown { opacity: 1; transform: none; }
-.groups .reveal:nth-child(2), .installs .reveal:nth-child(2) { transition-delay: 0.12s; }
-.groups .reveal:nth-child(3) { transition-delay: 0.08s; }
-.groups .reveal:nth-child(4) { transition-delay: 0.2s; }
+.installs .reveal:nth-child(2) { transition-delay: 0.12s; }
 .split .feed.reveal { transition-delay: 0.15s; }
 
 @media (prefers-reduced-motion: reduce) {
