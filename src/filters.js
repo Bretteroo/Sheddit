@@ -243,7 +243,7 @@ const YOURE_PHRASES = [
   // "Your welcome", "Your wrong.", "your right lol" (but not "your welcome
   // message", "your right to vote", "that's your right." or "you
   // overstayed your welcome.")
-  new RegExp(String.raw`(?<!\b(?:is|was|be|been|it['\u2019]?s|that['\u2019]?s|its|within|exercise[sd]?|exercising|overstay(?:s|ed|ing)?|outstay(?:s|ed|ing)?|for|of|on)\s+)\byour\s+(?:welcome|wrong|right)${CLAUSE_END}`, "im"),
+  new RegExp(String.raw`(?<!\b(?:is|was|be|been|(?:is|was|isn['\u2019]?t|wasn['\u2019]?t)\s+that|it['\u2019]?s|that['\u2019]?s|its|within|exercise[sd]?|exercising|overstay(?:s|ed|ing)?|outstay(?:s|ed|ing)?|for|of|on)\s+)\byour\s+(?:welcome|wrong|right)${CLAUSE_END}`, "im"),
   // "your not", "your never", "your gonna", "your going to" (but not
   // "your never-ending list")
   /\byour\s+(?:not|never|gonna|going\s+to)\b(?!-)/i,
