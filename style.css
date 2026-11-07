@@ -264,6 +264,18 @@ footer .disclaimer { font-size: 13.5px; opacity: 0.85; }
   animation: clouds 90s linear infinite;
   will-change: transform;
 }
+/* The same drift behind the install section, sized in pixels so opening an
+   expander doesn't rescale it. */
+.clouds.clouds-dusk {
+  -webkit-mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 200px), transparent);
+  mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 200px), transparent);
+}
+.clouds-dusk .clouds-track { top: 0; bottom: auto; height: 1000px; animation-duration: 120s; animation-delay: -40s; }
+.dusk > h2, .dusk > .installs, .dusk > .give { position: relative; z-index: 1; }
+
+/* A fainter drift behind the whole page, over the still wash. */
+.clouds.clouds-wash { position: fixed; z-index: -1; opacity: calc(var(--clouds-opacity) * 0.4); -webkit-mask-image: none; mask-image: none; }
+.clouds-wash .clouds-track { top: 0; bottom: auto; height: 100lvh; animation-duration: 180s; animation-delay: -90s; }
 @keyframes clouds { from { transform: translateX(0); } to { transform: translateX(-33.3333%); } }
 
 /* ---- Motion ---------------------------------------------------------- */
