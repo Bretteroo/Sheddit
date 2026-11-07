@@ -156,3 +156,5 @@ Manual Installation is generally not necessary.  The Firefox and Chrome extensio
 ## 🔒 License
 
 Sheddit is free software, licensed under the [GNU Affero General Public License, version 3 only](LICENSE) (AGPL-3.0-only).
+
+Sheddit is not affiliated with or endorsed by Reddit, Inc. Reddit is a trademark of Reddit, Inc.
