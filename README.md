@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://sheddit.io"><img src="https://img.shields.io/badge/website-sheddit.io-c9a227?style=flat-square" alt="Website: sheddit.io"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0--only-1e5aa8?style=flat-square" alt="License: AGPL-3.0-only"></a>
   <img src="https://img.shields.io/badge/manifest-V3-orange?style=flat-square" alt="Manifest V3">
   <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="https://img.shields.io/chrome-web-store/v/olemfeakjfaeimedbgakkjcdknncpgpf?style=flat-square&label=chrome%20web%20store&color=4285f4" alt="Chrome Web Store"></a>
