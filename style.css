@@ -175,7 +175,11 @@ section { max-width: 1080px; margin: 0 auto; padding: 72px 16px; }
 .row .copy p { margin: 0 0 10px; color: var(--ink-soft); font-size: 17.5px; }
 .shot img { border-radius: 14px; box-shadow: var(--shadow); width: 100%; }
 .shot.narrow { max-width: 300px; justify-self: center; }
+.row.align-end .copy { text-align: right; }
+.row.align-end h3 { justify-content: flex-end; }
 @media (max-width: 760px) {
+  .row.align-end .copy { text-align: left; }
+  .row.align-end h3 { justify-content: flex-start; }
   .row { grid-template-columns: 1fr; gap: 18px; margin: 36px 0; }
   .row.flip .shot { order: 0; }
 }
