@@ -194,10 +194,12 @@ section { max-width: 1080px; margin: 0 auto; padding: 72px 16px; }
 /* Install */
 .dusk { max-width: none; position: relative; padding: 100px 16px 90px; }
 .dusk::before {
+  /* The sky is sized by the page width only, so opening an expander
+     makes the section taller without rescaling the image. */
   content: ""; position: absolute; inset: 0;
-  background: var(--sky) center bottom / cover no-repeat;
-  -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
-  mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
+  background: var(--sky) center top / max(100%, 2000px) auto no-repeat;
+  -webkit-mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 200px), transparent);
+  mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 200px), transparent);
   pointer-events: none;
 }
 .installs { position: relative; z-index: 1; max-width: 920px; margin: 30px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
