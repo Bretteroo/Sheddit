@@ -54,6 +54,7 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | <img src="images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
 | <img src="images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
 | <img src="images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
+| <img src="images/filters/get-a-blog.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Christ,&nbsp;get&nbsp;a&nbsp;blog | 600+ words | On |
 | <img src="images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
 | <img src="images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
 | <img src="images/filters/your-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Your&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |

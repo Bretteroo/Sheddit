@@ -69,6 +69,16 @@ const SHEDDIT_FILTERS = [
     },
   },
   {
+    id: "get-a-blog",
+    title: "Christ, get a blog",
+    description: "Hides posts and comments longer than 600 words, about a three-minute read.",
+    enabledByDefault: true,
+    // Only open threads have a body to check. A word is a run of
+    // non-space characters with at least one letter or digit in it, so
+    // bullets, dashes, and emoji don't add to the count.
+    test: (text, { body }) => (body.match(/\S*[\p{L}\p{N}]\S*/gu) || []).length >= 600,
+  },
+  {
     id: "pearl-clutcher",
     title: "Hyperbolic Chamber",
     description: 'Hides posts and comments containing "witaf" or "what in the actual fuck".',
