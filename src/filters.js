@@ -165,6 +165,20 @@ const SHEDDIT_FILTERS = [
         /(^|\.)youtube\.com$|^youtu\.be$|(^|\.)youtube-nocookie\.com$/.test(d || "")),
   },
   {
+    id: "link-dumper",
+    title: "Link Dumper",
+    description: "Hides posts that are just a link to another site, with no text from the poster.",
+    enabledByDefault: true,
+    // The preview Reddit pulls from the linked page isn't the poster's
+    // text, so it doesn't count. Links that stay on Reddit (text posts,
+    // crossposts, galleries, and Reddit's own image and video hosts) and
+    // image hosts like Imgur are pictures and videos, not link dumps.
+    // Reddit names a text post's domain "self.<subreddit>".
+    test: (text, { domain, hasText }) =>
+      !hasText && !!domain && !/^self\./.test(domain) &&
+      !/(^|\.)(reddit\.com|redd\.it|redditmedia\.com|reddituploads\.com|redditstatic\.com|imgur\.com|gfycat\.com|redgifs\.com|giphy\.com)$/.test(domain),
+  },
+  {
     id: "small-talk",
     title: "Small Talk",
     description: "Hides posts and comments written without a single capital letter, except Reddit's [deleted] and [removed].",

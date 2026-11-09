@@ -60,6 +60,7 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | <img src="images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |
 | <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV in 2027?" | On |
 | <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | Posts that are just a YouTube link or video, with no text | On |
+| <img src="images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper | Posts that are just a link to another site, with no text | On |
 
 ## 🪬 How it sees
 
