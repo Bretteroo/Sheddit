@@ -40,7 +40,7 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | --- | --- | --- |
 | <img src="images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | "genuinely curious", or "Curious." on its own | On |
 | <img src="images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | "and honestly?" | On |
-| <img src="images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me the most" | On |
+| <img src="images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me (the) most" | On |
 | <img src="images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | "blown away" | On |
 | <img src="images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
 | <img src="images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |

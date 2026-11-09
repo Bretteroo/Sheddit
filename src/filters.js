@@ -36,9 +36,9 @@ const SHEDDIT_FILTERS = [
   {
     id: "shock-absorber",
     title: "Shock Absorber",
-    description: 'Hides posts and comments containing the phrase "what surprised me the most".',
+    description: 'Hides posts and comments containing the phrase "what surprised me the most" or "what surprised me most".',
     enabledByDefault: true,
-    test: (text) => /what\s+surprised\s+me\s+the\s+most/i.test(text),
+    test: (text) => /what\s+surprised\s+me\s+(?:the\s+)?most/i.test(text),
   },
   {
     id: "storm-shelter",
