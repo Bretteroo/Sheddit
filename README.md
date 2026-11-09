@@ -6,6 +6,7 @@
   <a href="https://sheddit.io"><img src="https://img.shields.io/badge/website-sheddit.io-c9a227?style=flat-square" alt="Website: sheddit.io"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0--only-1e5aa8?style=flat-square" alt="License: AGPL-3.0-only"></a>
   <img src="https://img.shields.io/badge/manifest-V3-orange?style=flat-square" alt="Manifest V3">
+  <a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><img src="https://img.shields.io/amo/v/shedditfilter?style=flat-square&label=firefox%20add-ons&color=ff7139" alt="Firefox Add-ons"></a>
   <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="https://img.shields.io/chrome-web-store/v/olemfeakjfaeimedbgakkjcdknncpgpf?style=flat-square&label=chrome%20web%20store&color=4285f4" alt="Chrome Web Store"></a>
   <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Edge, and Opera">
 </p>
@@ -113,21 +114,15 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 ## 📦 Install
 
-For Firefox, download the .xpi file from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest) and follow the steps below.  Sheddit is coming to the Firefox Extensions directory soon.
+Firefox users, on desktop and Android, can install Sheddit from [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedditfilter/).
  
 Chrome, Edge, Brave, Vivaldi, and Opera users can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf).
 
 ### Firefox
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-light.png" alt="Sheddit's page in the Firefox Add-ons directory, with its Add to Firefox button" width="600"></picture>
+<a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-light.png" alt="Sheddit's page in the Firefox Add-ons directory, with its Add to Firefox button" width="600"></picture></a>
 
-1. Download `sheddit-<version>-firefox.xpi`.
-2. Open `about:debugging#/runtime/this-firefox`.
-3. Click "Load Temporary Add-on..." and pick the `.xpi`.
-
-The `.xpi` isn't signed by Mozilla yet, so Firefox removes it when it
-restarts. Firefox Developer Edition and Nightly can keep it installed with
-`xpinstall.signatures.required` set to false in `about:config`.
+Open Sheddit on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedditfilter/) and click "Add to Firefox". Firefox for Android installs it from the same page.
 
 Filter settings are under `about:addons`, Sheddit, Preferences.
 
@@ -145,6 +140,16 @@ Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/
 <summary>Manual installation</summary>
 
 Manual Installation is generally not necessary.  The Firefox and Chrome extension directories post the latest versions of Sheddit within a few hours (sometimes days) of their release on Github.
+
+**Firefox**
+
+1. Download `sheddit-<version>-firefox.xpi` from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest).
+2. Open `about:debugging#/runtime/this-firefox`.
+3. Click "Load Temporary Add-on..." and pick the `.xpi`.
+
+The release `.xpi` isn't signed by Mozilla, so Firefox removes it when it restarts. Firefox Developer Edition and Nightly can keep it installed with `xpinstall.signatures.required` set to false in `about:config`.
+
+**Chrome, Edge, Opera, Brave, and Vivaldi**
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
