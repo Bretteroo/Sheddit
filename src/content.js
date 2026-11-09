@@ -343,6 +343,15 @@
       border-radius: inherit;
       pointer-events: none;
     }
+    /* Logged-in thread pages draw the open post's author line a second
+       time, in Reddit's fixed header (#pdp-credit-bar), over an empty space
+       at the top of the post. That copy isn't inside the post, so it's
+       hidden while the post is covered and moved down by the Hide again
+       tab's height while the post is revealed. Its avatar sets its own
+       visibility, so the rule covers everything inside it too. */
+    html.sheddit-pdp-covered #pdp-credit-bar,
+    html.sheddit-pdp-covered #pdp-credit-bar * { visibility: hidden !important; }
+    html.sheddit-pdp-shifted #pdp-credit-bar { translate: 0 var(--sheddit-pdp-shift, 0px) !important; }
     /* Dark colors follow Reddit's own theme, not the system's: Sheddit sets
        this class when the page's background is dark (see updateTheme). */
     html.sheddit-theme-dark .sheddit-veil-card {
@@ -706,6 +715,37 @@
     return wrap;
   }
 
+  // Whether `target` is the open post whose author line Reddit draws in its
+  // header (see the #pdp-credit-bar styles). The post keeps an empty
+  // #slot-credit-bar where that line appears.
+  function hasHeaderCopy(target) {
+    return !!target.querySelector(":scope > #slot-credit-bar");
+  }
+
+  function coverHeaderCopy(target, covered) {
+    if (hasHeaderCopy(target)) document.documentElement.classList.toggle("sheddit-pdp-covered", covered);
+  }
+
+  function shiftHeaderCopy(target, px) {
+    if (!hasHeaderCopy(target)) return;
+    const root = document.documentElement;
+    root.classList.toggle("sheddit-pdp-shifted", px > 0);
+    if (px > 0) root.style.setProperty("--sheddit-pdp-shift", `${px}px`);
+    else root.style.removeProperty("--sheddit-pdp-shift");
+  }
+
+  // Reddit swaps thread pages without reloading, so when the open post that
+  // Sheddit covered or revealed leaves the page, its header copy goes back
+  // to normal for the next thread.
+  function releaseStaleHeaderCopy() {
+    const root = document.documentElement;
+    if (!root.classList.contains("sheddit-pdp-covered") && !root.classList.contains("sheddit-pdp-shifted")) return;
+    const ours = document.querySelector(`[${HIDDEN_ATTR}] > #slot-credit-bar, [${REVEALED_ATTR}] > #slot-credit-bar`);
+    if (ours) return;
+    root.classList.remove("sheddit-pdp-covered", "sheddit-pdp-shifted");
+    root.style.removeProperty("--sheddit-pdp-shift");
+  }
+
   // Hide or veil an element. `matches` lists every enabled filter it
   // triggered. For comments the element is the comment's own text, so its
   // author line and replies stay visible.
@@ -747,6 +787,7 @@
     injectStyles();
     const ids = matches.map((f) => f.id).join(" ");
     target.setAttribute(HIDDEN_ATTR, ids);
+    coverHeaderCopy(target, true);
     const current = startRun(target);
     if (getComputedStyle(target).display === "inline") target.classList.add("sheddit-block");
     const collapse = () => {
@@ -805,6 +846,7 @@
         await pause(ms);
         if (!current()) {
           leaving.forEach((el) => el.remove());
+          shiftHeaderCopy(target, 0);
           return unpad(target);
         }
         for (const el of leaving) {
@@ -815,6 +857,7 @@
         setInline(target, { height: `${barHeight(kind)}px` });
         await pause(ms);
         leaving.forEach((el) => el.remove());
+        shiftHeaderCopy(target, 0);
         unpad(target);
         if (!current()) return;
         collapse();
@@ -866,9 +909,13 @@
       const shoulder = tab.getBoundingClientRect().left - barRect.left + 1;
       frame.style.setProperty("--shoulder", `${Math.max(0, shoulder)}px`);
       frame.style.setProperty("--corner", `${Math.min(14, Math.max(0, shoulder), Math.max(0, gap))}px`);
+      // The post sits lower by the bar's full height, margins included.
+      const cs = getComputedStyle(bar);
+      shiftHeaderCopy(target, barRect.height + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom));
     };
     const frameWatch = new ResizeObserver(fitFrame);
     frameWatch.observe(target);
+    frameWatch.observe(bar);
     padInside(target, kind, bar);
     fitFrame();
     const pieces = [bar, cap];
@@ -948,6 +995,7 @@
 
   function removeRehideBar(target) {
     unpad(target);
+    if (rehideBars.has(target)) shiftHeaderCopy(target, 0);
     for (const el of rehideBars.get(target) || []) el.remove();
     rehideBars.delete(target);
   }
@@ -968,6 +1016,7 @@
         if (veils.get(target) === v) veils.delete(target);
       }
       target.classList.remove("sheddit-veiled", "sheddit-veiled-comment");
+      coverHeaderCopy(target, false);
       // A revealed post stays a block while it is padded inside its frame;
       // turning it back into an inline element here would rearrange it.
       if (!pads.has(target)) target.classList.remove("sheddit-block");
@@ -995,6 +1044,7 @@
       if (!current()) return;
       fade(v.marker, [{ opacity: 1 }, { opacity: 0 }]);
       if (onExpanded) onExpanded();
+      coverHeaderCopy(target, false);
       setInline(target, { transition: `opacity ${ms}ms ease` });
       void target.offsetHeight;
       setInline(target, { opacity: "1" });
@@ -1017,6 +1067,7 @@
 
   function scan() {
     updateTheme();
+    releaseStaleHeaderCopy();
     const thread = onThreadPage();
     if (thread && commentFilters.length) scanComments();
     if (!postFilters.length) return;
