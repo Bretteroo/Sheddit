@@ -665,7 +665,7 @@
     panel.style.left = `${left + window.scrollX}px`;
     panel.style.top = `${r.bottom + 6 + window.scrollY}px`;
     line.setAttribute("aria-expanded", "true");
-    explained = { line, panel };
+    explained = { line, panel, width: window.innerWidth };
   }
 
   document.addEventListener("pointerdown", (e) => {
@@ -675,10 +675,14 @@
   }, true);
   // Phones resize the viewport whenever the address bar slides away, so
   // only a change of width (like turning the phone) closes the panel.
-  let explainWidth = window.innerWidth;
+  // The description closes when the screen's width changes. Its width is
+  // read only when it opens: reading window.innerWidth while the page is
+  // still loading makes Firefox lay the page out early, and Firefox for
+  // Android decides at that first layout, for good, whether to enlarge
+  // long blocks of text. Done before it has read the page's viewport tag,
+  // it turns enlarging on, and comments come out in different sizes.
   window.addEventListener("resize", () => {
-    if (window.innerWidth !== explainWidth) closeExplain();
-    explainWidth = window.innerWidth;
+    if (explained && window.innerWidth !== explained.width) closeExplain();
   });
 
   // A circled "i". The browser's own tooltip shows the description, since
