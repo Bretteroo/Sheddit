@@ -69,8 +69,8 @@ const SHEDDIT_FILTERS = [
     },
   },
   {
-    id: "get-a-blog",
-    title: "Christ, get a blog",
+    id: "lost-blogger",
+    title: "Lost Blogger",
     description: "Hides posts and comments longer than 600 words, about a three-minute read.",
     enabledByDefault: true,
     // Only open threads have a body to check. A word is a run of
