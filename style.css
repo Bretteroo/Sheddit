@@ -182,7 +182,7 @@ section { max-width: 1080px; margin: 0 auto; padding: 72px 16px; }
   .row.align-end .copy { text-align: left; }
   .row.align-end h3 { justify-content: flex-start; }
   .row { grid-template-columns: 1fr; gap: 18px; margin: 36px 0; }
-  .row.flip .shot { order: 0; }
+  .row .shot, .row.flip .shot { order: 1; }
 }
 
 .lotus { position: relative; isolation: isolate; }
