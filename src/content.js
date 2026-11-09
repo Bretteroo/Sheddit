@@ -1326,13 +1326,14 @@
             fade(f, [{ opacity: 1 }, { opacity: 0 }]);
           }
         }
-        setInline(target, { transition: `opacity ${ms}ms ease` });
-        void target.offsetHeight;
-        setInline(target, { opacity: "0" });
+        // The post's contents fade and its background stays, so the box
+        // keeps its colors behind the text while it goes.
+        const unfade = fadeContents(target, ms);
         // The box's top closes once a sinking Hide again tab is all the way
         // in; closing it clips everything above it.
         await pause(sinking ? ms * 1.4 : ms);
         if (!current()) {
+          unfade();
           leaving.forEach((el) => el.remove());
           shiftHeaderCopy(target, 0);
           return unpad(target);
@@ -1351,6 +1352,7 @@
         if (!current()) return;
         collapse();
         restoreInline(target);
+        unfade();
         fade(card, [{ opacity: 0 }, { opacity: 1 }]).then(() => card.style.removeProperty("opacity"), () => {});
       })();
     }
@@ -1385,6 +1387,32 @@
       else target.style.removeProperty("margin-top");
       tabRooms.delete(target);
     }
+  }
+
+  // Fade out what's inside `el` over `ms`, leaving its own background in
+  // place. A post Reddit draws in a shadow tree fades that tree's top
+  // elements, which hold its slotted ones too. Text sitting right in `el`
+  // can't fade by itself, so then `el` fades whole. Returns a function
+  // that puts the elements' own opacity back.
+  function fadeContents(el, ms) {
+    const root = el.shadowRoot || el;
+    const loose = [...el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+    const parts = loose ? [el] : [...root.children].filter((c) => !["STYLE", "SCRIPT", "LINK", "SLOT"].includes(c.tagName));
+    // Elements slotted straight into the tree's top level fade by themselves.
+    if (!loose && el.shadowRoot) {
+      parts.push(...[...el.children].filter((c) => c.assignedSlot && c.assignedSlot.parentNode === root));
+    }
+    const saved = parts.map((p) => [p, p.style.getPropertyValue("opacity"), p.style.getPropertyPriority("opacity")]);
+    for (const p of parts) {
+      p.style.setProperty("opacity", "0", "important");
+      if (ms) p.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms, easing: "ease" });
+    }
+    return () => {
+      for (const [p, v, priority] of saved) {
+        if (v) p.style.setProperty("opacity", v, priority);
+        else p.style.removeProperty("opacity");
+      }
+    };
   }
 
   // Whether `el` is one of the elements Sheddit adds beside a post, as
@@ -1926,20 +1954,24 @@
     const slot = target.getAttribute("slot");
     if (slot) holder.setAttribute("slot", slot);
     target.before(holder);
-    // The clouds cover the whole box below its top row: a comment's text,
-    // its row of buttons, and the avatar's column beside them.
+    // The clouds cover the whole box from its top edge: a comment's name
+    // line, text, and row of buttons, and the avatar's column beside them.
     const t = target.getBoundingClientRect();
     const o = holder.getBoundingClientRect();
     const head = commentHead(target, "comment");
     const row = commentRow(target, "comment");
+    const bar = (rehideBars.get(target) || [])[0];
+    const frame = bar && bar.isConnected ? bar.querySelector(".sheddit-rehide-frame") : null;
+    const frameTop = frame && frame.getBoundingClientRect().height ? frame.getBoundingClientRect().top : Infinity;
+    const top = Math.min(t.top, head ? head.getBoundingClientRect().top : Infinity, frameTop);
     const left = head ? Math.min(t.left, head.getBoundingClientRect().left) : t.left;
     const bottom = row ? row.getBoundingClientRect().bottom : t.bottom;
     const clip = div("sheddit-haze-clip");
-    clip.style.top = `${t.top - o.top}px`;
+    clip.style.top = `${top - o.top}px`;
     clip.style.left = `${left - o.left}px`;
     clip.style.width = `${t.right - left}px`;
-    clip.style.height = `${bottom - t.top}px`;
-    h = bottom - t.top;
+    clip.style.height = `${bottom - top}px`;
+    h = bottom - top;
     const band = band0();
     const dark = document.documentElement.classList.contains("sheddit-theme-dark");
     clip.style.mixBlendMode = dark ? "screen" : "multiply";
