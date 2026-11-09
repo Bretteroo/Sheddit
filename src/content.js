@@ -154,15 +154,15 @@
   // otherwise sticks out below `el`, inside it, so that margin counts too.
   // Measured with a 1px probe placed right after `el`.
   function clippedHeight(el) {
-    // A post nudged with translate to center it is measured where its
-    // layout puts it, like the probe.
-    const nudge = el.style.getPropertyValue("translate");
-    const nudgePriority = el.style.getPropertyPriority("translate");
-    if (nudge) el.style.removeProperty("translate");
+    // A post nudged to center it is measured where its layout puts it,
+    // like the probe.
+    const nudge = el.style.getPropertyValue("top");
+    const nudgePriority = el.style.getPropertyPriority("top");
+    if (nudge) el.style.removeProperty("top");
     try {
       return probeHeight(el);
     } finally {
-      if (nudge) el.style.setProperty("translate", nudge, nudgePriority);
+      if (nudge) el.style.setProperty("top", nudge, nudgePriority);
     }
   }
 
@@ -1144,13 +1144,26 @@
     const r = el.getBoundingClientRect();
     return r.bottom < 0 || r.top > window.innerHeight;
   }
+  // The shift is a relative offset, not a translate: a translated post
+  // becomes the box Reddit's fixed elements inside it are placed in, like
+  // its menu's bottom sheet, which is three screens wide while closed and
+  // makes the page scroll sideways once the post is revealed.
+  const shiftPositioned = new WeakSet();
   function setShift(target, px) {
     if (px) {
       shifts.set(target, px);
-      target.style.setProperty("translate", `0 ${px}px`, "important");
+      if (!shiftPositioned.has(target) && getComputedStyle(target).position === "static") {
+        shiftPositioned.add(target);
+        target.style.setProperty("position", "relative", "important");
+      }
+      target.style.setProperty("top", `${px}px`, "important");
     } else {
       shifts.delete(target);
-      target.style.removeProperty("translate");
+      target.style.removeProperty("top");
+      if (shiftPositioned.has(target)) {
+        shiftPositioned.delete(target);
+        target.style.removeProperty("position");
+      }
     }
   }
 
@@ -1254,7 +1267,8 @@
       }
       const shift = shifts.get(target) || 0;
       for (const el of pieces || []) el.style.setProperty("translate", shift ? `0 ${shift}px` : "none", "important");
-      card.style.top = `${top.offsetTop - marker.offsetTop + shift}px`;
+      // The post's offsetTop already counts its shift; the bar's doesn't.
+      card.style.top = `${top.offsetTop - marker.offsetTop + (top === target ? 0 : shift)}px`;
       // A comment's overlay starts at its name line, which is inside it.
       if (head) card.style.top = `${head.getBoundingClientRect().top - marker.getBoundingClientRect().top}px`;
       card.style.left = `${target.offsetLeft - marker.offsetLeft}px`;
