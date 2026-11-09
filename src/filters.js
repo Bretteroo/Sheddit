@@ -105,7 +105,7 @@ const SHEDDIT_FILTERS = [
   {
     id: "year-end-clearance",
     title: "Year-End Clearance",
-    description: 'Hides posts whose title ends in a year, like "Best TV to buy in 2026?"',
+    description: 'Hides posts whose title ends in a year, like "Best TV in 2027?"',
     enabledByDefault: true,
     // Only years from last year to two years ahead count, so historical
     // titles like "My grandfather's farm in 1944" are left alone. Trailing
