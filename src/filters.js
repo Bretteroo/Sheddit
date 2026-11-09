@@ -237,15 +237,15 @@ const SHEDDIT_FILTERS = [
     test: (text) => LESSON_PHRASES.some((re) => re.test(text)),
   },
   {
-    id: "your-welcome",
-    title: "Your Welcome",
+    id: "my-welcome",
+    title: "My Welcome",
     description: 'Hides posts and comments that use "your" where they mean "you\'re", like "your welcome" or "your the best".',
     enabledByDefault: true,
     test: (text) => YOURE_PHRASES.some((re) => re.test(text)),
   },
 ];
 
-// Phrases for Your Welcome. "Your" followed by almost any word can be
+// Phrases for My Welcome. "Your" followed by almost any word can be
 // right ("your cooking", "your right to vote"), so these only cover the
 // combinations that are nearly always a "you're" in disguise.
 const CLAUSE_END = String.raw`(?=\s*(?:[.!?,;:)]|$|lol\b|lmao\b|haha\b))`;
@@ -313,13 +313,20 @@ const LAWYER_PHRASES = [
   new RegExp(String.raw`\b(?:time\s+for|start|file|ripe\s+for|grounds\s+for)\s+(?:a\s+)?class[\s-]+action`, "i"),
 ];
 
+// Filters whose id changed, new id to old, so a setting saved under the
+// old id still counts.
+const SHEDDIT_RENAMED = { "my-welcome": "your-welcome" };
+
 // Settings are stored as { enabled: { [filterId]: boolean } }. Filters with
 // no saved value fall back to enabledByDefault.
 async function shedditLoadEnabled() {
   const { enabled = {} } = await shedditApi.storage.sync.get("enabled");
   const result = {};
   for (const f of SHEDDIT_FILTERS) {
-    result[f.id] = f.id in enabled ? enabled[f.id] : f.enabledByDefault;
+    const old = SHEDDIT_RENAMED[f.id];
+    result[f.id] = f.id in enabled ? enabled[f.id]
+      : old && old in enabled ? enabled[old]
+      : f.enabledByDefault;
   }
   return result;
 }
