@@ -17,7 +17,7 @@ mkdir -p dist/chrome
 
 (cd src && zip -qr ../dist/sheddit-firefox.xpi .)
 
-cp -r src/*.js src/*.html src/icons dist/chrome/
+cp -r src/*.js src/*.html src/icons src/images dist/chrome/
 python3 - <<'PY'
 import json
 with open("src/manifest.json") as f:

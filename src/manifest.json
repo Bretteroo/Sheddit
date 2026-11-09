@@ -50,5 +50,11 @@
       "js": ["filters.js", "content.js"],
       "run_at": "document_start"
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/haze-light.webp", "images/haze-dark.webp"],
+      "matches": ["*://*.reddit.com/*"]
+    }
   ]
 }
