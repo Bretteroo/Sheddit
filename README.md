@@ -38,30 +38,30 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
 | --- | --- | --- |
-| <img src="images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | "genuinely curious", or "Curious." on its own | On |
-| <img src="images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | "and honestly?" | On |
-| <img src="images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me (the) most" | On |
-| <img src="images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | "blown away" | On |
-| <img src="images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
-| <img src="images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |
-| <img src="images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
-| <img src="images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" or "honest feedback" | On |
-| <img src="images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
-| <img src="images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
-| <img src="images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
-| <img src="images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Scolding like "not a good look" or "do better" | On |
-| <img src="images/filters/armchair-attorney.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Armchair&nbsp;Attorney | Disgruntled rabble-rousers asking "Class action lawsuit, anyone?" | On |
-| <img src="images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
-| <img src="images/filters/origin-story.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Origin&nbsp;Story | Titles like "I got tired of X so I built Y" | On |
-| <img src="images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
-| <img src="images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
-| <img src="images/filters/lost-blogger.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lost&nbsp;Blogger | 600+ words | On |
-| <img src="images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
-| <img src="images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
-| <img src="images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |
-| <img src="images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV in 2027?" | On |
-| <img src="images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | A YouTube link or video with no text | On |
-| <img src="images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper | Links with no text | On |
+| <img src="src/images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | "genuinely curious", or "Curious." on its own | On |
+| <img src="src/images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | "and honestly?" | On |
+| <img src="src/images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me (the) most" | On |
+| <img src="src/images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | "blown away" | On |
+| <img src="src/images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
+| <img src="src/images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |
+| <img src="src/images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
+| <img src="src/images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" or "honest feedback" | On |
+| <img src="src/images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
+| <img src="src/images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
+| <img src="src/images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
+| <img src="src/images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Scolding like "not a good look" or "do better" | On |
+| <img src="src/images/filters/armchair-attorney.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Armchair&nbsp;Attorney | Disgruntled rabble-rousers asking "Class action lawsuit, anyone?" | On |
+| <img src="src/images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
+| <img src="src/images/filters/origin-story.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Origin&nbsp;Story | Titles like "I got tired of X so I built Y" | On |
+| <img src="src/images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
+| <img src="src/images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
+| <img src="src/images/filters/lost-blogger.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lost&nbsp;Blogger | 600+ words | On |
+| <img src="src/images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
+| <img src="src/images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
+| <img src="src/images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |
+| <img src="src/images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV in 2027?" | On |
+| <img src="src/images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | A YouTube link or video with no text | On |
+| <img src="src/images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper | Links with no text | On |
 
 ## 🪬 How it sees
 

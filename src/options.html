@@ -17,12 +17,49 @@
     h1 { font-size: 16px; margin: 0 0 4px; }
     p.intro { margin: 0 0 12px; color: #666; }
     h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #888; margin: 16px 0 4px; }
+    /* A group of filters: its heading folds the list away, and its switch
+       turns every filter in it on or off. */
+    .group { margin-top: 14px; }
+    .group-head { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+    .fold {
+      flex: 1; display: flex; align-items: baseline; gap: 8px; min-width: 0;
+      padding: 4px 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+    }
+    .fold::before {
+      content: ""; align-self: center; flex: none; width: 6px; height: 6px; margin: 0 4px 0 2px;
+      border-right: 2px solid #a0740c; border-bottom: 2px solid #a0740c;
+      transform: rotate(45deg) translate(-2px, -2px); transition: transform 0.2s ease;
+    }
+    .folded .fold::before { transform: rotate(-45deg); }
+    .group-title { font-size: 14px; font-weight: 600; color: #a0740c; }
+    .group-count { font-size: 12px; color: #888; }
+    .group-list > .filter:first-child { border-top: none; }
+    .group-list { overflow: hidden; }
+    .switch {
+      appearance: none; flex: none; position: relative; width: 34px; height: 20px; margin: 0;
+      border-radius: 10px; background: #c9c4bb; cursor: pointer; transition: background 0.2s ease;
+    }
+    .switch::after {
+      content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease;
+    }
+    .switch:checked { background: #e2a91c; }
+    .switch:checked::after { transform: translateX(14px); }
+    /* Some of the group's filters on: the knob waits in the middle. */
+    .switch:indeterminate { background: #e8cf8c; }
+    .switch:indeterminate::after { transform: translateX(7px); }
+    .switch:focus-visible, .fold:focus-visible { outline: 2px solid #e2a91c; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .switch, .switch::after, .fold::before { transition: none; }
+    }
     .choice { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
     .choice input { margin-top: 3px; }
     .choice .title { font-weight: 600; }
     .choice .desc { color: #666; }
     .filter { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid #ddd; }
     .filter input { margin-top: 3px; }
+    .filter .icon { flex: none; width: 28px; height: 28px; margin-top: 1px; border-radius: 7px; }
+    .filter.all .icon { border-radius: 50%; }
     .filter .title { font-weight: 600; }
     .filter .desc { color: #666; }
     .filter.all { position: relative; border-top: none; border-bottom: 2px solid #ddd; border-radius: 10px; }
@@ -57,12 +94,16 @@
       p.intro, .filter .desc, .choice .desc { color: #aaa; }
       .filter { border-color: #444; }
       .filter.all { border-bottom-color: #555; }
+      .group-title { color: #e0b44a; }
+      .fold::before { border-color: #e0b44a; }
+      .switch { background: #55525e; }
+      .switch:indeterminate { background: #8a7440; }
     }
   </style>
 </head>
 <body>
   <h1>Sheddit</h1>
-  <p class="intro">Sheddit only checks the page you have open. Listings are checked by title. An open thread is checked by its title and body, and its comments.</p>
+  <p class="intro">Sheddit only checks the page you have open. Listings are checked by title, along with the length of a text post. An open thread is checked by its title and body, and its comments.</p>
   <h2>When a post matches</h2>
   <div id="modes">
     <label class="choice">

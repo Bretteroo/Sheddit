@@ -20,16 +20,25 @@ if (/Android/.test(navigator.userAgent)) document.documentElement.classList.add(
 
   // "Enable all filters" sits above the list. It is checked only when every
   // filter is on.
-  const allRow = filterRow("Enable all filters", "Absolute zen.");
+  const allRow = filterRow("Enable all filters", "Absolute zen.", "icons/icon-48.png");
   allRow.row.classList.add("all");
   const allBox = allRow.box;
+  // Each group's switch is on when all of its filters are, and shows a
+  // dash when only some are.
+  const groupSwitches = [];
   const syncAll = () => {
     const on = SHEDDIT_FILTERS.filter((f) => enabled[f.id]).length;
     allBox.checked = on === SHEDDIT_FILTERS.length;
+    for (const { box, filters, count } of groupSwitches) {
+      const n = filters.filter((f) => enabled[f.id]).length;
+      box.checked = n === filters.length;
+      box.indeterminate = n > 0 && n < filters.length;
+      count.textContent = `${n} of ${filters.length} on`;
+    }
   };
   allBox.addEventListener("change", async () => {
     for (const f of SHEDDIT_FILTERS) enabled[f.id] = allBox.checked;
-    for (const box of boxes) box.checked = allBox.checked;
+    for (const { box, id } of boxes) box.checked = enabled[id];
     syncAll();
     if (allBox.checked) {
       // Decoration only: a problem here must never stop the setting saving.
@@ -43,26 +52,130 @@ if (/Android/.test(navigator.userAgent)) document.documentElement.classList.add(
   });
   container.append(allRow.row);
 
-  for (const f of SHEDDIT_FILTERS) {
-    const { row, box } = filterRow(f.title, f.description);
-    box.checked = enabled[f.id];
-    box.addEventListener("change", async () => {
-      enabled[f.id] = box.checked;
+  // The filters, under the group headings the website uses. Each group
+  // starts folded away under its heading; the ones opened stay open the
+  // next time the page is opened.
+  const byId = new Map(SHEDDIT_FILTERS.map((f) => [f.id, f]));
+  const grouped = new Set(SHEDDIT_GROUPS.flatMap((g) => g.ids));
+  const groups = SHEDDIT_GROUPS.map((g) => ({ title: g.title, filters: g.ids.map((id) => byId.get(id)).filter(Boolean) }));
+  const rest = SHEDDIT_FILTERS.filter((f) => !grouped.has(f.id));
+  if (rest.length) groups.push({ title: "More", filters: rest });
+  const open = new Set(await loadOpen());
+  groups.forEach((group, i) => {
+    const section = document.createElement("section");
+    section.className = "group";
+    const head = document.createElement("div");
+    head.className = "group-head";
+    const fold = document.createElement("button");
+    fold.type = "button";
+    fold.className = "fold";
+    const listId = `group-${i}`;
+    fold.setAttribute("aria-controls", listId);
+    const name = document.createElement("span");
+    name.className = "group-title";
+    name.textContent = group.title;
+    const count = document.createElement("span");
+    count.className = "group-count";
+    fold.append(name, count);
+    const toggle = document.createElement("input");
+    toggle.type = "checkbox";
+    toggle.className = "switch";
+    toggle.setAttribute("aria-label", `Turn on every filter in ${group.title}`);
+    head.append(fold, toggle);
+    const list = document.createElement("div");
+    list.className = "group-list";
+    list.id = listId;
+    section.append(head, list);
+    container.append(section);
+
+    // Opening and folding slide the list open or shut, unless the reader
+    // asks for reduced motion. A click partway through turns it around
+    // from where it is.
+    let sliding = null;
+    const setFolded = (shut, animate = false) => {
+      section.classList.toggle("folded", shut);
+      fold.setAttribute("aria-expanded", String(!shut));
+      const from = sliding ? list.getBoundingClientRect().height : null;
+      if (sliding) sliding.cancel();
+      sliding = null;
+      if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        list.hidden = shut;
+        return;
+      }
+      list.hidden = false;
+      const full = list.scrollHeight;
+      const start = from !== null ? from : shut ? full : 0;
+      sliding = list.animate(
+        [{ height: `${start}px`, opacity: shut ? 1 : 0 }, { height: `${shut ? 0 : full}px`, opacity: shut ? 0 : 1 }],
+        { duration: 280, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" });
+      sliding.onfinish = () => {
+        sliding = null;
+        list.hidden = shut;
+      };
+    };
+    setFolded(!open.has(group.title));
+    fold.addEventListener("click", () => {
+      const shut = !section.classList.contains("folded");
+      setFolded(shut, true);
+      if (shut) open.delete(group.title);
+      else open.add(group.title);
+      saveOpen([...open]);
+    });
+
+    groupSwitches.push({ box: toggle, filters: group.filters, count });
+    toggle.addEventListener("change", async () => {
+      for (const f of group.filters) enabled[f.id] = toggle.checked;
+      for (const { box, id } of boxes) box.checked = enabled[id];
       syncAll();
       await shedditApi.storage.sync.set({ enabled });
     });
-    boxes.push(box);
-    container.append(row);
-  }
+
+    for (const f of group.filters) {
+      const { row, box } = filterRow(f.title, f.description, `images/filters/${f.id}.svg`);
+      box.checked = enabled[f.id];
+      box.addEventListener("change", async () => {
+        enabled[f.id] = box.checked;
+        syncAll();
+        await shedditApi.storage.sync.set({ enabled });
+      });
+      boxes.push({ box, id: f.id });
+      list.append(row);
+    }
+  });
   syncAll();
 })();
 
-// One checkbox row: a title in bold with a description under it.
-function filterRow(titleText, descText) {
+// Which groups are open, kept on this device only.
+async function loadOpen() {
+  try {
+    const { openGroups = [] } = await shedditApi.storage.local.get("openGroups");
+    return openGroups;
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveOpen(titles) {
+  try {
+    Promise.resolve(shedditApi.storage.local.set({ openGroups: titles })).catch(() => {});
+  } catch (e) {
+    // Folding still works for this visit.
+  }
+}
+
+// One checkbox row: an icon, then a title in bold with a description under
+// it.
+function filterRow(titleText, descText, iconSrc) {
   const row = document.createElement("label");
   row.className = "filter";
   const box = document.createElement("input");
   box.type = "checkbox";
+  const icon = document.createElement("img");
+  icon.className = "icon";
+  icon.src = iconSrc;
+  icon.alt = "";
+  icon.width = 28;
+  icon.height = 28;
   const info = document.createElement("div");
   const title = document.createElement("div");
   title.className = "title";
@@ -71,7 +184,7 @@ function filterRow(titleText, descText) {
   desc.className = "desc";
   desc.textContent = descText;
   info.append(title, desc);
-  row.append(box, info);
+  row.append(box, icon, info);
   return { row, box };
 }
 

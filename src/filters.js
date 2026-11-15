@@ -354,6 +354,28 @@ const LAWYER_PHRASES = [
   new RegExp(String.raw`\b(?:time\s+for|start|file|ripe\s+for|grounds\s+for)\s+(?:a\s+)?class[\s-]+action`, "i"),
 ];
 
+// The settings page lists the filters in these groups, the same ones
+// sheddit.io uses. A filter left out of every group is listed after them.
+const SHEDDIT_GROUPS = [
+  {
+    title: "Stock phrases",
+    ids: ["curiosity-killer", "candor-cutter", "shock-absorber", "storm-shelter", "pearl-clutcher",
+      "bingo-blackout", "sinkhole", "lie-detector", "sarcasm-sweeper"],
+  },
+  {
+    title: "Comment-section reflexes",
+    ids: ["pity-party", "trade-secret", "pitchfork-patrol", "armchair-attorney"],
+  },
+  {
+    title: "Whole-post formulas",
+    ids: ["teachable-moment", "origin-story", "catch-and-release", "wrecking-ball", "lost-blogger"],
+  },
+  {
+    title: "Titles, formatting, and links",
+    ids: ["inside-voice", "small-talk", "my-welcome", "year-end-clearance", "skip-ad", "link-dumper"],
+  },
+];
+
 // Filters whose id changed, new id to old, so a setting saved under the
 // old id still counts.
 const SHEDDIT_RENAMED = { "my-welcome": "your-welcome", "armchair-attorney": "case-dismissed" };
