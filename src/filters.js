@@ -221,9 +221,9 @@ const SHEDDIT_FILTERS = [
     test: (text) => PITCHFORK_PHRASES.some((re) => re.test(text)),
   },
   {
-    id: "case-dismissed",
-    title: "Case Dismissed",
-    description: 'Hides armchair-lawyer posts and comments like "Class action lawsuit, anyone?" or "I smell a class action".',
+    id: "armchair-attorney",
+    title: "Armchair Attorney",
+    description: 'Hides disgruntled rabble-rousers asking "Class action lawsuit, anyone?" or saying "I smell a class action".',
     enabledByDefault: true,
     test: (text) => LAWYER_PHRASES.some((re) => re.test(text)),
   },
@@ -319,7 +319,7 @@ const PITCHFORK_PHRASES = [
   /\bthis\s+ain'?t\s+it\b/i,
 ];
 
-// Phrases for Case Dismissed. LAWSUIT matches "class action", "class
+// Phrases for Armchair Attorney. LAWSUIT matches "class action", "class
 // action lawsuit", "class-action suit" or "lawsuit". Plain mentions of a
 // real case ("the class action settled last year") don't match; only the
 // gleeful calls for one do.
@@ -339,7 +339,7 @@ const LAWYER_PHRASES = [
 
 // Filters whose id changed, new id to old, so a setting saved under the
 // old id still counts.
-const SHEDDIT_RENAMED = { "my-welcome": "your-welcome" };
+const SHEDDIT_RENAMED = { "my-welcome": "your-welcome", "armchair-attorney": "case-dismissed" };
 
 // Settings are stored as { enabled: { [filterId]: boolean } }. Filters with
 // no saved value fall back to enabledByDefault.
