@@ -253,6 +253,13 @@ const SHEDDIT_FILTERS = [
     test: (text) => LESSON_PHRASES.some((re) => re.test(text)),
   },
   {
+    id: "origin-story",
+    title: "Origin Story",
+    description: 'Hides posts whose title tells how someone got fed up and made something, like "I got tired of X so I built Y".',
+    enabledByDefault: true,
+    test: (text, { title }) => ORIGIN_STORY.test(title),
+  },
+  {
     id: "my-welcome",
     title: "My Welcome",
     description: 'Hides posts and comments that use "your" where they mean "you\'re", like "your welcome" or "your the best".',
@@ -318,6 +325,18 @@ const PITCHFORK_PHRASES = [
   /(?:^|[.!?,;:(\u2013\u2014-]\s*|\b(?:just|please)\s+|(?<!\b(?:I|we)\s+)\b(?:needs?\s+to|ha(?:ve|s)\s+to|gotta|must|should)\s+)(?:do|be)\s+better\b(?=\s*(?:[.!,;)]|$))/im,
   /\bthis\s+ain'?t\s+it\b/i,
 ];
+
+// Titles for Origin Story: being tired, sick, or fed up with something,
+// then a word that joins on what came of it (a comma, dash, "so", or
+// "and"), then making something: "I got tired of X so I built Y", "Sick
+// of X, made Y", "Fed up with X - so we launched Y". The joining word
+// keeps out titles like "Tired of people who built X".
+const ORIGIN_STORY = new RegExp(
+  String.raw`\b(?:tired|sick(?:\s+and\s+tired)?|fed\s+up|frustrated|annoyed|bored)\s+(?:of|with)\s+.+?` +
+  String.raw`(?:\s*[,.:;\u2013\u2014-]\s*(?:so\s+|and\s+)?|\s+(?:so|and)\s+)` +
+  String.raw`(?:(?:i|we)\s+)?(?:just\s+|finally\s+|ended\s+up\s+|decided\s+to\s+)?` +
+  String.raw`(?:built|build|made|make|created|create|wrote|write|coded|code|launched|launch|started|start|developed|develop|vibe[\s-]?coded)\b`,
+  "i");
 
 // Phrases for Armchair Attorney. LAWSUIT matches "class action", "class
 // action lawsuit", "class-action suit" or "lawsuit". Plain mentions of a
