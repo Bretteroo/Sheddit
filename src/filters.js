@@ -161,27 +161,23 @@ const SHEDDIT_FILTERS = [
     enabledByDefault: true,
     checksText: true,
     // A post with no body text (bare links don't count as text) that links
-    // to or embeds youtube.com (any subdomain, like m. or music.), the
-    // youtu.be short-link domain, or youtube-nocookie.com, which YouTube
-    // uses for privacy-mode embeds.
-    test: (text, { domain, embeds = [], hasText }) =>
-      !hasText &&
-      [domain, ...embeds].some((d) =>
-        /(^|\.)youtube\.com$|^youtu\.be$|(^|\.)youtube-nocookie\.com$/.test(d || "")),
+    // to or embeds YouTube (see onYouTube).
+    test: (text, { hasText, ...parts }) => !hasText && onYouTube(parts),
   },
   {
     id: "link-dumper",
     title: "Link Dumper",
-    description: "Hides posts that are just a link to another site, with no text from the poster.",
+    description: "Hides posts that are just a link to a site other than YouTube, with no text from the poster. Skip Ad covers YouTube.",
     enabledByDefault: true,
     checksText: true,
     // The preview Reddit pulls from the linked page isn't the poster's
     // text, so it doesn't count. Links that stay on Reddit (text posts,
     // crossposts, galleries, and Reddit's own image and video hosts) and
     // image hosts like Imgur are pictures and videos, not link dumps.
-    // Reddit names a text post's domain "self.<subreddit>".
-    test: (text, { domain, hasText }) =>
-      !hasText && !!domain && !/^self\./.test(domain) &&
+    // YouTube links and embeds are left to Skip Ad, so a post is never
+    // caught by both. Reddit names a text post's domain "self.<subreddit>".
+    test: (text, { domain, hasText, ...parts }) =>
+      !hasText && !!domain && !/^self\./.test(domain) && !onYouTube({ domain, ...parts }) &&
       !/(^|\.)(reddit\.com|redd\.it|redditmedia\.com|reddituploads\.com|redditstatic\.com|imgur\.com|gfycat\.com|redgifs\.com|giphy\.com)$/.test(domain),
   },
   {
@@ -264,6 +260,14 @@ const SHEDDIT_FILTERS = [
     test: (text) => YOURE_PHRASES.some((re) => re.test(text)),
   },
 ];
+
+// Whether a post links to or embeds YouTube: youtube.com (any subdomain,
+// like m. or music.), the youtu.be short-link domain, or
+// youtube-nocookie.com, which YouTube uses for privacy-mode embeds.
+function onYouTube({ domain, embeds = [] }) {
+  return [domain, ...embeds].some((d) =>
+    /(^|\.)youtube\.com$|^youtu\.be$|(^|\.)youtube-nocookie\.com$/.test(d || ""));
+}
 
 // Phrases for My Welcome. "Your" followed by almost any word can be
 // right ("your cooking", "your right to vote"), so these only cover the
