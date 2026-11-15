@@ -483,7 +483,7 @@
         inset -1px 0 0 rgba(214, 170, 60, 0.45);
     }
     /* Exactly as tall as the room it replaces, so revealing moves nothing. */
-    .sheddit-rehide-stacked { height: ${HIDE_TAB_HEIGHT - 1}px; }
+    .sheddit-rehide-stacked { height: ${HIDE_TAB_HEIGHT - 1 + STACK_GAP}px; }
     /* In a list, under another caught post, the tab keeps the same gap
        above it as the one between covered posts. Under any other post that
        post's own padding spaces them. */
@@ -1219,12 +1219,97 @@
     return Math.abs(shift) <= 8 ? Math.round(shift) : 0;
   }
 
+  // The gap kept above a covered post, and above its Hide again tab once
+  // it's revealed: under Reddit's header for the post a thread page is
+  // about, or under another caught post in a list.
+  function tabGap(target) {
+    if (opensUnderHeader(target, "post")) return headerRooms.get(target) ?? savedHeaderRoom ?? STACK_GAP;
+    // The first post in a feed has whatever Reddit puts above the feed
+    // over it, like its community highlights, and keeps the gap below that.
+    return caughtAbove(target) || !feedNeighbor(target, "previousElementSibling") ? STACK_GAP : 0;
+  }
+
+  // The room kept above a covered post: below Reddit's header for the post
+  // a thread page is about, below another caught post in a list.
+  function coveredRoom(target) {
+    if (opensUnderHeader(target, "post")) return tabGap(target);
+    return caughtAbove(target) ? STACK_GAP : 0;
+  }
+
+  // The post a thread page is about sits the same distance below Reddit's
+  // header as above whatever comes next, like the box to write a comment.
+  // Measured while it's covered, walking down from the overlay's bottom to
+  // the first thing drawn there. Reddit fills in the page below as it
+  // loads, so it's measured again on later scans, at most twice a second;
+  // Peek and Hide again use the last measure.
+  const headerRooms = new WeakMap();
+  // The last balanced gap, saved between pages so a thread post starts
+  // where it will settle instead of moving there as the page loads.
+  let savedHeaderRoom = null;
+  if (shedditApi.storage.local) {
+    Promise.resolve(shedditApi.storage.local.get("headerRoom")).then((stored) => {
+      if (stored && Number.isFinite(stored.headerRoom)) savedHeaderRoom = stored.headerRoom;
+    }, () => {});
+  }
+  // A measure is only acted on once the next one agrees, so the passing
+  // shapes of a page that's still loading don't move the post.
+  const lastMeasure = new WeakMap();
+  const balancedAt = new WeakMap();
+  const balanceChecks = new WeakMap();
+  function balanceUnderHeader(target) {
+    if (!tabRooms.has(target) || rehideBars.has(target)) return;
+    const now = performance.now();
+    if (now - (balancedAt.get(target) || -Infinity) < 500) return;
+    balancedAt.set(target, now);
+    // The page can settle without another scan, so it checks back a few
+    // times on its own.
+    const checks = (balanceChecks.get(target) || 0) + 1;
+    balanceChecks.set(target, checks);
+    if (checks < 10) setTimeout(() => balanceUnderHeader(target), 600);
+    const v = veils.get(target);
+    const card = v && v.marker.querySelector(".sheddit-veil-card");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    if (!r.height || r.bottom < 0 || r.bottom > window.innerHeight - 4) return;
+    const x = r.left + r.width / 2;
+    let next = null;
+    for (let y = r.bottom + 1; y < Math.min(window.innerHeight, r.bottom + 80); y++) {
+      const el = document.elementFromPoint(x, y);
+      if (!el || el.contains(target) || el.closest(".sheddit-veil")) continue;
+      // Something still loading can report a place that isn't on screen
+      // yet; only what starts below the overlay counts.
+      const top = el.getBoundingClientRect().top;
+      if (top >= r.bottom - 1) {
+        next = top;
+        break;
+      }
+    }
+    if (next === null) return;
+    const room = tabRooms.get(target)[2];
+    const balanced = Math.max(0, Math.round((room + next - r.bottom) / 2));
+    const agreed = lastMeasure.get(target) === balanced;
+    lastMeasure.set(target, balanced);
+    if (!agreed) return;
+    headerRooms.set(target, balanced);
+    if (balanced !== savedHeaderRoom) {
+      savedHeaderRoom = balanced;
+      if (shedditApi.storage.local) {
+        Promise.resolve(shedditApi.storage.local.set({ headerRoom: balanced })).catch(() => {});
+      }
+    }
+    if (balanced !== room) {
+      keepTabRoom(target, true, balanced);
+      // A margin doesn't resize the post, so the overlay is moved along.
+      v.fit();
+    }
+  }
+
   // How far a list post's Hide again bar is pulled up into the bottom
   // padding of a regular post above it, leaving STACK_GAP between that
   // post's last content, like its row of buttons, and the tab. None under
   // a caught post, whose box is spaced by the kept gap instead.
   function tabPull(target) {
-    if (caughtAbove(target)) return 0;
+    if (tabGap(target)) return 0;
     const prev = feedNeighbor(target, "previousElementSibling");
     const edge = prev && contentEdge(prev, "bottom");
     if (edge === null || edge === undefined) return 0;
@@ -1352,11 +1437,15 @@
     target.setAttribute(HIDDEN_ATTR, ids);
     coverHeaderCopy(target, true);
     if (kind === "post") hideSeparators(target);
-    // A post in a list right under another caught post has no free space
-    // above it for its Hide again tab, since that post's overlay or box sits
-    // there, so it keeps a gap the tab's height.
+    // A post in a list right under another caught post, or the post a
+    // thread page is about, keeps a small gap above it; Peek grows the gap
+    // to hold its Hide again tab.
     if (!animated) {
-      if (opensUnderHeader(target, kind)) keepTabRoom(target, true);
+      if (opensUnderHeader(target, kind)) {
+        keepTabRoom(target, true, tabGap(target));
+        // Once the post has its covered height and the page around it.
+        requestAnimationFrame(() => requestAnimationFrame(() => balanceUnderHeader(target)));
+      }
       else if (kind === "post" && !onThreadPage() && caughtAbove(target)) keepTabRoom(target, true, STACK_GAP);
     }
     const current = startRun(target);
@@ -1528,9 +1617,13 @@
         fit();
         card.style.removeProperty("opacity");
         for (const el of leaving) el.style.opacity = "0";
+        // A comment's name line that moved down to make room for the tab
+        // eases back up as the box closes.
+        const roomy = headRooms.get(target);
+        if (roomy) roomy.style.setProperty("margin-top", "0px", "important");
         for (const el of leaving) {
           // A list post's bar shrinks back to the gap kept above the post.
-          if (el.classList.contains("sheddit-rehide-grows")) slide(el, "close", caughtAbove(target) ? STACK_GAP : 0);
+          if (el.classList.contains("sheddit-rehide-grows")) slide(el, "close", coveredRoom(target));
           else if (!el.classList.contains("sheddit-rehide-stacked")) slide(el, "close");
         }
 
@@ -1538,7 +1631,7 @@
         setInline(target, { height: `${barHeight(kind, target)}px` });
         await pause(ms);
         if (leaving.some((el) => el.classList.contains("sheddit-rehide-grows"))) {
-          if (caughtAbove(target)) keepTabRoom(target, true, STACK_GAP);
+          if (coveredRoom(target)) keepTabRoom(target, true, coveredRoom(target));
         }
         else if (leaving.some((el) => el.classList.contains("sheddit-rehide-stacked"))) keepTabRoom(target, true);
         leaving.forEach((el) => el.remove());
@@ -1547,6 +1640,8 @@
         if (!current()) return;
         collapse();
         restoreInline(target);
+        // The overlay fits the post's final layout now, not a frame later.
+        fit();
         unfade();
         // Its contents fade in as its colors ease back to a covered post's.
         card.classList.remove("sheddit-veil-open");
@@ -1566,17 +1661,15 @@
     });
   }
 
-  // The post a thread page is about. Reddit's fixed header sits right above
-  // it, so its Hide again tab can't reach up past the post's top edge the
-  // way it does elsewhere. Instead the post keeps a tab's height of room
-  // above it while covered, and the tab stands in that room once revealed,
-  // so nothing moves either way.
+  // The post a thread page is about, right under Reddit's fixed header. It
+  // keeps a small gap below the header while covered, like a covered post
+  // under another one in a list; Peek grows the gap to hold its tab.
   const tabRooms = new Map();
   function opensUnderHeader(target, kind) {
     return kind === "post" && target.tagName === "SHREDDIT-POST" && onThreadPage();
   }
 
-  function keepTabRoom(target, keep, room = HIDE_TAB_HEIGHT - 1) {
+  function keepTabRoom(target, keep, room = HIDE_TAB_HEIGHT - 1 + STACK_GAP) {
     if (keep) {
       if (!tabRooms.has(target)) {
         tabRooms.set(target, [target.style.getPropertyValue("margin-top"), target.style.getPropertyPriority("margin-top"), room]);
@@ -1685,10 +1778,10 @@
     // about sits right under Reddit's fixed header, where a tab reaching up
     // would hide behind it, so that post keeps Hide again in its tab.
     const meta = commentMeta(target, kind);
-    // The post a thread page is about has a tab's height of room kept
-    // above it, and its tab stands in that. Every post in a list gets a bar
-    // that grows to hold its tab on Peek, so the tab never covers the
-    // bottom of the post above, where Reddit puts its "..." menu.
+    // Every post gets a bar that grows above it to hold its tab on Peek:
+    // in a list, so the tab never covers the bottom of the post above,
+    // where Reddit puts its "..." menu, and on a thread page, so the tab
+    // doesn't hide behind Reddit's fixed header.
     const stacked = opensUnderHeader(target, kind) || tabRooms.has(target) ||
       (kind === "post" && !onThreadPage());
     if (meta || stacked || (kind === "post" && !onThreadPage())) {
@@ -1700,9 +1793,9 @@
       if (stacked) bar.classList.add("sheddit-rehide-stacked");
       // In a list, the kept gap is small; the bar grows from it to a tab's
       // height on Peek, moving the post down to make room for the tab.
-      if (stacked && !opensUnderHeader(target, kind)) {
+      if (stacked) {
         bar.classList.add("sheddit-rehide-grows");
-        bar.style.setProperty("--sheddit-tab-gap", `${caughtAbove(target) ? STACK_GAP : 0}px`);
+        bar.style.setProperty("--sheddit-tab-gap", `${tabGap(target)}px`);
         bar.style.setProperty("--sheddit-tab-pull", `${tabPull(target)}px`);
       }
       // A comment's box takes in its name line: the box's top edge sits
@@ -1890,6 +1983,53 @@
     }, () => {});
   }
 
+  // How far a revealed comment's name line moves down so its Hide again
+  // tab, a tab's height above the name line, keeps STACK_GAP clear of the
+  // comment above it, often a covered reply whose box would hide the tab.
+  const headRooms = new Map();
+  function commentTabRoom(target, head) {
+    const comment = target.closest("shreddit-comment");
+    if (!comment) return 0;
+    const headTop = head.getBoundingClientRect().top;
+    // What sits right above: the comment before it, or for a first reply,
+    // the parent comment's own text, row of buttons, and covered or
+    // revealed box.
+    const above = [];
+    let prev = comment.previousElementSibling;
+    while (prev && !prev.getBoundingClientRect().height) prev = prev.previousElementSibling;
+    if (prev) above.push(prev);
+    const parent = comment.parentElement && comment.parentElement.closest("shreddit-comment");
+    // Sheddit's own pieces beside the text carry its slot too.
+    const text = parent && [...parent.querySelectorAll('[slot="comment"]')]
+      .find((el) => el.closest("shreddit-comment") === parent && !isOwnPiece(el));
+    if (text) {
+      const v = veils.get(text);
+      const pieces = rehideBars.get(text);
+      above.push(text, commentRow(text, "comment"),
+        v && v.marker.querySelector(".sheddit-veil-card"), pieces && pieces[1]);
+    }
+    // And whatever the page draws where the tab will stand, like the
+    // sort and search bar above a thread's first comment.
+    const h = head.getBoundingClientRect();
+    const tabTop = headTop - (HIDE_TAB_HEIGHT + 1);
+    for (const y of [tabTop + 2, headTop - 4]) {
+      for (const x of [h.right - 10, h.right - 45, h.right - 80]) {
+        for (const el of document.elementsFromPoint(x, y)) {
+          if (el.contains(comment) || comment.contains(el) || el.closest(".sheddit-veil, .sheddit-rehide")) continue;
+          above.push(el);
+        }
+      }
+    }
+    let bottom = -Infinity;
+    for (const el of above) {
+      if (!el || !el.isConnected) continue;
+      const r = el.getBoundingClientRect();
+      if (r.height && r.top < headTop && r.bottom <= headTop + 1) bottom = Math.max(bottom, r.bottom);
+    }
+    if (bottom === -Infinity) return 0;
+    return Math.max(0, Math.round(bottom + STACK_GAP - tabTop));
+  }
+
   // While a post is revealed, padding keeps its text off the frame's side
   // edges. Reddit's own padding values are saved and put back afterwards.
   const pads = new Map();
@@ -1919,7 +2059,7 @@
     // and the box reaches left to the avatar's edge: the text and row get a
     // band of the box's colors beside them, over the avatar's column.
     const head = bar.classList.contains("sheddit-rehide-head") ? commentHead(target, kind) : null;
-    const headSaved = head && ["padding-left", "padding-right", "padding-top"].map((k) =>
+    const headSaved = head && ["padding-left", "padding-right", "padding-top", "margin-top", "transition"].map((k) =>
       [k, head.style.getPropertyValue(k), head.style.getPropertyPriority(k)]);
     let reach = 0;
     if (head) {
@@ -1929,6 +2069,14 @@
       head.style.setProperty("padding-right", `${Math.max(0, right - (t.right - h.right))}px`, "important");
       head.style.setProperty("padding-top", `${(parseFloat(getComputedStyle(head).paddingTop) || 0) + 6}px`, "important");
       head.classList.add("sheddit-revealed-head");
+      // The Hide again tab stands above the name line; when the comment
+      // above leaves too little room for it, the name line eases down.
+      const room = commentTabRoom(target, head);
+      if (room) {
+        head.style.setProperty("transition", `margin-top ${motionMs()}ms ease`);
+        head.style.setProperty("margin-top", `${room}px`, "important");
+        headRooms.set(target, head);
+      }
       // The text starts where the name does.
       const meta = commentMeta(target, kind);
       if (meta) {
@@ -1976,6 +2124,7 @@
           else head.style.removeProperty(k);
         }
         head.classList.remove("sheddit-revealed-head");
+        headRooms.delete(target);
       }
       if (row) {
         for (const [k, v, priority] of rowSaved) {
@@ -2281,12 +2430,19 @@
       }
       v.fit();
     }
+    // The post a thread page is about is balanced below the header once
+    // the page under it has loaded.
+    if (onThreadPage()) {
+      for (const [target] of tabRooms) {
+        if (!rehideBars.has(target) && opensUnderHeader(target, "post")) balanceUnderHeader(target);
+      }
+    }
     // An open list post's tab keeps the gap above it only under another
     // caught post, which may have been caught after this one opened.
     for (const [target, pieces] of rehideBars) {
       const bar = pieces[0];
       if (bar.isConnected && bar.classList.contains("sheddit-rehide-grows")) {
-        bar.style.setProperty("--sheddit-tab-gap", `${caughtAbove(target) ? STACK_GAP : 0}px`);
+        bar.style.setProperty("--sheddit-tab-gap", `${tabGap(target)}px`);
       }
     }
     // A revealed post's cap keeps a little space below it, except above
