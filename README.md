@@ -34,49 +34,37 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 
 Activate one filter for a taste of serenity, or _all of them_ for maximum levels of inner peace.
 
-### Stock phrases
-
-| Filter | Posts and comments that it hides | Default |
-| --- | --- | --- |
-| <img src="src/images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer | "genuinely curious", or "Curious." on its own | On |
-| <img src="src/images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter | "and honestly?" | On |
-| <img src="src/images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber | "what surprised me (the) most" | On |
-| <img src="src/images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter | "blown away" | On |
-| <img src="src/images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
-| <img src="src/images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |
-| <img src="src/images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
-| <img src="src/images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" or "honest feedback" | On |
-| <img src="src/images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
-
-### Comment-section reflexes
-
-| Filter | Posts and comments that it hides | Default |
-| --- | --- | --- |
-| <img src="src/images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
-| <img src="src/images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
-| <img src="src/images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Scolding like "not a good look" or "do better" | On |
-| <img src="src/images/filters/armchair-attorney.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Armchair&nbsp;Attorney | Disgruntled rabble-rousers asking "Class action lawsuit, anyone?" | On |
-
-### Whole-post formulas
-
-| Filter | Posts and comments that it hides | Default |
-| --- | --- | --- |
-| <img src="src/images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
-| <img src="src/images/filters/origin-story.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Origin&nbsp;Story | Titles like "I got tired of X so I built Y" | On |
-| <img src="src/images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
-| <img src="src/images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
-| <img src="src/images/filters/lost-blogger.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lost&nbsp;Blogger | 600+ words | On |
-
-### Titles, formatting, and links
-
-| Filter | Posts and comments that it hides | Default |
-| --- | --- | --- |
-| <img src="src/images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
-| <img src="src/images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
-| <img src="src/images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |
-| <img src="src/images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance | Titles that end in a year, like "Best TV in 2027?" | On |
-| <img src="src/images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | A YouTube link or video with no text | On |
-| <img src="src/images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper | Links with no text | On |
+<table>
+<tr><th align="left">Filter</th><th align="left">Posts and comments that it hides</th><th align="left">Default</th></tr>
+<tr><th colspan="3" align="left"><br>Stock phrases</th></tr>
+<tr><td><img src="src/images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer</td><td>"genuinely curious", or "Curious." on its own</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter</td><td>"and honestly?"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber</td><td>"what surprised me (the) most"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter</td><td>"blown away"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber</td><td>"witaf" or "what in the actual fuck"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout</td><td>"not on my bingo card"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole</td><td>"let that sink in"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector</td><td>"honest review" or "honest feedback"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper</td><td>The "/s" sarcasm tag</td><td>On</td></tr>
+<tr><th colspan="3" align="left"><br>Comment-section reflexes</th></tr>
+<tr><td><img src="src/images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party</td><td>"I don't know why you're getting downvoted"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret</td><td>Anyone who is something "by trade"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol</td><td>Scolding like "not a good look" or "do better"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/armchair-attorney.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Armchair&nbsp;Attorney</td><td>Disgruntled rabble-rousers asking "Class action lawsuit, anyone?"</td><td>On</td></tr>
+<tr><th colspan="3" align="left"><br>Whole-post formulas</th></tr>
+<tr><td><img src="src/images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment</td><td>"Here's what I learned" and "What I learned about X"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/origin-story.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Origin&nbsp;Story</td><td>Titles like "I got tired of X so I built Y"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release</td><td>1,000+ characters that end in a question</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball</td><td>1,000+ characters in a single paragraph</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/lost-blogger.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lost&nbsp;Blogger</td><td>600+ words</td><td>On</td></tr>
+<tr><th colspan="3" align="left"><br>Titles, formatting, and links</th></tr>
+<tr><td><img src="src/images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice</td><td>Titles in ALL CAPS (8+ capital letters, no lowercase)</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk</td><td>Written without a single capital letter</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome</td><td>"your" where "you're" belongs, like "your welcome"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/year-end-clearance.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Year&#8209;End&nbsp;Clearance</td><td>Titles that end in a year, like "Best TV in 2027?"</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad</td><td>A YouTube link or video with no text</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper</td><td>Links with no text</td><td>On</td></tr>
+</table>
 
 ## 🍃 Letting go
 
