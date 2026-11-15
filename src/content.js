@@ -259,6 +259,11 @@
     .sheddit-revealed {
       background: linear-gradient(180deg, rgba(255, 250, 235, 0.94), rgba(249, 245, 252, 0.94)) !important;
     }
+    /* On wider screens Reddit gives a thread post's author line a white
+       background of its own. It takes the color at the top of the box,
+       opaque, since Reddit can keep that line stuck in view as you scroll. */
+    .sheddit-revealed > [slot="credit-bar"] { background-color: rgb(255, 250, 236) !important; }
+    html.sheddit-theme-dark .sheddit-revealed > [slot="credit-bar"] { background-color: rgb(44, 36, 22) !important; }
     /* An overlay that's open over a post, during Peek and Hide again, takes
        the revealed post's colors, so the two meet without a seam. Those
        colors are a layer under its contents that fades in and out, so the
@@ -1813,6 +1818,20 @@
     const row = commentRow(target, kind);
     (row || target).after(cap);
     if (row && row.getAttribute("slot")) cap.setAttribute("slot", row.getAttribute("slot"));
+    // On wider screens Reddit lets a thread's post reach past its column with
+    // negative side margins. The bar and cap take the same margins, so the
+    // box's edges and the tab line up with the post instead of sitting inside
+    // its background.
+    if (kind === "post") {
+      const tcs = getComputedStyle(target);
+      for (const side of ["left", "right"]) {
+        const m = parseFloat(tcs.getPropertyValue(`margin-${side}`)) || 0;
+        if (m < 0) {
+          bar.style.setProperty(`margin-${side}`, `${m}px`, "important");
+          cap.style.setProperty(`margin-${side}`, `${m}px`, "important");
+        }
+      }
+    }
     // In the phone layout's grid, the cap takes the row's column.
     if (row) cap.style.gridColumn = meta ? "1 / -1" : getComputedStyle(row).gridColumn;
     // The frame spans the gap between the bar and the cap, which is the
