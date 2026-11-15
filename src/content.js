@@ -787,6 +787,90 @@
     conceal(target, matches, "post", id, isOpenPost(post, layout));
   }
 
+  // Feeds show an image, video, or link post without its body, so whether
+  // such a post has text of its own is asked of Reddit: true or false once
+  // known, "waiting" until the post nears the screen, "asking" meanwhile.
+  // Each post is asked about once, from the Reddit site the page is on,
+  // and only as it comes within about a screen of view, since Reddit
+  // allows a site 100 of these requests every 10 minutes. While an answer
+  // is pending the post is kept invisible, so it doesn't show and then
+  // vanish. Near the limit, or if a request fails, posts are left alone.
+  const bodyAnswers = new Map();
+  const bodyQueue = [];
+  let bodyRequests = 0;
+  let bodyPausedUntil = 0;
+  const CHECKING_ATTR = "data-sheddit-checking";
+  const nearScreen = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      nearScreen.unobserve(entry.target);
+      const id = entry.target.getAttribute(CHECKING_ATTR);
+      if (bodyAnswers.get(id) !== "waiting") continue;
+      bodyAnswers.set(id, "asking");
+      bodyQueue.push(id);
+    }
+    askForBodies();
+  }, { rootMargin: "100% 0px" });
+
+  function bodyCheck(post, layout) {
+    const id = post.getAttribute("data-fullname") || (/^t3_/.test(post.id) ? post.id : "");
+    if (!/^t3_[a-z0-9]+$/i.test(id)) return false;
+    const known = bodyAnswers.get(id);
+    if (typeof known === "boolean") return known;
+    if (!known && Date.now() < bodyPausedUntil) return true;
+    const target = (layout.wrapper && post.closest(layout.wrapper)) || post;
+    if (target.getAttribute(CHECKING_ATTR) !== id) {
+      target.setAttribute(CHECKING_ATTR, id);
+      target.style.setProperty("opacity", "0", "important");
+      if (!known || known === "waiting") {
+        bodyAnswers.set(id, "waiting");
+        nearScreen.observe(target);
+      }
+    }
+    return undefined;
+  }
+
+  function askForBodies() {
+    while (bodyRequests < 3 && bodyQueue.length) {
+      const id = bodyQueue.shift();
+      if (Date.now() < bodyPausedUntil) {
+        bodyAnswers.set(id, true);
+        releaseChecked(id);
+        continue;
+      }
+      bodyRequests++;
+      // Firefox's content scripts fetch as the extension unless they use
+      // the page's own fetch, which carries the page's Reddit session.
+      const get = typeof content !== "undefined" && content.fetch ? content.fetch.bind(content) : fetch;
+      get(`${location.origin}/comments/${id.slice(3)}.json?limit=1&depth=1&raw_json=1`, { credentials: "include" })
+        .then((r) => {
+          const left = parseFloat(r.headers.get("x-ratelimit-remaining"));
+          const reset = parseFloat(r.headers.get("x-ratelimit-reset"));
+          if (!r.ok || left < 10) bodyPausedUntil = Date.now() + (reset > 0 ? reset : 600) * 1000;
+          return r.ok ? r.json() : Promise.reject(new Error(r.status));
+        })
+        .then((data) => {
+          const post = data && data[0] && data[0].data.children[0] && data[0].data.children[0].data;
+          bodyAnswers.set(id, post ? hasRealText(String(post.selftext || "")) : true);
+        }, () => bodyAnswers.set(id, true))
+        .finally(() => {
+          bodyRequests--;
+          releaseChecked(id);
+          askForBodies();
+        });
+    }
+  }
+
+  // Shows a post again once its answer is in; the scan that follows hides
+  // it if a filter still matches.
+  function releaseChecked(id) {
+    for (const el of document.querySelectorAll(`[${CHECKING_ATTR}="${id}"]`)) {
+      el.removeAttribute(CHECKING_ATTR);
+      el.style.removeProperty("opacity");
+    }
+    scan();
+  }
+
   // Whether `post` is the one this thread page is about, as opposed to
   // other posts Reddit suggests around it. Compared by the post id in the
   // permalink; a layout without permalinks counts its first post.
@@ -2013,6 +2097,11 @@
   }
 
   function unhideAll() {
+    for (const el of document.querySelectorAll(`[${CHECKING_ATTR}]`)) {
+      nearScreen.unobserve(el);
+      el.removeAttribute(CHECKING_ATTR);
+      el.style.removeProperty("opacity");
+    }
     for (const el of document.querySelectorAll(`[${HIDDEN_ATTR}], [${REVEALED_ATTR}], [${CAUGHT_ATTR}]`)) {
       unveil(el);
       showSeparators(el);
@@ -2051,7 +2140,19 @@
           embeds: linkedDomains(post, layout.bodySelector),
           hasText: hasRealText(fullBody),
         };
-        const matches = postFilters.filter((f) => f.test(haystack, parts));
+        let matches = postFilters.filter((f) => f.test(haystack, parts));
+        // A feed may have left out a body this post has; Reddit is asked
+        // before a filter that hides posts without text acts on it.
+        if (!parts.hasText && !thread && matches.some((f) => f.checksText) &&
+            !(layout.bodySelector && post.querySelector(layout.bodySelector))) {
+          const has = bodyCheck(post, layout);
+          if (has === true) {
+            parts.hasText = true;
+            matches = postFilters.filter((f) => f.test(haystack, parts));
+          } else if (has === undefined) {
+            matches = matches.filter((f) => !f.checksText);
+          }
+        }
         if (matches.length) hide(post, layout, matches, title);
       }
     }

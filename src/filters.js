@@ -14,6 +14,10 @@
 //   hasText  whether the post has any body text, as far as the page shows,
 //            not counting bare web addresses
 //
+// A filter that hides posts for having no text sets `checksText`. Feeds
+// leave out the body of image, video, and link posts, so before such a
+// filter hides one there, Sheddit asks Reddit whether the post has text.
+//
 // Every filter checks posts and, on thread pages, comments too. For a comment,
 // `text` and `body` are the comment's own text (not its replies) and `title`
 // is empty.
@@ -155,6 +159,7 @@ const SHEDDIT_FILTERS = [
     title: "Skip Ad",
     description: "Hides posts that are just a YouTube link or embedded YouTube video with no text.",
     enabledByDefault: true,
+    checksText: true,
     // A post with no body text (bare links don't count as text) that links
     // to or embeds youtube.com (any subdomain, like m. or music.), the
     // youtu.be short-link domain, or youtube-nocookie.com, which YouTube
@@ -169,6 +174,7 @@ const SHEDDIT_FILTERS = [
     title: "Link Dumper",
     description: "Hides posts that are just a link to another site, with no text from the poster.",
     enabledByDefault: true,
+    checksText: true,
     // The preview Reddit pulls from the linked page isn't the poster's
     // text, so it doesn't count. Links that stay on Reddit (text posts,
     // crossposts, galleries, and Reddit's own image and video hosts) and
