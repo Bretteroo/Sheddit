@@ -3,9 +3,16 @@
 # Submit the version in src/manifest.json to Firefox Add-ons and the Chrome
 # Web Store, where each goes through the store's review.
 #
-#   ./publish-stores.sh           build, then submit to both stores
+#   ./publish-stores.sh           build, submit to both stores, then set the
+#                                 version's notes on Firefox Add-ons
 #   ./publish-stores.sh --check   only confirm both stores accept the
 #                                 credentials and show their current versions
+#   ./publish-stores.sh --notes   only set the notes on Firefox Add-ons, for a
+#                                 version already submitted
+#
+# The notes are the version's GitHub release notes, without their Install
+# section, which is about the release's downloads. The Chrome Web Store has
+# no notes for a version.
 #
 # Credentials are never printed. They come from these environment variables,
 # which the GitHub workflow sets from the repository's secrets:
@@ -44,11 +51,69 @@ for name in AMO_JWT_ISSUER AMO_JWT_SECRET CWS_PUBLISHER_ID; do
 done
 
 check=false
-if [ "${1:-}" = "--check" ]; then
-  check=true
-elif [ -n "${1:-}" ]; then
-  echo "usage: ./publish-stores.sh [--check]" >&2
-  exit 1
+notes_only=false
+case "${1:-}" in
+  "") ;;
+  --check) check=true ;;
+  --notes) notes_only=true ;;
+  *)
+    echo "usage: ./publish-stores.sh [--check | --notes]" >&2
+    exit 1
+    ;;
+esac
+
+# Set the version's notes on Firefox Add-ons from its GitHub release.
+set_amo_notes() {
+  version=$(python3 -c 'import json; print(json.load(open("src/manifest.json"))["version"])')
+  if ! notes=$(gh release view "v$version" --json body -q .body); then
+    echo "No GitHub release for v$version, so no notes for Firefox Add-ons." >&2
+    return 1
+  fi
+  NOTES="$notes" VERSION="$version" python3 - <<'PY'
+import hashlib, hmac, json, os, re, sys, time, urllib.error, urllib.request, uuid
+
+notes = re.split(r"(?m)^\*\*Install\*\*", os.environ["NOTES"])[0].strip()
+# Firefox Add-ons only nests a bullet indented four spaces per level; the
+# release notes use two.
+notes = re.sub(r"(?m)^((?:  )+)(?=[-*] )", lambda m: "    " * (len(m.group(1)) // 2), notes)
+version = os.environ["VERSION"]
+if not notes:
+    sys.exit(f"The GitHub release for v{version} has no notes above its Install section.")
+
+
+def b64(data):
+    import base64
+    return base64.urlsafe_b64encode(data).rstrip(b"=").decode()
+
+
+now = int(time.time())
+head = b64(json.dumps({"alg": "HS256", "typ": "JWT"}).encode()) + "." + b64(json.dumps({
+    "iss": os.environ["AMO_JWT_ISSUER"], "jti": str(uuid.uuid4()), "iat": now, "exp": now + 60,
+}).encode())
+token = head + "." + b64(hmac.new(os.environ["AMO_JWT_SECRET"].encode(), head.encode(), hashlib.sha256).digest())
+
+req = urllib.request.Request(
+    f"https://addons.mozilla.org/api/v5/addons/addon/sheddit@sheddit/versions/v{version}/",
+    data=json.dumps({"release_notes": {"en-US": notes}}).encode(), method="PATCH")
+req.add_header("Authorization", f"JWT {token}")
+req.add_header("Content-Type", "application/json")
+try:
+    with urllib.request.urlopen(req, timeout=60) as res:
+        saved = (json.loads(res.read()).get("release_notes") or {}).get("en-US", "")
+except urllib.error.HTTPError as err:
+    sys.exit(f"Setting the notes on Firefox Add-ons failed: HTTP {err.code} "
+             f"{err.read().decode(errors='replace')[:300]}")
+# It keeps them as HTML made from the Markdown, so only their presence is
+# checked.
+if not saved.strip():
+    sys.exit("Firefox Add-ons didn't keep the notes.")
+print(f"Firefox Add-ons: notes set for version {version}.")
+PY
+}
+
+if $notes_only; then
+  set_amo_notes
+  exit
 fi
 
 if ! $check; then
@@ -174,4 +239,5 @@ if ! $check; then
     npx -y web-ext@8 sign --source-dir src --artifacts-dir dist/amo \
       --channel listed --approval-timeout 0
   echo "Firefox Add-ons: version submitted for review."
+  set_amo_notes
 fi

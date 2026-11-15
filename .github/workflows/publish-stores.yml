@@ -59,6 +59,8 @@ jobs:
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
           CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
           CWS_SERVICE_ACCOUNT_JSON: ${{ secrets.CWS_SERVICE_ACCOUNT_JSON }}
+          # Reads the release's notes, for the version's notes on Firefox Add-ons.
+          GH_TOKEN: ${{ github.token }}
           CHECK_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.check_only }}
         run: |
           if [ "$CHECK_ONLY" = "true" ]; then
