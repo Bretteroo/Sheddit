@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/manifest-V3-orange?style=flat-square" alt="Manifest V3">
   <a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><img src="https://img.shields.io/amo/v/shedditfilter?style=flat-square&label=firefox%20add-ons&color=ff7139" alt="Firefox Add-ons"></a>
   <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="https://img.shields.io/chrome-web-store/v/olemfeakjfaeimedbgakkjcdknncpgpf?style=flat-square&label=chrome%20web%20store&color=4285f4" alt="Chrome Web Store"></a>
-  <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Edge, and Opera">
+  <img src="https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Brave%20%7C%20Vivaldi%20%7C%20Edge%20%7C%20Opera-gold?style=flat-square" alt="Works in Firefox, Chrome, Brave, Vivaldi, Edge, and Opera">
 </p>
 
 <div align="center">
@@ -18,7 +18,7 @@
 
 _The path to enlightenment is lined with hidden posts._
 
-[🪷 Filters](#-filters) | [🪬 How it sees](#-how-it-sees) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
+[🪷 Filters](#-filters) | [🍃 Letting go](#-letting-go) | [📦 Install](#-install) | [🔒 License](#-license)
 
 </div>
 
@@ -34,7 +34,7 @@ Sheddit is a Firefox and Chrome extension that hides the most repetitive and obn
 
 Activate one filter for a taste of serenity, or _all of them_ for maximum levels of inner peace.
 
-There is no wrong way to shed content, only fewer posts in your life shaming companies to "do better".
+### Stock phrases
 
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
 | --- | --- | --- |
@@ -47,15 +47,30 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | <img src="src/images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
 | <img src="src/images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" or "honest feedback" | On |
 | <img src="src/images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
+
+### Comment-section reflexes
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
+| --- | --- | --- |
 | <img src="src/images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
 | <img src="src/images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
 | <img src="src/images/filters/pitchfork-patrol.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pitchfork&nbsp;Patrol | Scolding like "not a good look" or "do better" | On |
 | <img src="src/images/filters/armchair-attorney.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Armchair&nbsp;Attorney | Disgruntled rabble-rousers asking "Class action lawsuit, anyone?" | On |
+
+### Whole-post formulas
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
+| --- | --- | --- |
 | <img src="src/images/filters/teachable-moment.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Teachable&nbsp;Moment | "Here's what I learned" and "What I learned about X" | On |
 | <img src="src/images/filters/origin-story.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Origin&nbsp;Story | Titles like "I got tired of X so I built Y" | On |
 | <img src="src/images/filters/catch-and-release.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Catch&nbsp;and&nbsp;Release | 1,000+ characters that end in a question | On |
 | <img src="src/images/filters/wrecking-ball.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Wrecking&nbsp;Ball | 1,000+ characters in a single paragraph | On |
 | <img src="src/images/filters/lost-blogger.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lost&nbsp;Blogger | 600+ words | On |
+
+### Titles, formatting, and links
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Posts and comments that it hides | Default |
+| --- | --- | --- |
 | <img src="src/images/filters/inside-voice.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Inside&nbsp;Voice | Titles in ALL CAPS (8+ capital letters, no lowercase) | On |
 | <img src="src/images/filters/small-talk.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Small&nbsp;Talk | Written without a single capital letter | On |
 | <img src="src/images/filters/my-welcome.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;My&nbsp;Welcome | "your" where "you're" belongs, like "your welcome" | On |
@@ -63,41 +78,20 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | <img src="src/images/filters/skip-ad.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Skip&nbsp;Ad | A YouTube link or video with no text | On |
 | <img src="src/images/filters/link-dumper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Link&nbsp;Dumper | Links with no text | On |
 
-## 🪬 How it sees
-
-Sheddit dwells only in the present page, hiding or blocking negative energy contained therein.
-
-<table>
-<tr>
-<td width="50%" valign="top">
-<h3><img src="images/readme/icon-listing.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On a listing</h3>
-<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-listing-light.png" alt="A feed of posts, one of them covered by Sheddit's gold veil" width="100%"></picture></p>
-<p>Sheddit contemplates each thread's title.</p>
-</td>
-<td width="50%" valign="top">
-<h3><img src="images/readme/icon-thread.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;On an open thread</h3>
-<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/how-thread-light.png" alt="A thread with one comment covered by Sheddit's gold veil" width="100%"></picture></p>
-<p>Sheddit contemplates the post's title, body, and the comments beneath it.</p>
-</td>
-</tr>
-</table>
-
-Sheddit walks the path on www.reddit.com, old.reddit.com, and Reddit's mobile layout. Your choices rest in your browser's sync storage, and nothing you read is sent anywhere. Enlightenment comes from within...and stays local.
-
 ## 🍃 Letting go
 
-When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on its Settings page:
+When a post _or_ comment is found wanting, Sheddit offers two paths, chosen in its settings:
 
 <table>
 <tr>
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-remove.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Remove it</h3>
-<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-light.png" alt="A feed where a caught post has vanished, leaving only a few sparkles" width="100%"></picture></p>
-<p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment.  (And the default behavior.)</p>
+<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-dark.webp"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-remove-light.webp" alt="Animation: a caught post in a feed glows gold, then folds away as the posts below close the gap" width="100%"></picture></p>
+<p>Content passes from the page entirely, and you continue as though it had never been. This is the way of non-attachment. (And the default behavior.)</p>
 </td>
 <td width="50%" valign="top">
 <h3><img src="images/readme/icon-cover.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;Hide it</h3>
-<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-dark.webp"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-light.webp" alt="Animation: a cursor peeks at a post under Sheddit's gold veil and hides it again, then does the same with a comment" width="100%"></picture></p>
+<p><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-dark.webp"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/let-cover-light.webp" alt="Animation: a cursor peeks at a post under Sheddit's gold veil, clouds drift down the post, and Hide again returns it to the veil" width="100%"></picture></p>
 <p>Content rests beneath a slim gold veil bearing the name of the filter that caught it. You may peek upon the transgression, should temptation arise, and "Hide" again returns it to the veil.</p>
 </td>
 </tr>
@@ -105,7 +99,7 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 <table>
 <tr>
-<td width="230" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days and 30 days" width="230"></picture></td>
+<td width="230" valign="top"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/toolbar-light.png" alt="Sheddit's toolbar popup, showing how many posts and comments were risen above in the last 24 hours, 7 days, and 30 days" width="230"></picture></td>
 <td valign="top">
 <h3><img src="images/readme/icon-journal.svg" width="28" align="absmiddle" alt="">&nbsp;&nbsp;A journey's footprints</h3>
 
@@ -117,11 +111,9 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen on i
 
 ## 📦 Install
 
-Firefox users, on desktop and Android, can install Sheddit from [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedditfilter/).
- 
-Chrome, Edge, Brave, Vivaldi, and Opera users can install Sheddit from the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf).
+### <img src="images/readme/browser-firefox.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Firefox
 
-### Firefox
+Windows, macOS, Linux, and Android
 
 <a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-light.png" alt="Sheddit's page in the Firefox Add-ons directory, with its Add to Firefox button" width="600"></picture></a>
 
@@ -129,20 +121,26 @@ Open Sheddit on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedd
 
 Filter settings are under `about:addons`, Sheddit, Preferences.
 
-### Chrome, Edge, Opera, Brave, and Vivaldi
+### <img src="images/readme/browser-chrome.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Chrome, Brave, Vivaldi, Edge, and Opera
+
+Windows, macOS, Linux, and ChromeOS
 
 <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-light.png" alt="Sheddit's page in the Chrome Web Store, with its Add to Chrome button" width="600"></picture></a>
 
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button.
+Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. One page serves all five browsers.
 
-**Edge** first asks you to click "Allow extensions from other stores" in the banner at the top of the store page.
+**Edge** first asks you to click "Allow extensions from other stores".
 
 **Opera** needs its "Install Chrome Extensions" add-on before the store will work.
+
+### <img src="images/readme/browser-safari.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Safari
+
+Apple's tithing expectations are beyond decency. Sheddit has risen above this. [Firefox](https://www.mozilla.org/firefox/new/) runs on a Mac, too.
 
 <details>
 <summary>Manual installation</summary>
 
-Manual Installation is generally not necessary.  The Firefox and Chrome extension directories post the latest versions of Sheddit within a few hours (sometimes days) of their release on Github.
+Manual installation is generally not necessary. Firefox Add-ons and the Chrome Web Store post each new version of Sheddit within a few hours (sometimes days) of its release on GitHub.
 
 **Firefox**
 
@@ -152,12 +150,12 @@ Manual Installation is generally not necessary.  The Firefox and Chrome extensio
 
 The release `.xpi` isn't signed by Mozilla, so Firefox removes it when it restarts. Firefox Developer Edition and Nightly can keep it installed with `xpinstall.signatures.required` set to false in `about:config`.
 
-**Chrome, Edge, Opera, Brave, and Vivaldi**
+**Chrome, Brave, Vivaldi, Edge, and Opera**
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
-   
-   `chrome://extensions`, `edge://extensions`, `opera://extensions`, `brave://extensions` or `vivaldi:extensions`.
+
+   `chrome://extensions`, `brave://extensions`, `vivaldi:extensions`, `edge://extensions`, or `opera://extensions`.
 3. Click "Load unpacked" and pick the unzipped folder.
 
 </details>
