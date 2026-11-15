@@ -127,11 +127,15 @@ Windows, macOS, Linux, and ChromeOS
 
 ### <img src="images/readme/browser-safari.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Safari
 
-Apple's tithing expectations are beyond the realm of decency. Sheddit has risen above this. Use of Firefox bypasses their toll.
+Apple's tithing expectations are beyond the realm of decency. Sheddit has risen above this.
+
+Use of Firefox bypasses their toll.
 
 ### <img src="images/readme/icon-manual.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Manual installation
 
-Manual installation is generally not necessary. Firefox Add-ons and the Chrome Web Store post each new version of Sheddit within a few hours (sometimes days) of its release on GitHub.
+Manual installation is generally not necessary.
+
+Firefox Add-ons and the Chrome Web Store post each new version of Sheddit within a few hours (sometimes days) of its release on GitHub.
 
 <details>
 <summary>Firefox</summary>
