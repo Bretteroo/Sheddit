@@ -157,7 +157,7 @@ const SHEDDIT_FILTERS = [
   {
     id: "skip-ad",
     title: "Skip Ad",
-    description: "Hides posts that are just a YouTube link or embedded YouTube video with no text.",
+    description: "Hides YouTube links and videos posted with no text.",
     enabledByDefault: true,
     checksText: true,
     // A post with no body text (bare links don't count as text) that links
@@ -167,7 +167,7 @@ const SHEDDIT_FILTERS = [
   {
     id: "link-dumper",
     title: "Link Dumper",
-    description: "Hides posts that are just a link to a site other than YouTube, with no text from the poster. Skip Ad covers YouTube.",
+    description: "Hides links posted with no text.",
     enabledByDefault: true,
     checksText: true,
     // The preview Reddit pulls from the linked page isn't the poster's
