@@ -33,11 +33,18 @@
     });
   }
 
+  // It plays once the feed has stayed in view for a moment, so scrolling
+  // past it, as the Install link does, doesn't start it. Its posts fold away
+  // as it plays, which would move the page under that scroll.
+  let soon = null;
   const seen = new IntersectionObserver((entries) => {
-    if (entries.some((e) => e.isIntersecting)) {
+    const visible = entries.some((e) => e.isIntersecting);
+    clearTimeout(soon);
+    if (!visible) return;
+    soon = setTimeout(() => {
       seen.disconnect();
       play();
-    }
+    }, 400);
   }, { threshold: 0.45 });
   seen.observe(feed);
   replay?.addEventListener("click", play);
