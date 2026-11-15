@@ -239,11 +239,11 @@ const SHEDDIT_FILTERS = [
   {
     id: "lie-detector",
     title: "Lie Detector",
-    description: 'Hides posts and comments containing "honest review".',
+    description: 'Hides posts and comments containing "honest review" or "honest feedback".',
     enabledByDefault: true,
-    // Also "honest reviews", "brutally honest review" and "100% honest
+    // Also "honest reviews", "brutally honest feedback" and "100% honest
     // review", but not "dishonest review".
-    test: (text) => /(?<![\w-])honest\s+reviews?\b/i.test(text),
+    test: (text) => /(?<![\w-])honest\s+(?:reviews?|feedback)\b/i.test(text),
   },
   {
     id: "teachable-moment",

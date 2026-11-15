@@ -45,7 +45,7 @@ There is no wrong way to shed content, only fewer posts in your life shaming com
 | <img src="images/filters/pearl-clutcher.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Hyperbolic&nbsp;Chamber | "witaf" or "what in the actual fuck" | On |
 | <img src="images/filters/bingo-blackout.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Bingo&nbsp;Blackout | "not on my bingo card" | On |
 | <img src="images/filters/sinkhole.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sinkhole | "let that sink in" | On |
-| <img src="images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" | On |
+| <img src="images/filters/lie-detector.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Lie&nbsp;Detector | "honest review" or "honest feedback" | On |
 | <img src="images/filters/sarcasm-sweeper.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Sarcasm&nbsp;Sweeper | The "/s" sarcasm tag | On |
 | <img src="images/filters/pity-party.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Pity&nbsp;Party | "I don't know why you're getting downvoted" | On |
 | <img src="images/filters/trade-secret.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Trade&nbsp;Secret | Anyone who is something "by trade" | On |
