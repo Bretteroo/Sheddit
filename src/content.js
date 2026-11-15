@@ -1225,13 +1225,19 @@
   // what's visible in the posts above and below it. The posts' own padding
   // isn't the same at their tops and bottoms, which shows once the post
   // between them is a short bar. Only done in feeds, where hidden lines
-  // mark the neighbors.
+  // mark the neighbors. Null while it can't be told yet, like before the
+  // posts around it have loaded.
   function centerBetweenNeighbors(target) {
     const seps = separators.get(target);
-    if (!seps || !seps.length) return 0;
+    if (!seps || !seps.length) return null;
     const prev = feedNeighbor(target, "previousElementSibling");
     const next = feedNeighbor(target, "nextElementSibling");
-    if (!prev || !next) return 0;
+    if (!prev || !next) return null;
+    // Below the last post loaded so far, Reddit shows a placeholder while
+    // it loads more; the post is centered once a real post takes its place.
+    const loading = (el) => el.tagName === "FACEPLATE-PARTIAL" ||
+      !!el.querySelector("shreddit-loading, shreddit-feed-page-loading");
+    if (loading(prev) || loading(next)) return null;
     // Next to another caught post, the gap between them is set by the
     // separator and the room kept for a tab, the same for every pair, so
     // the post isn't moved off it.
@@ -1243,19 +1249,22 @@
     const t = { top: r.top - current - room, bottom: r.bottom - current };
     const bottom = contentEdge(prev, "bottom");
     const top = contentEdge(next, "top");
-    if (bottom === null || top === null) return 0;
+    if (bottom === null || top === null) return null;
     // Reddit's own padding leaves the two gaps a few pixels apart at most.
     // A bigger difference means a neighbor hasn't finished loading, and
     // centering on it would push the overlay against the other one.
     const shift = ((top - t.bottom) - (t.top - bottom)) / 2;
-    return Math.abs(shift) <= 8 ? Math.round(shift) : 0;
+    return Math.abs(shift) <= 8 ? Math.round(shift) : null;
   }
 
   // The gap kept above a covered post, and above its Hide again tab once
   // it's revealed: under Reddit's header for the post a thread page is
   // about, or under another caught post in a list.
   function tabGap(target) {
-    if (opensUnderHeader(target, "post")) return headerRooms.get(target) ?? savedHeaderRoom ?? STACK_GAP;
+    // The post a thread page is about keeps the same small gap under
+    // Reddit's header, whatever loads below it, so it never moves as the
+    // page loads.
+    if (opensUnderHeader(target, "post")) return STACK_GAP;
     // The first post in a feed has whatever Reddit puts above the feed
     // over it, like its community highlights, and keeps the gap below that.
     return caughtAbove(target) || !feedNeighbor(target, "previousElementSibling") ? STACK_GAP : 0;
@@ -1266,74 +1275,6 @@
   function coveredRoom(target) {
     if (opensUnderHeader(target, "post")) return tabGap(target);
     return caughtAbove(target) ? STACK_GAP : 0;
-  }
-
-  // The post a thread page is about sits the same distance below Reddit's
-  // header as above whatever comes next, like the box to write a comment.
-  // Measured while it's covered, walking down from the overlay's bottom to
-  // the first thing drawn there. Reddit fills in the page below as it
-  // loads, so it's measured again on later scans, at most twice a second;
-  // Peek and Hide again use the last measure.
-  const headerRooms = new WeakMap();
-  // The last balanced gap, saved between pages so a thread post starts
-  // where it will settle instead of moving there as the page loads.
-  let savedHeaderRoom = null;
-  if (shedditApi.storage.local) {
-    Promise.resolve(shedditApi.storage.local.get("headerRoom")).then((stored) => {
-      if (stored && Number.isFinite(stored.headerRoom)) savedHeaderRoom = stored.headerRoom;
-    }, () => {});
-  }
-  // A measure is only acted on once the next one agrees, so the passing
-  // shapes of a page that's still loading don't move the post.
-  const lastMeasure = new WeakMap();
-  const balancedAt = new WeakMap();
-  const balanceChecks = new WeakMap();
-  function balanceUnderHeader(target) {
-    if (!tabRooms.has(target) || rehideBars.has(target)) return;
-    const now = performance.now();
-    if (now - (balancedAt.get(target) || -Infinity) < 500) return;
-    balancedAt.set(target, now);
-    // The page can settle without another scan, so it checks back a few
-    // times on its own.
-    const checks = (balanceChecks.get(target) || 0) + 1;
-    balanceChecks.set(target, checks);
-    if (checks < 10) setTimeout(() => balanceUnderHeader(target), 600);
-    const v = veils.get(target);
-    const card = v && v.marker.querySelector(".sheddit-veil-card");
-    if (!card) return;
-    const r = card.getBoundingClientRect();
-    if (!r.height || r.bottom < 0 || r.bottom > window.innerHeight - 4) return;
-    const x = r.left + r.width / 2;
-    let next = null;
-    for (let y = r.bottom + 1; y < Math.min(window.innerHeight, r.bottom + 80); y++) {
-      const el = document.elementFromPoint(x, y);
-      if (!el || el.contains(target) || el.closest(".sheddit-veil")) continue;
-      // Something still loading can report a place that isn't on screen
-      // yet; only what starts below the overlay counts.
-      const top = el.getBoundingClientRect().top;
-      if (top >= r.bottom - 1) {
-        next = top;
-        break;
-      }
-    }
-    if (next === null) return;
-    const room = tabRooms.get(target)[2];
-    const balanced = Math.max(0, Math.round((room + next - r.bottom) / 2));
-    const agreed = lastMeasure.get(target) === balanced;
-    lastMeasure.set(target, balanced);
-    if (!agreed) return;
-    headerRooms.set(target, balanced);
-    if (balanced !== savedHeaderRoom) {
-      savedHeaderRoom = balanced;
-      if (shedditApi.storage.local) {
-        Promise.resolve(shedditApi.storage.local.set({ headerRoom: balanced })).catch(() => {});
-      }
-    }
-    if (balanced !== room) {
-      keepTabRoom(target, true, balanced);
-      // A margin doesn't resize the post, so the overlay is moved along.
-      v.fit();
-    }
   }
 
   // How far a list post's Hide again bar is pulled up into the bottom
@@ -1475,8 +1416,6 @@
     if (!animated) {
       if (opensUnderHeader(target, kind)) {
         keepTabRoom(target, true, tabGap(target));
-        // Once the post has its covered height and the page around it.
-        requestAnimationFrame(() => requestAnimationFrame(() => balanceUnderHeader(target)));
       }
       else if (kind === "post" && !onThreadPage() && caughtAbove(target)) keepTabRoom(target, true, STACK_GAP);
     }
@@ -1542,9 +1481,15 @@
       // and kept while it's revealed, so the edges don't jump.
       // It's left alone while the post is on screen, where a change would
       // show as a jump; Reddit finishing the posts around it can change it.
+      // A post caught as the page loads, though, like the first posts in a
+      // feed, is measured again on each scan, on screen or not, until its
+      // neighbors have loaded; until then it keeps the shift it has.
       if (!bar && (!centered.has(target) || offScreen(target))) {
-        setShift(target, centerBetweenNeighbors(target));
-        centered.add(target);
+        const shift = centerBetweenNeighbors(target);
+        if (shift !== null) {
+          setShift(target, shift);
+          centered.add(target);
+        }
       }
       const shift = shifts.get(target) || 0;
       for (const el of pieces || []) el.style.setProperty("translate", shift ? `0 ${shift}px` : "none", "important");
@@ -2475,13 +2420,6 @@
         if (shifts.has(target) && nextToCaught(target)) setShift(target, 0);
       }
       v.fit();
-    }
-    // The post a thread page is about is balanced below the header once
-    // the page under it has loaded.
-    if (onThreadPage()) {
-      for (const [target] of tabRooms) {
-        if (!rehideBars.has(target) && opensUnderHeader(target, "post")) balanceUnderHeader(target);
-      }
     }
     // An open list post's tab keeps the gap above it only under another
     // caught post, which may have been caught after this one opened.
