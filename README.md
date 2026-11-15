@@ -111,21 +111,21 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen in i
 
 ## 📦 Install
 
+<a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-light.png" alt="Sheddit's page in the Firefox Add-ons directory, with its Add to Firefox button" width="600"></picture></a>
+
 ### <img src="images/readme/browser-firefox.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Firefox
 
 Windows, macOS, Linux, and Android
-
-<a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/firefox-addons-light.png" alt="Sheddit's page in the Firefox Add-ons directory, with its Add to Firefox button" width="600"></picture></a>
 
 Open Sheddit on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedditfilter/) and click "Add to Firefox". Firefox for Android installs it from the same page.
 
 Filter settings are under `about:addons`, Sheddit, Preferences.
 
+<a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><img src="images/readme/button-firefox.png" alt="Add to Firefox" width="246"></a>
+
 ### <img src="images/readme/browser-chrome.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Chrome, Brave, Vivaldi, Edge, and Opera
 
 Windows, macOS, Linux, and ChromeOS
-
-<a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-dark.png"><img src="https://raw.githubusercontent.com/Bretteroo/Sheddit/main/images/readme/chrome-store-light.png" alt="Sheddit's page in the Chrome Web Store, with its Add to Chrome button" width="600"></picture></a>
 
 Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. One page serves all five browsers.
 
@@ -133,16 +133,18 @@ Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/
 
 **Opera** needs its "Install Chrome Extensions" add-on before the store will work.
 
+<a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="images/readme/button-chrome.png" alt="Add to Chrome" width="246"></a>
+
 ### <img src="images/readme/browser-safari.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Safari
 
 Apple's tithing expectations are beyond decency. Sheddit has risen above this. [Firefox](https://www.mozilla.org/firefox/new/) runs on a Mac, too.
 
-<details>
-<summary>Manual installation</summary>
+### <img src="images/readme/icon-manual.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Manual installation
 
 Manual installation is generally not necessary. Firefox Add-ons and the Chrome Web Store post each new version of Sheddit within a few hours (sometimes days) of its release on GitHub.
 
-**Firefox**
+<details>
+<summary>Firefox</summary>
 
 1. Download `sheddit-<version>-firefox.xpi` from the [latest release](https://github.com/Bretteroo/Sheddit/releases/latest).
 2. Open `about:debugging#/runtime/this-firefox`.
@@ -150,7 +152,10 @@ Manual installation is generally not necessary. Firefox Add-ons and the Chrome W
 
 The release `.xpi` isn't signed by Mozilla, so Firefox removes it when it restarts. Firefox Developer Edition and Nightly can keep it installed with `xpinstall.signatures.required` set to false in `about:config`.
 
-**Chrome, Brave, Vivaldi, Edge, and Opera**
+</details>
+
+<details>
+<summary>Chrome, Brave, Vivaldi, Edge, and Opera</summary>
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
