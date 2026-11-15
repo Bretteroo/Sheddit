@@ -265,6 +265,32 @@
        opaque, since Reddit can keep that line stuck in view as you scroll. */
     .sheddit-revealed > [slot="credit-bar"] { background-color: rgb(255, 250, 236) !important; }
     html.sheddit-theme-dark .sheddit-revealed > [slot="credit-bar"] { background-color: rgb(44, 36, 22) !important; }
+    /* The post's own top and bottom margins fall inside the box, where its
+       colors don't reach, and would show as white strips along the box's
+       top and bottom edges. Without them, and without that line's top
+       padding, the post's colors fill the box and its contents sit as far
+       inside the box as they do from its sides. */
+    .sheddit-revealed > #pdp-credit-bar { padding-top: 0 !important; }
+    shreddit-post.sheddit-revealed:has(> #pdp-credit-bar) {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      /* Its own rounded bottom corners would leave white wedges above the
+         cap, which rounds the box's bottom instead. */
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    /* The space the post kept below itself goes below the cap, outside
+       the box. */
+    shreddit-post.sheddit-revealed:has(> #pdp-credit-bar) ~ .sheddit-rehide-cap { margin-bottom: 8px; }
+    /* A long post's text fades out above Reddit's "Read more" through a
+       cover that ends in Reddit's own background color. In a revealed post
+       the text itself fades to transparent instead, so it fades into
+       whatever color the box is at that height. */
+    .sheddit-revealed .read-more-overflow-cover { background: none !important; }
+    .sheddit-revealed :has(+ .read-more-overflow-cover:not(.hidden)) {
+      -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 66px), transparent);
+      mask-image: linear-gradient(180deg, #000 calc(100% - 66px), transparent);
+    }
     /* An overlay that's open over a post, during Peek and Hide again, takes
        the revealed post's colors, so the two meet without a seam. Those
        colors are a layer under its contents that fades in and out, so the
