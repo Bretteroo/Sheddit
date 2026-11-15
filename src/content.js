@@ -98,6 +98,9 @@
   const FADE_MS = 280;
   // Height of the Hide again tab on the post a thread page is about.
   const HIDE_TAB_HEIGHT = 30;
+  // The gap kept between a covered post in a list and the caught post
+  // right above it. Peek opens it to a tab's height.
+  const STACK_GAP = 8;
   // Height of the placeholder bar that replaces a hidden post or comment.
   const BAR_HEIGHT = { post: 64, comment: 44 };
   // On phone-width screens a comment bar's two lines of text wrap, so it
@@ -274,11 +277,20 @@
       pointer-events: none;
     }
     .sheddit-veil-card.sheddit-veil-open::after { opacity: 1; }
+    /* Open, it has only the box's edge, no glow around it, like the
+       revealed box it stands in for; the glow eases back as it closes. */
+    .sheddit-veil-card { transition: box-shadow 280ms ease; }
+    .sheddit-veil-card.sheddit-veil-open {
+      box-shadow: inset 0 0 0 1px rgba(214, 170, 60, 0.45), 0 0 28px rgba(255, 196, 80, 0);
+    }
+    html.sheddit-theme-dark .sheddit-veil-card.sheddit-veil-open {
+      box-shadow: inset 0 0 0 1px rgba(214, 170, 60, 0.4), 0 0 28px rgba(255, 196, 80, 0);
+    }
     html.sheddit-theme-dark .sheddit-veil-card::after {
       background: linear-gradient(180deg, rgb(44, 36, 22), rgb(36, 30, 36));
     }
     @media (prefers-reduced-motion: reduce) {
-      .sheddit-veil-card::after { transition: none; }
+      .sheddit-veil-card, .sheddit-veil-card::after { transition: none; }
     }
     /* A revealed post keeps its children's margins inside it, so its height
        is the same whether it's clipped while animating or not, and its box
@@ -294,6 +306,7 @@
       background: rgba(255, 250, 235, 0.94);
     }
     .sheddit-revealed-box ~ .sheddit-rehide-cap,
+    .sheddit-rehide-cap.sheddit-cap-flush { margin-bottom: 0; }
     .sheddit-revealed-row ~ .sheddit-rehide-cap {
       background: rgba(249, 245, 252, 0.94) !important;
     }
@@ -471,6 +484,19 @@
     }
     /* Exactly as tall as the room it replaces, so revealing moves nothing. */
     .sheddit-rehide-stacked { height: ${HIDE_TAB_HEIGHT - 1}px; }
+    /* In a list, under another caught post, the tab keeps the same gap
+       above it as the one between covered posts. Under any other post that
+       post's own padding spaces them. */
+    .sheddit-rehide-grows {
+      height: calc(${HIDE_TAB_HEIGHT - 1}px + var(--sheddit-tab-gap, 0px));
+      /* Pulled up into the bottom padding of a regular post above, so the
+         tab sits as close to that post's buttons as covered posts sit to
+         each other; the bar's empty part lets taps through to it. */
+      margin-top: calc(-1 * var(--sheddit-tab-pull, 0px));
+      pointer-events: none;
+    }
+    .sheddit-rehide-grows .sheddit-rehide-again { pointer-events: auto; }
+    .sheddit-rehide-stacked.sheddit-rehide-grows .sheddit-rehide-again { margin-top: var(--sheddit-tab-gap, 0px); }
     .sheddit-rehide-stacked .sheddit-rehide-again {
       position: relative;
       right: auto;
@@ -493,7 +519,7 @@
       border-radius: 0 0 14px 14px;
       background:
         radial-gradient(ellipse 70% 140% at 50% 130%, rgba(255, 214, 120, 0.5), transparent 70%),
-        linear-gradient(0deg, rgba(255, 250, 235, 0.95), rgba(240, 233, 255, 0.55) 55%, rgba(240, 233, 255, 0));
+        linear-gradient(0deg, rgba(255, 250, 235, 0.95), rgba(249, 245, 252, 0.94));
     }
     /* Thin edges down both sides of a revealed post, joining the tab above
        to the cap below. They hang from the tab's bar, so they fade and
@@ -536,6 +562,9 @@
       border-left: 1px solid rgba(214, 170, 60, 0.45);
       border-top-left-radius: var(--corner);
     }
+    /* While Hide again sinks behind the box, the top line runs the whole
+       width, under the tab too. */
+    .sheddit-rehide-closing > .sheddit-rehide-frame::before { width: 100%; }
     .sheddit-rehide-cap::before {
       content: "";
       position: absolute;
@@ -592,7 +621,7 @@
     html.sheddit-theme-dark .sheddit-rehide-cap {
       background:
         radial-gradient(ellipse 70% 140% at 50% 130%, rgba(255, 196, 80, 0.28), transparent 70%),
-        linear-gradient(0deg, rgba(44, 36, 22, 0.95), rgba(28, 24, 48, 0.55) 55%, rgba(28, 24, 48, 0));
+        linear-gradient(0deg, rgba(44, 36, 22, 0.95), rgba(36, 30, 36, 0.95));
     }
     html.sheddit-theme-dark .sheddit-rehide-again {
       background:
@@ -1168,18 +1197,17 @@
   function centerBetweenNeighbors(target) {
     const seps = separators.get(target);
     if (!seps || !seps.length) return 0;
-    const neighbor = (step) => {
-      let el = target[step];
-      while (el && (el.tagName === "HR" || isOwnPiece(el) || !el.getBoundingClientRect().height)) el = el[step];
-      return el;
-    };
-    const prev = neighbor("previousElementSibling");
-    const next = neighbor("nextElementSibling");
+    const prev = feedNeighbor(target, "previousElementSibling");
+    const next = feedNeighbor(target, "nextElementSibling");
     if (!prev || !next) return 0;
+    // Next to another caught post, the gap between them is set by the
+    // separator and the room kept for a tab, the same for every pair, so
+    // the post isn't moved off it.
+    if (nextToCaught(target)) return 0;
     const r = target.getBoundingClientRect();
     const current = shifts.get(target) || 0;
     // Room kept above the post for its tab isn't part of the gap to even out.
-    const room = tabRooms.has(target) ? HIDE_TAB_HEIGHT - 1 : 0;
+    const room = tabRooms.has(target) ? tabRooms.get(target)[2] : 0;
     const t = { top: r.top - current - room, bottom: r.bottom - current };
     const bottom = contentEdge(prev, "bottom");
     const top = contentEdge(next, "top");
@@ -1189,6 +1217,54 @@
     // centering on it would push the overlay against the other one.
     const shift = ((top - t.bottom) - (t.top - bottom)) / 2;
     return Math.abs(shift) <= 8 ? Math.round(shift) : 0;
+  }
+
+  // How far a list post's Hide again bar is pulled up into the bottom
+  // padding of a regular post above it, leaving STACK_GAP between that
+  // post's last content, like its row of buttons, and the tab. None under
+  // a caught post, whose box is spaced by the kept gap instead.
+  function tabPull(target) {
+    if (caughtAbove(target)) return 0;
+    const prev = feedNeighbor(target, "previousElementSibling");
+    const edge = prev && contentEdge(prev, "bottom");
+    if (edge === null || edge === undefined) return 0;
+    return Math.max(0, Math.round(target.getBoundingClientRect().top - edge - STACK_GAP));
+  }
+
+  // Whether a Hide again bar is still closing above `target`; the room
+  // above it comes back when the bar is gone, not before.
+  function closingBar(target) {
+    for (let el = target.previousElementSibling; el && isOwnPiece(el); el = el.previousElementSibling) {
+      if (el.classList.contains("sheddit-rehide")) return true;
+    }
+    return false;
+  }
+
+  // The nearest real post or other piece of the feed on one side of
+  // `target`, passing over separators, Sheddit's own pieces, and empty
+  // elements like an ad slot Reddit left blank.
+  // Reddit loads a feed in batches, each in a <faceplate-batch> of its
+  // own, so the search steps out of a batch at its ends and into the next.
+  function feedNeighbor(target, step) {
+    const into = step === "previousElementSibling" ? "lastElementChild" : "firstElementChild";
+    let el = target[step];
+    let parent = target.parentElement;
+    for (;;) {
+      while (el && (el.tagName === "HR" || isOwnPiece(el) || !el.getBoundingClientRect().height)) el = el[step];
+      if (el && el.tagName === "FACEPLATE-BATCH") {
+        parent = el;
+        el = el[into];
+        continue;
+      }
+      if (el || !parent || parent.tagName !== "FACEPLATE-BATCH") return el;
+      el = parent[step];
+      parent = parent.parentElement;
+    }
+  }
+
+  function nextToCaught(target) {
+    const caught = (el) => !!el && (el.hasAttribute(CAUGHT_ATTR) || !!el.querySelector(`[${CAUGHT_ATTR}]`));
+    return caught(feedNeighbor(target, "previousElementSibling")) || caught(feedNeighbor(target, "nextElementSibling"));
   }
 
   // The topmost or bottommost edge of what's visible in a post: its
@@ -1279,9 +1355,9 @@
     // A post in a list right under another caught post has no free space
     // above it for its Hide again tab, since that post's overlay or box sits
     // there, so it keeps a gap the tab's height.
-    if (!animated && (opensUnderHeader(target, kind) ||
-        (kind === "post" && !onThreadPage() && caughtAbove(target)))) {
-      keepTabRoom(target, true);
+    if (!animated) {
+      if (opensUnderHeader(target, kind)) keepTabRoom(target, true);
+      else if (kind === "post" && !onThreadPage() && caughtAbove(target)) keepTabRoom(target, true, STACK_GAP);
     }
     const current = startRun(target);
     if (getComputedStyle(target).display === "inline") target.classList.add("sheddit-block");
@@ -1367,7 +1443,8 @@
       // It reaches down over the cap too, when there is one, so the box
       // never shows two bottom edges.
       // A comment's overlay covers its row of buttons too.
-      const cap = pieces && pieces[1] && pieces[1].isConnected ? pieces[1] : null;
+      const cap = [pieces && pieces[1], leaving.find((el) => el.classList.contains("sheddit-rehide-cap"))]
+        .find((el) => el && el.isConnected);
       const last = cap || row || target;
       const from = head || top;
       card.style.height = `${last.getBoundingClientRect().bottom - from.getBoundingClientRect().top}px`;
@@ -1383,22 +1460,43 @@
     if (animated) {
       (async () => {
         const ms = motionMs();
-        // The overlay stays invisible while the post fades out and its space
-        // closes, then fades in whole, background and contents together.
+        // The box never goes away. The post's contents fade inside the
+        // revealed box; then the overlay takes the box's place at once, in
+        // the same colors and edges with its contents hidden, and shrinks
+        // with the post; last its contents fade in.
         let sinking = false;
+        const contents = [...card.children];
+        card.classList.add("sheddit-veil-open");
         card.style.opacity = "0";
+        for (const el of contents) el.style.opacity = "0";
         for (const el of leaving) {
           el.style.pointerEvents = "none";
-          // A comment's Hide again tab sinks into the box's top edge instead
-          // of fading, so the rest of its bar fades piece by piece around it.
+          // A Hide again tab sinks behind the box's top edge instead of
+          // fading, so the rest of its bar fades piece by piece around it.
+          // The box's outline stays, giving the tab an edge to go behind,
+          // until the overlay takes the box's place.
           const again = el.querySelector(":scope > .sheddit-rehide-again");
-          const fading = again ? [...el.children].filter((c) => c !== again) : [el];
+          // The cap below the post is part of the box's edge; it stays too.
+          if (el.classList.contains("sheddit-rehide-cap")) continue;
+          const frame = el.querySelector(":scope > .sheddit-rehide-frame");
+          if (again && frame) el.classList.add("sheddit-rehide-closing");
+          const fading = [...el.children].filter((c) => c !== again && c !== frame);
           if (again) {
             sinking = true;
             const h = again.offsetHeight;
+            // The tab overlaps the box's top line by 1px, so that row is
+            // clipped too and the line shows across the tab as it sinks.
+            // It moves by its position, not a transform: Firefox runs
+            // transforms on a separate thread from the clip, and on a busy
+            // page the tab would slip below the clip and show in front of
+            // the box.
+            const cs = getComputedStyle(again);
+            const [from, to] = cs.position === "absolute"
+              ? [{ bottom: cs.bottom }, { bottom: `${parseFloat(cs.bottom) - h}px` }]
+              : [{ top: "0px" }, { top: `${h}px` }];
             again.animate([
-              { transform: "none", clipPath: "inset(0 0 0 0)" },
-              { transform: `translateY(${h}px)`, clipPath: `inset(0 0 ${h}px 0)` },
+              { ...from, clipPath: "inset(0 0 1px 0)" },
+              { ...to, clipPath: `inset(0 0 ${h + 1}px 0)` },
             // Peek's bouncing rise played backward: a little hop up, then
             // down into the box.
             ], { duration: ms * 1.4, easing: "cubic-bezier(0.45, 0, 0.7, -0.6)", fill: "forwards" });
@@ -1425,11 +1523,24 @@
         setInline(target, { transition: "none" });
         setInline(target, { height: `${naturalHeight(target)}px`, overflow: "hidden" });
         void target.offsetHeight;
-        for (const el of leaving) if (!el.classList.contains("sheddit-rehide-stacked")) slide(el, "close");
+        // The overlay takes the box's place: same colors and edges, nothing
+        // in it yet, so the swap doesn't show.
+        fit();
+        card.style.removeProperty("opacity");
+        for (const el of leaving) el.style.opacity = "0";
+        for (const el of leaving) {
+          // A list post's bar shrinks back to the gap kept above the post.
+          if (el.classList.contains("sheddit-rehide-grows")) slide(el, "close", caughtAbove(target) ? STACK_GAP : 0);
+          else if (!el.classList.contains("sheddit-rehide-stacked")) slide(el, "close");
+        }
+
         setInline(target, { transition: `height ${ms}ms ease` });
         setInline(target, { height: `${barHeight(kind, target)}px` });
         await pause(ms);
-        if (leaving.some((el) => el.classList.contains("sheddit-rehide-stacked"))) keepTabRoom(target, true);
+        if (leaving.some((el) => el.classList.contains("sheddit-rehide-grows"))) {
+          if (caughtAbove(target)) keepTabRoom(target, true, STACK_GAP);
+        }
+        else if (leaving.some((el) => el.classList.contains("sheddit-rehide-stacked"))) keepTabRoom(target, true);
         leaving.forEach((el) => el.remove());
         shiftHeaderCopy(target, 0);
         unpad(target);
@@ -1437,7 +1548,11 @@
         collapse();
         restoreInline(target);
         unfade();
-        fade(card, [{ opacity: 0 }, { opacity: 1 }]).then(() => card.style.removeProperty("opacity"), () => {});
+        // Its contents fade in as its colors ease back to a covered post's.
+        card.classList.remove("sheddit-veil-open");
+        for (const el of contents) {
+          fade(el, [{ opacity: 0 }, { opacity: 1 }]).then(() => el.style.removeProperty("opacity"), () => {});
+        }
       })();
     }
 
@@ -1461,10 +1576,13 @@
     return kind === "post" && target.tagName === "SHREDDIT-POST" && onThreadPage();
   }
 
-  function keepTabRoom(target, keep) {
-    if (keep && !tabRooms.has(target)) {
-      tabRooms.set(target, [target.style.getPropertyValue("margin-top"), target.style.getPropertyPriority("margin-top")]);
-      target.style.setProperty("margin-top", `${HIDE_TAB_HEIGHT - 1}px`, "important");
+  function keepTabRoom(target, keep, room = HIDE_TAB_HEIGHT - 1) {
+    if (keep) {
+      if (!tabRooms.has(target)) {
+        tabRooms.set(target, [target.style.getPropertyValue("margin-top"), target.style.getPropertyPriority("margin-top"), room]);
+      }
+      tabRooms.get(target)[2] = room;
+      target.style.setProperty("margin-top", `${room}px`, "important");
     } else if (!keep && tabRooms.has(target)) {
       const [v, priority] = tabRooms.get(target);
       if (v) target.style.setProperty("margin-top", v, priority);
@@ -1507,11 +1625,8 @@
 
   // Whether the nearest real post above `target` in a list is caught too.
   function caughtAbove(target) {
-    for (let el = target.previousElementSibling; el; el = el.previousElementSibling) {
-      if (el.tagName === "HR" || isOwnPiece(el) || !el.getBoundingClientRect().height) continue;
-      return el.matches(`[${CAUGHT_ATTR}]`) || !!el.querySelector(`[${CAUGHT_ATTR}]`);
-    }
-    return false;
+    const el = feedNeighbor(target, "previousElementSibling");
+    return !!el && (el.matches(`[${CAUGHT_ATTR}]`) || !!el.querySelector(`[${CAUGHT_ATTR}]`));
   }
 
   // The row with a comment's vote buttons, Reply, and "...", when `target`
@@ -1565,15 +1680,17 @@
     again.className = "sheddit-veil-peek";
     again.textContent = "Hide again";
     // On a comment, Hide again is a tab up beside the commenter's name; on
-    // a post in a list, the same tab reaches up into the gap above the post.
+    // a post in a list, the same tab stands in a bar above the post.
     // The bar's own tab keeps only "Caught by". The post a thread page is
     // about sits right under Reddit's fixed header, where a tab reaching up
     // would hide behind it, so that post keeps Hide again in its tab.
     const meta = commentMeta(target, kind);
-    // The post a thread page is about, and a post in a list right under
-    // another caught one, have a tab's height of room kept above them; their
-    // tab stands in it.
-    const stacked = opensUnderHeader(target, kind) || tabRooms.has(target);
+    // The post a thread page is about has a tab's height of room kept
+    // above it, and its tab stands in that. Every post in a list gets a bar
+    // that grows to hold its tab on Peek, so the tab never covers the
+    // bottom of the post above, where Reddit puts its "..." menu.
+    const stacked = opensUnderHeader(target, kind) || tabRooms.has(target) ||
+      (kind === "post" && !onThreadPage());
     if (meta || stacked || (kind === "post" && !onThreadPage())) {
       again.className = "sheddit-rehide-again";
       bar.append(again);
@@ -1581,6 +1698,13 @@
       // top of its box, the filter names in the top-right corner.
       bar.classList.add("sheddit-rehide-wide");
       if (stacked) bar.classList.add("sheddit-rehide-stacked");
+      // In a list, the kept gap is small; the bar grows from it to a tab's
+      // height on Peek, moving the post down to make room for the tab.
+      if (stacked && !opensUnderHeader(target, kind)) {
+        bar.classList.add("sheddit-rehide-grows");
+        bar.style.setProperty("--sheddit-tab-gap", `${caughtAbove(target) ? STACK_GAP : 0}px`);
+        bar.style.setProperty("--sheddit-tab-pull", `${tabPull(target)}px`);
+      }
       // A comment's box takes in its name line: the box's top edge sits
       // above it, "Caught by" sits at its right end, and Hide again stands
       // on the box.
@@ -1652,8 +1776,16 @@
     for (const el of pieces) {
       el.style.opacity = "0";
       // The open post's bar takes over the room kept above the post, at
-      // once, so the post doesn't move.
-      if (el === bar && stacked) continue;
+      // once, so the post doesn't move yet; in a list it then grows.
+      if (el === bar && stacked) {
+        if (bar.classList.contains("sheddit-rehide-grows")) {
+          el.style.setProperty("height", `${tabRooms.has(target) ? tabRooms.get(target)[2] : 0}px`);
+          // The pull up comes in as the bar opens.
+          el.style.setProperty("margin-top", "0px");
+          el.style.setProperty("overflow", "hidden");
+        }
+        continue;
+      }
       el.style.setProperty("height", "0px");
       el.style.setProperty("margin-top", "0px");
       el.style.setProperty("margin-bottom", "0px");
@@ -1679,10 +1811,10 @@
   }
 
   // Open up or close a tab's space, margins included.
-  function slide(el, direction) {
+  function slide(el, direction, rest = 0) {
     const cs = getComputedStyle(el);
     const full = { height: `${el.offsetHeight}px`, marginTop: cs.marginTop, marginBottom: cs.marginBottom };
-    const none = { height: "0px", marginTop: "0px", marginBottom: "0px" };
+    const none = { height: `${rest}px`, marginTop: "0px", marginBottom: "0px" };
     el.style.overflow = "hidden";
     const anim = el.animate(direction === "open" ? [none, full] : [full, none],
       { duration: motionMs(), easing: "ease", fill: direction === "open" ? "none" : "forwards" });
@@ -1693,8 +1825,8 @@
   // The bar opens above the post while its tab slides up out of the post's
   // top edge, the two passing each other halfway; the bar clips whatever
   // part of the tab is still below its bottom edge. The frame along the
-  // post's sides, which the clip hides, and the cap below the post fade in
-  // afterward.
+  // post's sides, which the clip hides, and the cap below the post come in
+  // afterward, under the overlay.
   function showRehideBar(target) {
     const pieces = rehideBars.get(target);
     if (!pieces) return;
@@ -1702,6 +1834,10 @@
     const tab = bar.querySelector(".sheddit-rehide-tab");
     const frame = bar.querySelector(".sheddit-rehide-frame");
     const again = bar.querySelector(".sheddit-rehide-again");
+    // A list post's bar grows from the gap it started at, measured before
+    // the inline height comes off.
+    const grows = bar.classList.contains("sheddit-rehide-grows");
+    const start = grows ? bar.offsetHeight : 0;
     for (const el of pieces) {
       for (const k of ["height", "margin-top", "margin-bottom", "overflow"]) el.style.removeProperty(k);
     }
@@ -1722,19 +1858,31 @@
     slide(cap, "open");
     // A box-top bar takes no room, so there's nothing to open, and opening
     // it would clip "Caught by" below it.
-    const opened = wide ? pause(motionMs()) : slide(bar, "open").finished;
+    const opened = grows ? slide(bar, "open", start).finished
+      : wide ? pause(motionMs()) : slide(bar, "open").finished;
     opened.then(() => {
-      for (const el of [frame, cap]) {
-        fade(el, [{ opacity: 0 }, { opacity: 1 }]).then(() => el.style.removeProperty("opacity"), () => {});
-      }
+      // The box's edges come in at once, under the overlay that still
+      // covers them, so the box never shows fading edges.
+      for (const el of [frame, cap]) el.style.removeProperty("opacity");
       // A comment's Hide again tab rises out of the box's top edge: the
       // way it sinks into it on Hide again, played backward.
       if (again) {
+        // The box's top-right corner turns square, where the tab stands on
+        // it, just before the tab rises.
+        const v = veils.get(target);
+        const card = v && v.marker.querySelector(".sheddit-veil-card");
+        if (card && again.parentElement === bar) card.style.borderTopRightRadius = "0";
         again.style.removeProperty("opacity");
         const ah = again.offsetHeight;
+        // Moved by its position, not a transform, so it stays in step with
+        // the clip (see the sink in veil).
+        const cs = getComputedStyle(again);
+        const [from, to] = cs.position === "absolute"
+          ? [{ bottom: `${parseFloat(cs.bottom) - ah}px` }, { bottom: cs.bottom }]
+          : [{ top: `${ah}px` }, { top: "0px" }];
         again.animate([
-          { transform: `translateY(${ah}px)`, clipPath: `inset(0 0 ${ah}px 0)` },
-          { transform: "none", clipPath: "inset(0 0 0 0)" },
+          { ...from, clipPath: `inset(0 0 ${ah}px 0)` },
+          { ...to, clipPath: "inset(0 0 0 0)" },
         // An overshooting curve gives it a little bounce at the top: it
         // rises about a tenth of its height past its place and settles.
         ], { duration: motionMs() * 1.4, easing: "cubic-bezier(0.3, 1.6, 0.55, 1)" });
@@ -2049,7 +2197,11 @@
     const frameTop = frame && frame.getBoundingClientRect().height ? frame.getBoundingClientRect().top : Infinity;
     const top = Math.min(t.top, head ? head.getBoundingClientRect().top : Infinity, frameTop);
     const left = head ? Math.min(t.left, head.getBoundingClientRect().left) : t.left;
-    const bottom = row ? row.getBoundingClientRect().bottom : t.bottom;
+    // They reach down through the cap below the post too, to the box's
+    // bottom border.
+    const cap = bar && bar.isConnected && (rehideBars.get(target) || [])[1];
+    const capRect = cap && cap.isConnected ? cap.getBoundingClientRect() : null;
+    const bottom = capRect && capRect.height ? capRect.bottom - 1 : row ? row.getBoundingClientRect().bottom : t.bottom;
     const clip = div("sheddit-haze-clip");
     clip.style.top = `${top - o.top}px`;
     clip.style.left = `${left - o.left}px`;
@@ -2121,7 +2273,29 @@
     for (const [target, v] of veils) {
       if (v.kind !== "post" || !separators.has(target)) continue;
       hideSeparators(target);
+      // The post above may have been caught after this one was covered,
+      // like a link post whose text Reddit was still being asked about.
+      if (!rehideBars.has(target) && !closingBar(target) && !onThreadPage()) {
+        keepTabRoom(target, caughtAbove(target), STACK_GAP);
+        if (shifts.has(target) && nextToCaught(target)) setShift(target, 0);
+      }
       v.fit();
+    }
+    // An open list post's tab keeps the gap above it only under another
+    // caught post, which may have been caught after this one opened.
+    for (const [target, pieces] of rehideBars) {
+      const bar = pieces[0];
+      if (bar.isConnected && bar.classList.contains("sheddit-rehide-grows")) {
+        bar.style.setProperty("--sheddit-tab-gap", `${caughtAbove(target) ? STACK_GAP : 0}px`);
+      }
+    }
+    // A revealed post's cap keeps a little space below it, except above
+    // another caught post, whose room for a tab already spaces them, so
+    // every Hide again tab in a list sits right against the box above it.
+    for (const cap of document.querySelectorAll(".sheddit-rehide-cap")) {
+      const next = feedNeighbor(cap, "nextElementSibling");
+      const caught = !!next && (next.hasAttribute(CAUGHT_ATTR) || !!next.querySelector(`[${CAUGHT_ATTR}]`));
+      cap.classList.toggle("sheddit-cap-flush", caught);
     }
     releaseStaleHeaderCopy();
     const thread = onThreadPage();
