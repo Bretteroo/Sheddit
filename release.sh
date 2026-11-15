@@ -5,8 +5,11 @@
 #   ./release.sh notes.md
 #
 # Builds both packages, tags the current commit as v<version>, pushes the
-# tag and creates the release with the notes file as its description. The
-# working tree must be clean so the release matches a commit.
+# tag and creates the release with the notes file as its description.
+# Publishing the release starts the GitHub workflow that submits the version
+# to Firefox Add-ons and the Chrome Web Store (.github/workflows/
+# publish-stores.yml). The working tree must be clean so the release matches
+# a commit.
 set -eu
 cd "$(dirname "$0")"
 

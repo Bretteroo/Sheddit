@@ -1,0 +1,68 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Submit a release to Firefox Add-ons and the Chrome Web Store, where each
+# goes through the store's review. Runs when a release is published on GitHub
+# (release.sh publishes it), and can be run by hand from the Actions tab,
+# either to submit again or only to check that the stores accept the
+# credentials. The work is done by publish-stores.sh.
+name: Publish to stores
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: Only check the store credentials; submit nothing
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# One submission at a time; a second run waits instead of racing the first.
+concurrency:
+  group: publish-stores
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python packages
+        run: python -m pip install --quiet cryptography
+
+      # A release must be for the version in the manifest it was tagged on.
+      - name: Check the version
+        if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(python -c 'import json; print(json.load(open("src/manifest.json"))["version"])')
+          if [ "$TAG" != "v$version" ]; then
+            echo "Release $TAG doesn't match version $version in src/manifest.json." >&2
+            exit 1
+          fi
+
+      - name: Submit to Firefox Add-ons and the Chrome Web Store
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+          CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
+          CWS_SERVICE_ACCOUNT_JSON: ${{ secrets.CWS_SERVICE_ACCOUNT_JSON }}
+          CHECK_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.check_only }}
+        run: |
+          if [ "$CHECK_ONLY" = "true" ]; then
+            ./publish-stores.sh --check
+          else
+            ./publish-stores.sh
+          fi
