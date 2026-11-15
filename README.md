@@ -117,27 +117,17 @@ When a post _or_ comment is found wanting, Sheddit offers two paths, chosen in i
 
 Windows, macOS, Linux, and Android
 
-Open Sheddit on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/shedditfilter/) and click "Add to Firefox". Firefox for Android installs it from the same page.
-
-Filter settings are under `about:addons`, Sheddit, Preferences.
-
 <a href="https://addons.mozilla.org/firefox/addon/shedditfilter/"><img src="images/readme/button-firefox.png" alt="Add to Firefox" width="246"></a>
 
 ### <img src="images/readme/browser-chrome.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Chrome, Brave, Vivaldi, Edge, and Opera
 
 Windows, macOS, Linux, and ChromeOS
 
-Open Sheddit in the [Chrome Web Store](https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf) and click the "Add" or "Get" button. One page serves all five browsers.
-
-**Edge** first asks you to click "Allow extensions from other stores".
-
-**Opera** needs its "Install Chrome Extensions" add-on before the store will work.
-
 <a href="https://chromewebstore.google.com/detail/sheddit/olemfeakjfaeimedbgakkjcdknncpgpf"><img src="images/readme/button-chrome.png" alt="Add to Chrome" width="246"></a>
 
 ### <img src="images/readme/browser-safari.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Safari
 
-Apple's tithing expectations are beyond decency. Sheddit has risen above this. [Firefox](https://www.mozilla.org/firefox/new/) runs on a Mac, too.
+Apple's tithing expectations are beyond the realm of decency. Sheddit has risen above this. Use of Firefox bypasses their toll.
 
 ### <img src="images/readme/icon-manual.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Manual installation
 
@@ -155,7 +145,7 @@ The release `.xpi` isn't signed by Mozilla, so Firefox removes it when it restar
 </details>
 
 <details>
-<summary>Chrome, Brave, Vivaldi, Edge, and Opera</summary>
+<summary>Chromium-based browsers</summary>
 
 1. Download `sheddit-<version>-chrome.zip` and unzip it.
 2. Open your browser's extensions page and turn on "Developer mode":
