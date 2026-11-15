@@ -2,7 +2,8 @@
 // Sheddit: hide Reddit posts that match any enabled filter (see filters.js).
 //
 // Only the page you're looking at is checked:
-//   - listing pages (front page, subreddits, search): thread titles only
+//   - listing pages (front page, subreddits, search): thread titles, plus
+//     the length of any body text the listing shows
 //   - thread pages (/comments/...): the opened post's title and body
 
 (() => {
@@ -2480,11 +2481,13 @@
       for (const post of document.querySelectorAll(layout.post)) {
         const title = layout.title(post);
         const fullBody = layout.body(post);
-        const body = thread ? fullBody : "";
-        const haystack = body ? title + "\n" + body : title;
+        // Listings check phrases in titles only, but a text post's body
+        // shows there in full, so filters that measure a body's length
+        // get it on listings too.
+        const haystack = thread && fullBody ? title + "\n" + fullBody : title;
         const parts = {
           title,
-          body,
+          body: fullBody,
           domain: domainOf(layout.link(post)),
           embeds: linkedDomains(post, layout.bodySelector),
           hasText: hasRealText(fullBody),

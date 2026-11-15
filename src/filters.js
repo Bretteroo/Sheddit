@@ -6,8 +6,9 @@
 // on listing pages, or the title plus the post body on a thread page. `parts`
 // holds:
 //   title    the post title
-//   body     the post body on thread pages, with a blank line between
-//            paragraphs; empty on listing pages
+//   body     the post body, with a blank line between paragraphs. Listings
+//            show a text post's body but leave out the text of image,
+//            gallery, video, and link posts, so for those it is empty there
 //   domain   the site a link post points to, like "youtube.com"; empty or
 //            a reddit.com address for text posts
 //   embeds   domains of media embedded in the post and of links in its body
@@ -65,8 +66,7 @@ const SHEDDIT_FILTERS = [
     title: "Wrecking Ball",
     description: "Hides long posts and comments written as one giant paragraph.",
     enabledByDefault: true,
-    // Only open threads have a body to check. "Long" means at least 1,000
-    // characters, roughly 170 words.
+    // "Long" means at least 1,000 characters, roughly 170 words.
     test: (text, { body }) => {
       const trimmed = body.trim();
       return trimmed.length >= 1000 && !/\n\s*\n/.test(trimmed);
@@ -77,9 +77,8 @@ const SHEDDIT_FILTERS = [
     title: "Lost Blogger",
     description: "Hides posts and comments longer than 600 words, about a three-minute read.",
     enabledByDefault: true,
-    // Only open threads have a body to check. A word is a run of
-    // non-space characters with at least one letter or digit in it, so
-    // bullets, dashes, and emoji don't add to the count.
+    // A word is a run of non-space characters with at least one letter or
+    // digit in it, so bullets, dashes, and emoji don't add to the count.
     test: (text, { body }) => (body.match(/\S*[\p{L}\p{N}]\S*/gu) || []).length >= 600,
   },
   {
@@ -146,8 +145,7 @@ const SHEDDIT_FILTERS = [
     title: "Catch and Release",
     description: "Hides engagement bait: long posts and comments that end in a question.",
     enabledByDefault: true,
-    // Only open threads have a body to check. "Long" uses the same 1,000
-    // character line as Wrecking Ball. Closing brackets, quotes, and spaces
+    // "Long" uses the same 1,000 character line as Wrecking Ball. Closing brackets, quotes, and spaces
     // after the final question mark are ignored.
     test: (text, { body }) => {
       const trimmed = body.replace(/[\s)\]"'\u201d\u2019]+$/, "");
