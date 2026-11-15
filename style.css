@@ -209,7 +209,19 @@ section { max-width: 1080px; margin: 0 auto; padding: 72px 16px; }
   pointer-events: none;
 }
 .installs { position: relative; z-index: 1; max-width: 920px; margin: 30px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
-.installs article { border-radius: 22px; padding: 26px; }
+/* The cards share rows (title, text, button, more), so their buttons line up
+   across the row however long each card's text runs. */
+.installs article {
+  border-radius: 22px; padding: 26px;
+  display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0;
+  align-content: start;
+}
+/* One width for every install button, the longest label's, on one line. */
+.installs article > .btn {
+  justify-self: start; align-self: start;
+  width: 200px; box-sizing: border-box; text-align: center; white-space: nowrap;
+}
+.installs .say > :last-child { margin-bottom: 18px; }
 .installs h3 { margin: 0 0 8px; font-size: 22px; line-height: 1.25; text-wrap: balance; }
 .installs p { color: var(--ink-soft); margin: 0 0 18px; }
 .installs details { margin-top: 18px; font-size: 15px; }
@@ -347,6 +359,7 @@ footer .disclaimer { font-size: 13.5px; opacity: 0.85; }
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .js .reveal.shown { opacity: 1; transform: none; }
 .installs .reveal:nth-child(2) { transition-delay: 0.12s; }
+.installs .reveal:nth-child(3) { transition-delay: 0.24s; }
 .split .feed.reveal { transition-delay: 0.15s; }
 
 @media (prefers-reduced-motion: reduce) {
