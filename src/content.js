@@ -248,6 +248,13 @@
       box-sizing: border-box !important;
     }
     html.sheddit-theme-dark .sheddit-revealed-head { background: rgba(44, 36, 22, 0.95) !important; }
+    /* Reddit draws the curve from the parent's line into a reply's avatar
+       as the reply's ::after, a fixed height from its top. When the name
+       line moves down for the tab, the curve grows with it. */
+    shreddit-comment.sheddit-branch-bent::after {
+      height: var(--sheddit-branch-h) !important;
+      transition: height var(--sheddit-branch-ms, 0ms) ease;
+    }
     .sheddit-rehide-head .sheddit-rehide-tab { padding-top: 0; align-items: center; }
     /* The phone layout's collapse button sits in the avatar's column, on a
        white background of its own, inside a revealed comment's box. */
@@ -1597,7 +1604,10 @@
         // A comment's name line that moved down to make room for the tab
         // eases back up as the box closes.
         const roomy = headRooms.get(target);
-        if (roomy) roomy.style.setProperty("margin-top", "0px", "important");
+        if (roomy) {
+          roomy.style.setProperty("margin-top", "0px", "important");
+          bendBranch(target, 0);
+        }
         for (const el of leaving) {
           // A list post's bar shrinks back to the gap kept above the post.
           if (el.classList.contains("sheddit-rehide-grows")) slide(el, "close", coveredRoom(target));
@@ -2021,6 +2031,32 @@
     return Math.max(0, Math.round(bottom + STACK_GAP - tabTop));
   }
 
+  // Grows Reddit's curve into a reply's avatar by `room`, the distance its
+  // name line moved down, or eases it back with 0.
+  function bendBranch(target, room) {
+    const comment = target.closest("shreddit-comment");
+    if (!comment) return;
+    if (!comment.classList.contains("sheddit-branch-bent")) {
+      const after = getComputedStyle(comment, "::after");
+      if (after.content === "none" || !parseFloat(after.borderBottomLeftRadius)) return;
+      comment.dataset.shedditBranch = parseFloat(after.height) || 0;
+      comment.style.setProperty("--sheddit-branch-h", `${comment.dataset.shedditBranch}px`);
+      comment.style.setProperty("--sheddit-branch-ms", `${motionMs()}ms`);
+      comment.classList.add("sheddit-branch-bent");
+      // Start from Reddit's height, so the curve grows along with the name line.
+      void getComputedStyle(comment, "::after").height;
+    }
+    comment.style.setProperty("--sheddit-branch-h", `${+comment.dataset.shedditBranch + room}px`);
+  }
+  function unbendBranch(target) {
+    const comment = target.closest("shreddit-comment");
+    if (!comment || !comment.classList.contains("sheddit-branch-bent")) return;
+    comment.classList.remove("sheddit-branch-bent");
+    comment.style.removeProperty("--sheddit-branch-h");
+    comment.style.removeProperty("--sheddit-branch-ms");
+    delete comment.dataset.shedditBranch;
+  }
+
   // While a post is revealed, padding keeps its text off the frame's side
   // edges. Reddit's own padding values are saved and put back afterwards.
   const pads = new Map();
@@ -2067,6 +2103,7 @@
         head.style.setProperty("transition", `margin-top ${motionMs()}ms ease`);
         head.style.setProperty("margin-top", `${room}px`, "important");
         headRooms.set(target, head);
+        bendBranch(target, room);
       }
       // The text starts where the name does.
       const meta = commentMeta(target, kind);
@@ -2116,6 +2153,7 @@
         }
         head.classList.remove("sheddit-revealed-head");
         headRooms.delete(target);
+        unbendBranch(target);
       }
       if (row) {
         for (const [k, v, priority] of rowSaved) {
