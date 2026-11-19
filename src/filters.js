@@ -248,7 +248,7 @@ const SHEDDIT_FILTERS = [
     title: "Teachable Moment",
     description: 'Hides "I did X. Here\'s what I learned" posts and comments, and titles like "What I learned about X".',
     enabledByDefault: true,
-    test: (text) => LESSON_PHRASES.some((re) => re.test(text)),
+    test: (text, { title }) => LESSON_PHRASES.some((re) => re.test(text)) || LESSON_TITLE.test(title || ""),
   },
   {
     id: "origin-story",
@@ -302,12 +302,16 @@ const LEARNED = String.raw`I(?:['\u2019]?ve|\s+have)?\s+learn(?:ed|t)`;
 const LESSON_PHRASES = [
   // "Here's what I learned", "Here is what I've learnt"
   new RegExp(String.raw`\bhere(?:['\u2019]?s|\s+is)\s+what\s+${LEARNED}\b`, "i"),
-  // "What I learned about X", "What I learned from X", "What I learned
-  // after...", or "What I learned." on its own, at the start of a title or
-  // sentence or after a colon or dash. "What I learned is that..." in the
-  // middle of a conversation doesn't count.
-  new RegExp(String.raw`(?:^|[.!?:;|\u2013\u2014-]\s*|\n\s*)what\s+${LEARNED}(?:\s+(?:about|from|after|while|when|building|running|making|doing|using|trying|selling|launching|quitting|spending|working)\b|\s*(?:[.!?:)]|$))`, "im"),
+  // "What I learned about X", "What I learned from X", or "What I learned
+  // after...", at the start of a title or sentence or after a colon or
+  // dash. "What I learned is that..." in the middle of a conversation
+  // doesn't count.
+  new RegExp(String.raw`(?:^|[.!?:;|\u2013\u2014-]\s*|\n\s*)what\s+${LEARNED}\s+(?:about|from|after|while|when|building|running|making|doing|using|trying|selling|launching|quitting|spending|working)\b`, "im"),
 ];
+// "What I learned." on its own counts only in a title, like "Six months
+// of running a store: what I learned". In a post's text it's often just
+// the heading of a section in a write-up.
+const LESSON_TITLE = new RegExp(String.raw`(?:^|[.!?:;|\u2013\u2014-]\s*)what\s+${LEARNED}\s*(?:[.!?:)]|$)`, "i");
 
 // Phrases for Pitchfork Patrol. Add more here; each is a case-insensitive
 // regular expression.
@@ -327,13 +331,14 @@ const PITCHFORK_PHRASES = [
 // Titles for Origin Story: being tired, sick, or fed up with something,
 // then a word that joins on what came of it (a comma, dash, "so", or
 // "and"), then making something: "I got tired of X so I built Y", "Sick
-// of X, made Y", "Fed up with X - so we launched Y". The joining word
+// of X, made Y", "Fed up with X - so we launched Y", "Tired of X, so I
+// rebuilt Y". The joining word
 // keeps out titles like "Tired of people who built X".
 const ORIGIN_STORY = new RegExp(
   String.raw`\b(?:tired|sick(?:\s+and\s+tired)?|fed\s+up|frustrated|annoyed|bored)\s+(?:of|with)\s+.+?` +
   String.raw`(?:\s*[,.:;\u2013\u2014-]\s*(?:so\s+|and\s+)?|\s+(?:so|and)\s+)` +
   String.raw`(?:(?:i|we)\s+)?(?:just\s+|finally\s+|ended\s+up\s+|decided\s+to\s+)?` +
-  String.raw`(?:built|build|made|make|created|create|wrote|write|coded|code|launched|launch|started|start|developed|develop|vibe[\s-]?coded)\b`,
+  String.raw`(?:(?:re-?)?(?:built|build|made|make|created|create|wrote|write|coded|code|designed|design|developed|develop)|shipped|ship|launched|launch|started|start|vibe[\s-]?coded)\b`,
   "i");
 
 // Phrases for Armchair Attorney. LAWSUIT matches "class action", "class
