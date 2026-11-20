@@ -31,12 +31,12 @@ const SHEDDIT_FILTERS = [
   {
     id: "curiosity-killer",
     title: "Curiosity Killer",
-    description: 'Hides posts and comments containing "genuinely curious", or "Curious." as a sentence on its own.',
+    description: 'Hides posts and comments containing "genuinely curious" or "genuine question", or "Curious." as a sentence on its own.',
     enabledByDefault: true,
     // "Curious." counts at the start of the text or right after another
     // sentence, so "Just curious." on its own does not.
     test: (text) =>
-      /genuinely\s+curious/i.test(text) || /(^|[.!?]\s+|\n\s*)curious\./i.test(text.trim()),
+      /genuinely\s+curious|\bgenuine\s+question\b/i.test(text) || /(^|[.!?]\s+|\n\s*)curious\./i.test(text.trim()),
   },
   {
     id: "shock-absorber",
@@ -291,6 +291,12 @@ const YOURE_PHRASES = [
   /\b[Yy]our\s+(?:a|an|the)\s+(?!game\b)[a-z]/,
   // "your so dumb.", "your too kind!" (but not "your very own car")
   new RegExp(String.raw`\byour\s+(?:so|too|very|really)\s+[a-z]+${CLAUSE_END}`, "im"),
+  // "your supposed to", "your allowed to", "your able to", "your kidding"
+  /\byour\s+(?:(?:supposed|allowed|able)\s+to|kidding)\b/i,
+  // "when your bored on Vine", "your sick of it", "your lucky to be here"
+  // (but not "keep your bored kids busy" or "your lucky day"): the word
+  // has to end a clause or lead into "to", "of", "with", and so on.
+  /\byour\s+(?:bored|tired|sick|sure|aware|afraid|lucky|joking)(?=\s*(?:[.!?,;:)]|$)|\s+(?:to|too|as|of|with|on|at|in|that|now|lol|lmao|haha|af)\b)/im,
   // "if your being serious", "because your trying too hard" (but not "if
   // your doing so is legal")
   /\b(?:if|when|because|cause|cuz|since|unless|until|while)\s+your\s+(?:being|doing(?!\s+so\b)|trying|getting|saying|talking|making|acting)\b/i,

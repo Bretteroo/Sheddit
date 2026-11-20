@@ -37,7 +37,7 @@ Activate one filter for a taste of serenity, or _all of them_ for maximum levels
 <table>
 <tr><th align="left">Filter</th><th align="left">Posts and comments that it hides</th><th align="left">Default</th></tr>
 <tr><th colspan="3" align="left"><br>Stock phrases</th></tr>
-<tr><td><img src="src/images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer</td><td>"genuinely curious", or "Curious." on its own</td><td>On</td></tr>
+<tr><td><img src="src/images/filters/curiosity-killer.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Curiosity&nbsp;Killer</td><td>"genuinely curious" or "genuine question", or "Curious." on its own</td><td>On</td></tr>
 <tr><td><img src="src/images/filters/candor-cutter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Candor&nbsp;Cutter</td><td>"and honestly?"</td><td>On</td></tr>
 <tr><td><img src="src/images/filters/shock-absorber.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Shock&nbsp;Absorber</td><td>"what surprised me (the) most"</td><td>On</td></tr>
 <tr><td><img src="src/images/filters/storm-shelter.svg" width="24" align="absmiddle" alt="">&nbsp;&nbsp;Storm&nbsp;Shelter</td><td>"blown away"</td><td>On</td></tr>
