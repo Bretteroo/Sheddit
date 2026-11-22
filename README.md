@@ -123,7 +123,7 @@ Use of Firefox bypasses their toll.
 
 ### <img src="images/readme/icon-manual.svg" width="26" align="absmiddle" alt="">&nbsp;&nbsp;Manual installation
 
-Manual installation is generally not necessary.
+Manual installation is generally not necessary.  Manually installed extensions will not auto-update.
 
 Firefox Add-ons and the Chrome Web Store post each new version of Sheddit within a few hours (sometimes days) of its release on GitHub.
 
