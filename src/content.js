@@ -72,10 +72,13 @@
     // The phone layout (m.reddit.com) nests it inside a <details> element
     // that also holds the replies; the comment's own text comes before
     // them, so the first match is it, unless the comment has no text.
+    // Sheddit's own veil and bars sit beside the text in the same slot and
+    // never count, or a filter could catch the words on its own veil.
     {
       comment: "shreddit-comment",
       body: (c) => {
-        const el = c.querySelector(':scope > [slot="comment"], :scope > details [slot="comment"]');
+        const el = [...c.querySelectorAll(':scope > [slot="comment"], :scope > details [slot="comment"]')]
+          .find((e) => !isOwnPiece(e));
         return el && el.closest("shreddit-comment") === c ? el : null;
       },
     },
@@ -356,6 +359,22 @@
       background: linear-gradient(180deg, rgba(255, 250, 235, 0.94), rgba(249, 245, 252, 0.94))
         0 var(--sheddit-grad-y, 0px) / 100% var(--sheddit-grad-h, 100%) no-repeat !important;
       box-sizing: border-box;
+    }
+    /* Its row of buttons keeps 1px below it, which showed as a line
+       across the box above the cap. */
+    .sheddit-revealed-row { margin-bottom: 0 !important; }
+    /* Reddit tints a comment opened from its own link, in pieces behind
+       its name line, text, and row, one of which sticks out past the box.
+       A revealed comment's box has its own colors instead. The selectors
+       stop at the comment's own parts, so its replies keep their tint. */
+    shreddit-comment:has(> details > .sheddit-revealed-head) > details > summary .summary-hl,
+    shreddit-comment:has(> details > .sheddit-revealed-head) > details > div > div > .comment-body-hl,
+    shreddit-comment:has(> details > .sheddit-revealed-head) > details > div > div > .comment-action-row-hl {
+      display: none !important;
+    }
+    shreddit-comment:has(> details > .sheddit-revealed-head) > details > summary > [slot="commentMeta"],
+    shreddit-comment:has(> details > .sheddit-revealed-head) > details > div > .bg-neutral-background-highlighted-strong:not(.sheddit-revealed-row) {
+      background: transparent !important;
     }
     html.sheddit-theme-dark .sheddit-revealed {
       background: linear-gradient(180deg, rgba(44, 36, 22, 0.95), rgba(36, 30, 36, 0.95)) !important;
@@ -1859,6 +1878,8 @@
     frameWatch.observe(target);
     frameWatch.observe(bar);
     if (meta) frameWatch.observe(commentHead(target, kind));
+    // The row grows when Reply opens a reply box inside it.
+    if (row) frameWatch.observe(row);
     padInside(target, kind, bar);
     target.classList.add("sheddit-revealed");
     bar.classList.add("sheddit-revealed-box");
