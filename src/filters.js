@@ -338,12 +338,12 @@ const PITCHFORK_PHRASES = [
 // then a word that joins on what came of it (a comma, dash, "so", or
 // "and"), then making something: "I got tired of X so I built Y", "Sick
 // of X, made Y", "Fed up with X - so we launched Y", "Tired of X, so I
-// rebuilt Y". The joining word
+// rebuilt Y", "Tired of X, so a friend built Y". The joining word
 // keeps out titles like "Tired of people who built X".
 const ORIGIN_STORY = new RegExp(
   String.raw`\b(?:tired|sick(?:\s+and\s+tired)?|fed\s+up|frustrated|annoyed|bored)\s+(?:of|with)\s+.+?` +
   String.raw`(?:\s*[,.:;\u2013\u2014-]\s*(?:so\s+|and\s+)?|\s+(?:so|and)\s+)` +
-  String.raw`(?:(?:i|we)\s+)?(?:just\s+|finally\s+|ended\s+up\s+|decided\s+to\s+)?` +
+  String.raw`(?:(?:i|we|(?:a|my|our)\s+[\w'\u2019]+(?:\s+and\s+i)?)\s+)?(?:just\s+|finally\s+|ended\s+up\s+|decided\s+to\s+)?` +
   String.raw`(?:(?:re-?)?(?:built|build|made|make|created|create|wrote|write|coded|code|designed|design|developed|develop)|shipped|ship|launched|launch|started|start|vibe[\s-]?coded)\b`,
   "i");
 
